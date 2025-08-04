@@ -1,21 +1,7 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import Dropdown from "@/Components/Dropdown";
 import Header from "@/Components/Header";
 import MainNav from "@/Components/MainNav";
-import NavLink from "@/Components/NavLink";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link, usePage } from "@inertiajs/react";
-import { useState } from "react";
 
-export default function AuthenticatedLayout({
-    headerName,
-    children,
-    routeUser,
-}) {
-    const user = usePage().props.auth.user;
-
-    const [showingNavigationDropdown, setShowingNavigationDropdown] =
-        useState(false);
+export default function AkunLayout ({ headerName, children }) {
 
     return (
         <div className="flex h-screen overflow-hidden">

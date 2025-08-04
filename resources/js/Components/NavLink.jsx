@@ -1,6 +1,11 @@
 import react from "react";
-import { MdOutlineSpaceDashboard ,MdOutlineAccountCircle, MdList, MdWorkOutline } from "react-icons/md";
-import { usePage } from '@inertiajs/react';
+import {
+    MdOutlineSpaceDashboard,
+    MdOutlineAccountCircle,
+    MdList,
+    MdWorkOutline,
+} from "react-icons/md";
+import { usePage } from "@inertiajs/react";
 const links = [
     {
         name: "dashboard",
@@ -10,12 +15,17 @@ const links = [
     {
         name: "Akun staff",
         path: "/user-account",
-        icon: <MdOutlineAccountCircle className="text-xl"/>,
+        icon: <MdOutlineAccountCircle className="text-xl" />,
+    },
+    {
+        name: "Kelola RT",
+        path: "/manage-rt",
+        icon: <MdOutlineAccountCircle className="text-xl" />,
     },
     {
         name: "data penduduk",
         path: "/data-pdn",
-        icon: <MdList className="text-xl"/>
+        icon: <MdList className="text-xl" />,
     },
     {
         name: "kegiatan",
@@ -28,15 +38,12 @@ export default function NavLink({ containerStyles, childStyles }) {
     const { url } = usePage();
     const currentPath = url;
 
-    console.log(currentPath)
-
     return (
         <>
             <ul className={containerStyles}>
                 {links.map((link, index) => {
                     let isActive = false;
-                    if(currentPath == link.path)
-                    {
+                    if (currentPath == link.path) {
                         isActive = true;
                     }
                     const charLength = link.name.length;
@@ -47,9 +54,14 @@ export default function NavLink({ containerStyles, childStyles }) {
                             className={`relative text-lg uppercase `}
                         >
                             {/* <span className="relative z-10">{link.name}</span> */}
-                            <div className={ childStyles + (isActive ? " bg-neutral-300" : "") }>
+                            <div
+                                className={
+                                    childStyles +
+                                    (isActive ? " bg-neutral-300" : "")
+                                }
+                            >
                                 <span>{link.icon}</span>
-                                <span >{link.name}</span>
+                                <span>{link.name}</span>
                             </div>
                         </a>
                     );

@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rt_s', function (Blueprint $table) {
+        Schema::create('r_t_s', function (Blueprint $table) {
             $table->string('id_rt')->primary();
-            $table->integer('nomor_rt');
+            $table->string('nomor_rt');
             $table->string('nama_rt');
-            $table->string('alamat_rt')->nullable();
+            $table->string('alamat_rt')->nullable()->default("-");
+            $table->string('nomor_hp')->nullable()->default("-");
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rt_s');
+        Schema::dropIfExists('r_t_s');
     }
 };

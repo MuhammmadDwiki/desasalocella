@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RTController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,6 +24,16 @@ Route::get('/dashboard', function () {
         "routeUser" => route('userWelcome'),
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/user-account', [UserController::class, "index"])->middleware(['auth', 'verified'])->name('userAccount');
+
+Route::get('/data-pdn', function(){
+    return Inertia::render('DataPenduduk');
+})->middleware(['auth', 'verified'])->name('userAccount');
+
+Route::get('/manage-rt', [RTController::class, 'index'])->middleware(['auth', 'verified'])->name('RTController');
+
+Route::resource('rt', RTController::class)->except(['create', 'edit']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 require __DIR__.'/auth.php';
+
+
+
 
 
 Route::get('/', function () {

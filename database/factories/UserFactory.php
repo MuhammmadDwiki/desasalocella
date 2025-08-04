@@ -25,6 +25,13 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'username' => fake()->userName(),
+            'assignedRT' =>  collect(['RT 01', 'RT 02', 'RT 03', 'RT 04'])
+    ->shuffle()
+    ->take(rand(1, 4))
+    ->toArray(),
+            'role' => fake()->randomElement(['moderator', 'user']),
+            'last_login' => now(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

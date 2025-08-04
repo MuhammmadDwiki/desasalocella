@@ -15,14 +15,14 @@ return new class extends Migration
             $table->string('id_detail_rekap')->primary();
             $table->string('id_rekap');
             $table->string('kelompok_umur');
-            $table->integer('jumlah_laki_laki_awal')->default(0);
-            $table->integer('jumlah_perempuan_awal')->default(0);
-            $table->integer('jumlah_laki_laki_akhir')->default(0);
-            $table->integer('jumlah_perempuan_akhir')->default(0);
-            $table->integer('jumlah_laki_laki_pindah')->default(0);
-            $table->integer('jumlah_perempuan_pindah')->default(0);
-            $table->integer('jumlah_laki_laki_datang')->default(0);
-            $table->integer('jumlah_perempuan_datang')->default(0);
+            $table->integer('jumlah_laki_laki_awal')->nullable()->default(0);
+            $table->integer('jumlah_perempuan_awal')->nullable()->default(0);
+            $table->integer('jumlah_laki_laki_akhir')->nullable()->default(0);
+            $table->integer('jumlah_perempuan_akhir')->nullable()->default(0);
+            $table->integer('jumlah_laki_laki_pindah')->nullable()->default(0);
+            $table->integer('jumlah_perempuan_pindah')->nullable()->default(0);
+            $table->integer('jumlah_laki_laki_datang')->nullable()->default(0);
+            $table->integer('jumlah_perempuan_datang')->nullable()->default(0);
             $table->timestamps();
         });
     }

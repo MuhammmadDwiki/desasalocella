@@ -6,7 +6,7 @@ import { MdFileDownload } from "react-icons/md";
 
 const MainNav = () => {
     return (
-        <div className="h-screen xl:flex hidden w-[285px] bg-black">
+        <div className="bg-black">
             <nav className="w-full ">
                 <div className="flex flex-col h-full ">
                     <div className="flex flex-col items-center py-2  gap-3 ">
