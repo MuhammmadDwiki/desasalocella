@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RekapitulasiPendudukController;
+use App\Http\Controllers\DetailRekapitulasiController;
 use App\Http\Controllers\RTController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -32,8 +34,18 @@ Route::get('/data-pdn', function(){
 
 Route::get('/manage-rt', [RTController::class, 'index'])->middleware(['auth', 'verified'])->name('RTController');
 
-Route::resource('rt', RTController::class)->except(['create', 'edit']);
+Route::get('laporan-bulanan', [RekapitulasiPendudukController::class, 'index'])->middleware(['auth', 'verified'])->name("laporanBulanan");
 
+Route::get('laporan-bulanan/{id}', [DetailRekapitulasiController::class, 'index'])->middleware(['auth', 'verified'])->name("detailLaporanBulanan");
+
+Route::get('detail-laporan/by-rt/{idLaporan}/{idRt}', [DetailRekapitulasiController::class, 'getByRT'])
+    ->name('detail-laporan.by-rt');
+
+Route::get('detail-laporan/used-age-groups/{idRekap}/{idRT}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
+
+Route::resource('rt', RTController::class)->except(['create', 'edit']);
+Route::resource('laporan', RekapitulasiPendudukController::class);
+Route::resource('detailLaporan', DetailRekapitulasiController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

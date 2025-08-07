@@ -16,7 +16,7 @@ import { Switch } from "@/components/ui/switch";
 import Swal from "sweetalert2";
 
 export default function EditRTModal({ rt, onClose }) {
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, put, processing, errors, reset } = useForm({
         nomor_rt: rt.nomor_rt, // Konversi ke string
         nama_rt: rt.nama_rt,
         alamat_rt: rt.alamat_rt,
@@ -43,6 +43,7 @@ export default function EditRTModal({ rt, onClose }) {
         put(route("rt.update", rt.id_rt), {
             onSuccess: () => {
                 onClose()
+                reset();
                 Toast.fire({
                     icon: "success",
                     title: "Berhasil mengubah"
@@ -51,8 +52,7 @@ export default function EditRTModal({ rt, onClose }) {
             onError: (e) => {
                 Toast.fire({
                     icon: "error",
-                    title: "Gagal menyimpan",
-                    text: Object.values(e).join("\n"),
+                    title: "Gagal mengubah",
                 });
             },
         });

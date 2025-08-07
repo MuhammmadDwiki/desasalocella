@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('detail_rekapitulasis', function (Blueprint $table) {
             $table->string('id_detail_rekap')->primary();
             $table->string('id_rekap');
+            $table->string('id_rt');
             $table->string('kelompok_umur');
             $table->integer('jumlah_laki_laki_awal')->nullable()->default(0);
             $table->integer('jumlah_perempuan_awal')->nullable()->default(0);

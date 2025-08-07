@@ -23,6 +23,8 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { Pagination } from "./Pagination";
+import { cn } from "@/lib/utils"
+
 
 /**
  * 
@@ -59,15 +61,15 @@ export function GenericTable({
     };
 
     return (
-        <div className="rounded-md border">
-            <Table>
-                <TableHeader>
+        <div className="rounded-md border overflow-y-auto">
+            <Table className="min-w-full divide-y divide-gray-200 ">
+                <TableHeader className="">
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => (
                                 <TableHead
                                     key={header.id}
-                                    className="bg-gray-50"
+                                    className="bg-gray-50 capitalize"
                                 >
                                     {header.isPlaceholder
                                         ? null
@@ -89,7 +91,7 @@ export function GenericTable({
                                 onClick={() => handleRowClick(row)}
                                 className={
                                     onRowClick
-                                        ? "cursor-pointer hover:bg-gray-50"
+                                        ? " hover:bg-gray-50"
                                         : ""
                                 }
                             >

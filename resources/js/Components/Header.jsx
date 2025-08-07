@@ -27,7 +27,7 @@ const Header = (props) => {
         <header className="w-full border shadow-md flex z-80 ">
             <div className="container mx-auto ">
                 <div className="flex items-center justify-between py-4">
-                    <div className="flex">
+                    <div className="flex ms-4">
                         <div className="text-lg">
                             <h1>{props.headerName}</h1>
                         </div>
@@ -36,7 +36,7 @@ const Header = (props) => {
                         <div className="pe-4">
                             <Input type="search" placeholder={`Search`} className="rounded-xl"/>
                         </div>
-                        <div>
+                        {/* <div>
                             <Dropdown>
                                 <Dropdown.Trigger>
                                     <div className="flex rounded-md items-center">
@@ -59,7 +59,7 @@ const Header = (props) => {
                                     </form>
                                 </Dropdown.Content>
                             </Dropdown>
-                        </div>
+                        </div> */}
 
                         {/* <div className="ms-6 flex items-center pe-10">
                             <div className="relative ms-3">

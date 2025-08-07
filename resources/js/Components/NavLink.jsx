@@ -1,4 +1,4 @@
-import react from "react";
+import react, { useState, useEffect } from "react";
 import {
     MdOutlineSpaceDashboard,
     MdOutlineAccountCircle,
@@ -6,6 +6,7 @@ import {
     MdWorkOutline,
 } from "react-icons/md";
 import { usePage } from "@inertiajs/react";
+import { FaAngleDown } from "react-icons/fa";
 const links = [
     {
         name: "dashboard",
@@ -13,19 +14,27 @@ const links = [
         icon: <MdOutlineSpaceDashboard className="text-xl" />,
     },
     {
-        name: "Akun staff",
-        path: "/user-account",
-        icon: <MdOutlineAccountCircle className="text-xl" />,
-    },
-    {
         name: "Kelola RT",
         path: "/manage-rt",
         icon: <MdOutlineAccountCircle className="text-xl" />,
     },
     {
-        name: "data penduduk",
-        path: "/data-pdn",
+        name: "Rekapitulasi",
         icon: <MdList className="text-xl" />,
+        subMenu: [
+            {
+                name: "Laporan Bulanan",
+                path: "/laporan-bulanan",
+            },
+            {
+                name: "Data Penduduk",
+                path: "/data-pdn",
+            },
+            {
+                name: "Statistik",
+                path: "/statistik",
+            },
+        ],
     },
     {
         name: "kegiatan",
@@ -37,33 +46,103 @@ export default function NavLink({ containerStyles, childStyles }) {
     //   const pathname = usePathname();
     const { url } = usePage();
     const currentPath = url;
-
+    const [hoveredMenu, setHoveredMenu] = useState(null);
+    const [openSubMenu, setOpenSubMenu] = useState(null);
+    useEffect(() => {
+        links.forEach((link, index) => {
+            if (link.subMenu) {
+                const isActiveSub = link.subMenu.some(
+                    (sub) => currentPath.startsWith(sub.path)
+                );
+                if (isActiveSub) {
+                    setOpenSubMenu(index);
+                }
+            }
+        });
+    }, [currentPath]);
     return (
         <>
             <ul className={containerStyles}>
                 {links.map((link, index) => {
-                    let isActive = false;
-                    if (currentPath == link.path) {
-                        isActive = true;
-                    }
+                    const isActive = currentPath === link.path;
+
+                    const hasSubMenu = link.subMenu && link.subMenu.length > 0;
+                    const isSubMenuActive = link.subMenu?.some(
+                        (sub) => currentPath.startsWith(sub.path)
+                    );
+                    const isSubMenuOpen =
+                        hoveredMenu === index || openSubMenu === index;
+
+                    // console.log(isSubMenuActive, currentPath);
+
                     const charLength = link.name.length;
                     return (
-                        <a
-                            href={link.path}
+                        <li
+                            className="relative transition-all duration-700 ease-in-out"
                             key={index}
-                            className={`relative text-lg uppercase `}
+                            onMouseEnter={() => setHoveredMenu(index)}
+                            onMouseLeave={() => setHoveredMenu(null)}
                         >
-                            {/* <span className="relative z-10">{link.name}</span> */}
-                            <div
-                                className={
-                                    childStyles +
-                                    (isActive ? " bg-neutral-300" : "")
-                                }
+                            <a
+                                href={link?.path}
+                                className={`relative text-lg uppercase `}
+                                onClick={(e) => {
+                                    if (hasSubMenu) {
+                                        e.preventDefault();
+                                        setOpenSubMenu(
+                                            openSubMenu === index ? null : index
+                                        );
+                                    }
+                                }}
                             >
-                                <span>{link.icon}</span>
-                                <span>{link.name}</span>
-                            </div>
-                        </a>
+                                {/* <span className="relative z-10">{link.name}</span> */}
+                                <div
+                                    className={
+                                        childStyles +
+                                        (isActive || isSubMenuActive
+                                            ? " bg-blue-700"
+                                            : "") +
+                                        (hasSubMenu
+                                            ? " group-hover:bg-blue-700"
+                                            : "")
+                                    }
+                                >
+                                    <span>{link.icon}</span>
+                                    <span>{link.name}</span>
+                                    {hasSubMenu && (
+                                        <span className="ml-2 ">
+                                            <FaAngleDown />
+                                        </span>
+                                    )}
+                                </div>
+                            </a>
+                            {hasSubMenu && isSubMenuOpen && (
+                                <ul className="inline-block left-0 mt-2 w-full transition-all duration-800 ease-in-out  ">
+                                    {link.subMenu.map((subItem, subIndex) => {
+                                        const isActive =
+                                            currentPath.startsWith(subItem.path);
+                                        return (
+                                            <li
+                                                key={subIndex}
+                                                className={
+                                                    "hover:bg-blue-700 ms-2 px-4 py-3 rounded-md " +
+                                                    (isActive
+                                                        ? " bg-blue-700"
+                                                        : "")
+                                                }
+                                            >
+                                                <a
+                                                    href={subItem.path}
+                                                    className="block text-lg text-white "
+                                                >
+                                                    {subItem.name}
+                                                </a>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            )}
+                        </li>
                     );
                 })}
             </ul>

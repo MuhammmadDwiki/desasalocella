@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RekapitulasiPenduduk;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class RekapitulasiPendudukController extends Controller
 {
@@ -12,7 +13,9 @@ class RekapitulasiPendudukController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('LaporanBulanan', [
+            'datas' => RekapitulasiPenduduk::all(),
+        ]);
     }
 
     /**
@@ -28,7 +31,17 @@ class RekapitulasiPendudukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'bulan' => 'required|string|max:255',
+            'tahun' => 'required|integer|min:2000|max:2100',
+        ]);
+        $validatedData['id_rekap'] = 'LPDB-' . $validatedData["tahun"] ."-". bin2hex(random_bytes(4));
+
+        RekapitulasiPenduduk::create($validatedData);
+        // Redirect or return a response
+        return redirect()->back()->with('success', 'Laporan berhasil ditambahkan');
+
+
     }
 
     /**
