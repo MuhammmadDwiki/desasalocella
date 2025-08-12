@@ -81,6 +81,7 @@ import Swal from "sweetalert2";
 
 const KelolaRT = ({ datas }) => {
     // console.log(datas);
+    
     const { data, setData, post, processing, errors, reset } = useForm({
         nomor_rt: "",
         nama_rt: "",
@@ -129,9 +130,7 @@ const KelolaRT = ({ datas }) => {
             header: "Status Aktif",
             cell: (info) => (
                 <span
-                    className={`bg-${
-                        info.getValue() ? "green" : "red"
-                    }-600  py-1 px-2  rounded text-xs  text-white `}
+                    className={`${info.getValue() ? "bg-green-600" : "bg-red-600"}  py-1 px-2  rounded text-xs  text-white `}
                 >
                     {info.getValue() ? "Aktif" : "Tidak Aktif"}
                 </span>
@@ -250,7 +249,11 @@ const KelolaRT = ({ datas }) => {
 
             <div className="container mx-auto py-8">
                 <div className="flex justify-between  items-center mb-6">
-                    <h1 className="text-2xl font-bold">Data RT</h1>
+                    <div>
+
+                    <h1 className="text-2xl font-bold text-gray-800">Data RT</h1>
+                    <p className="text-gray-600 ">Lihat dan kelola semua laporan bulanan RT</p>
+                    </div>
                     <Dialog>
                         <form>
                             <DialogTrigger asChild>
@@ -400,8 +403,9 @@ const KelolaRT = ({ datas }) => {
                 <div className="mt-4 text-sm text-gray-500">
                     Total {datas.length} RT terdaftar
                 </div>
-                <div></div>
+                
             </div>
+
         </AuthenticatedLayout>
     );
 };

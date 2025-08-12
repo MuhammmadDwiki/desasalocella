@@ -10,7 +10,7 @@ class DetailRekapitulasi extends Model
         /** @use HasFactory<\Database\Factories\DetailRekapitulasiPendudukFactory> */
     use HasFactory, Notifiable;
     protected $guarded = [];
-     protected $primaryKey = 'id_detail_rekap'; // Tambahkan ini
+    protected $primaryKey = 'id_detail_rekap'; // Tambahkan ini
     public $incrementing = false; // Jika ID bukan auto-increment
     protected $keyType = 'string'; // Jika ID bertipe string
 

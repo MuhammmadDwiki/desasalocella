@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\AgamaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekapitulasiPendudukController;
 use App\Http\Controllers\DetailRekapitulasiController;
+use App\Http\Controllers\KarangTarunaController;
+use App\Http\Controllers\KegiatanRTController;
 use App\Http\Controllers\RTController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -21,14 +25,10 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard', [
-        "routeUser" => route('userWelcome'),
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/user-account', [UserController::class, "index"])->middleware(['auth', 'verified'])->name('userAccount');
 
-Route::get('/data-pdn', function(){
+Route::get('/data-pdn', function () {
     return Inertia::render('DataPenduduk');
 })->middleware(['auth', 'verified'])->name('userAccount');
 
@@ -43,16 +43,24 @@ Route::get('detail-laporan/by-rt/{idLaporan}/{idRt}', [DetailRekapitulasiControl
 
 Route::get('detail-laporan/used-age-groups/{idRekap}/{idRT}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
 
-Route::resource('rt', RTController::class)->except(['create', 'edit']);
-Route::resource('laporan', RekapitulasiPendudukController::class);
-Route::resource('detailLaporan', DetailRekapitulasiController::class);
+Route::get('/agama', [AgamaController::class, 'index'])->middleware(['auth', 'verified'])->name('agama');
+Route::get('/kegiatan', [KegiatanRTController::class, 'index'])->middleware(['auth', 'verified'])->name('kegiatan');
+Route::get('/karang-taruna', [KarangTarunaController::class, 'index'])->middleware(['auth', 'verified'])->name('karangTaruna');
 
 Route::middleware('auth')->group(function () {
+    Route::resource('Dashboard', DashboardController::class);
+    Route::resource('rt', RTController::class)->except(['create', 'edit']);
+    Route::resource('laporan', RekapitulasiPendudukController::class);
+    Route::resource('detailLaporan', DetailRekapitulasiController::class);
+    Route::resource('kegiatans', KegiatanRTController::class);
+    Route::resource('agamas', AgamaController::class);
+    Route::resource('karangTarunas', KarangTarunaController::class);
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 
@@ -120,4 +128,3 @@ Route::get('/layanan', function () {
 
 
 ## =========== ADMIN =========== ##
-

@@ -131,9 +131,9 @@ const DetailLaporanBulanan = ({ id, datas, rtList }) => {
                         >
                             <Eye className="h-4 w-4 text-white" />
                         </Button>
-                        <Button variant="destructive" size="icon">
+                        {/* <Button variant="destructive" size="icon">
                             <Trash2 className="h-4 w-4" />
-                        </Button>
+                        </Button> */}
                         {showDetailModal && (
                             <DetailLaporanModal
                                 datas={modalData}
@@ -179,6 +179,9 @@ const DetailLaporanBulanan = ({ id, datas, rtList }) => {
                     onRowClick={handleRowClick}
                     pageSize={5}
                 />
+                 <div className="mt-4 text-sm text-gray-500">
+                    Total {datas.length} Laporan bulanan
+                </div>
             </div>
         </AuthenticatedLayout>
     );

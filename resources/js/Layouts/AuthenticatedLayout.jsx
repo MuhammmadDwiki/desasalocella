@@ -29,6 +29,7 @@ export default function AuthenticatedLayout({
                         <div>{children}</div>
                     </section>
                 </div>
+                
             </div>
         </div>
 

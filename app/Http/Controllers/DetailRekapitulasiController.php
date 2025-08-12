@@ -39,7 +39,7 @@ class DetailRekapitulasiController extends Controller
             )
             ->groupBy('r_t_s.id_rt', 'r_t_s.nomor_rt')
             ->get();
-        $rtList = RT::all();
+        $rtList = RT::orderBy("nomor_rt")->get();
         // dd($rtList);
         return Inertia::render('DetailLaporanBulanan', [
             'datas' => $datas,

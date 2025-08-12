@@ -5,6 +5,7 @@ import {
     MdList,
     MdWorkOutline,
 } from "react-icons/md";
+import { LiaPeopleCarrySolid } from "react-icons/lia";
 import { usePage } from "@inertiajs/react";
 import { FaAngleDown } from "react-icons/fa";
 const links = [
@@ -27,12 +28,8 @@ const links = [
                 path: "/laporan-bulanan",
             },
             {
-                name: "Data Penduduk",
-                path: "/data-pdn",
-            },
-            {
-                name: "Statistik",
-                path: "/statistik",
+                name: "Agama",
+                path: "/agama",
             },
         ],
     },
@@ -41,6 +38,12 @@ const links = [
         path: "/kegiatan",
         icon: <MdWorkOutline className="text-xl" />,
     },
+    {
+        name: "karang Taruna",
+        path: "/karang-taruna",
+        icon: <LiaPeopleCarrySolid className='text-xl'/>,
+    },
+    
 ];
 export default function NavLink({ containerStyles, childStyles }) {
     //   const pathname = usePathname();
@@ -78,10 +81,11 @@ export default function NavLink({ containerStyles, childStyles }) {
                     const charLength = link.name.length;
                     return (
                         <li
-                            className="relative transition-all duration-700 ease-in-out"
+                            className="relative transition-all cursor-pointer duration-700 ease-in-out"
                             key={index}
                             onMouseEnter={() => setHoveredMenu(index)}
                             onMouseLeave={() => setHoveredMenu(null)}
+                            onClick={() => setHoveredMenu(index)}
                         >
                             <a
                                 href={link?.path}
@@ -125,7 +129,7 @@ export default function NavLink({ containerStyles, childStyles }) {
                                             <li
                                                 key={subIndex}
                                                 className={
-                                                    "hover:bg-blue-700 ms-2 px-4 py-3 rounded-md " +
+                                                    "hover:bg-blue-700 ms-2 px-4 py-3 mt-1 rounded-md " +
                                                     (isActive
                                                         ? " bg-blue-700"
                                                         : "")

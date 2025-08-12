@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     Head,
     router,
@@ -60,31 +60,30 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
         jumlah_laki_laki_datang: 0,
         jumlah_perempuan_datang: 0,
     });
-    // console.log('datas: ', datas)
-    const handleEditButton =(row) => {
+    // console.log("datas: ", datas);
+    const handleEditButton = (row) => {
         reset();
         setData(row);
         setShowEditModal(true);
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("data yang akan dikirim : \n", data)
-        put(route('detailLaporan.update', data.id_detail_rekap), {
+        // console.log("data yang akan dikirim : \n", data)
+        put(route("detailLaporan.update", data.id_detail_rekap), {
             onSuccess: () => {
                 reset();
                 Toast.fire({
                     icon: "success",
                     title: "Berhasil diubah",
                     // text: ``
-                    
-                })
+                });
                 if (open) {
                     setOpen(false);
                     onClose();
                 }
-            }
-        })
-    }
+            },
+        });
+    };
     const columnHelper = createColumnHelper();
     const columns = [
         columnHelper.accessor("kelompok_umur", {
@@ -202,6 +201,57 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
             },
         }),
     ];
+
+    const calculateSummary = (data) => {
+        const totals = data.reduce(
+            (acc, item) => ({
+                lakiAwal: acc.lakiAwal + item.jumlah_laki_laki_awal,
+                perempuanAwal: acc.perempuanAwal + item.jumlah_perempuan_awal,
+                lakiAkhir: acc.lakiAkhir + item.jumlah_laki_laki_akhir,
+                perempuanAkhir:
+                    acc.perempuanAkhir + item.jumlah_perempuan_akhir,
+                lakiDatang: acc.lakiDatang + item.jumlah_laki_laki_datang,
+                perempuanDatang:
+                    acc.perempuanDatang + item.jumlah_perempuan_datang,
+                lakiPindah: acc.lakiPindah + item.jumlah_laki_laki_pindah,
+                perempuanPindah:
+                    acc.perempuanPindah + item.jumlah_perempuan_pindah,
+            }),
+            {
+                lakiAwal: 0,
+                perempuanAwal: 0,
+                lakiAkhir: 0,
+                perempuanAkhir: 0,
+                lakiDatang: 0,
+                perempuanDatang: 0,
+                lakiPindah: 0,
+                perempuanPindah: 0,
+            }
+        );
+
+        const totalPopulationAkhir = totals.lakiAkhir + totals.perempuanAkhir;
+        const totalPopulationAwal = totals.lakiAwal = totals.perempuanAwal;
+        const totalPopulation =  totalPopulationAkhir;
+        const totalHouseholds = totalPopulation / 4; // Asumsi 1 household = 2 orang
+        const newHouseholds = Math.max(
+            0,
+            totals.lakiDatang +
+                totals.perempuanDatang -
+                totals.lakiPindah -
+                totals.perempuanPindah
+        );
+
+        return {
+            totalPopulation: totalPopulation,
+            totalDatang : totals.lakiDatang + totals.perempuanDatang,
+            totalPindah: totals.lakiPindah + totals.perempuanPindah
+        };
+    };
+    // let summary = {};
+    const summary = calculateSummary(datas);
+    // console.log(summary);
+    // useEffect(() => {
+    // }, [datas]);
     // console.log(open);
 
     return (
@@ -224,14 +274,48 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                             Rincian Laporan Penduduk tiap RT
                         </DialogDescription>
                     </DialogHeader>
-
-                    <div className="mt-5">
+              
+                    <div className="mt-4">
                         <GenericTable
                             data={datas}
                             columns={columns}
                             pagination={false}
                             pageSize={15}
                         />
+                    </div>
+
+                          <div className="flex flex-col w-full flex-wrap mt-4 pb-8 border-b">
+                        <div>
+                            <h2 className="text-md font-semibold mb-3">
+                                Ringkasan Penduduk
+                            </h2>
+                        </div>
+                        <div className="flex  items-center gap-5 justify-around">
+                            <div className="bg-[#DEE791] py-4 px-8 rounded-md">
+                                <p className="text-gray-700 capitalize">
+                                    Total Penduduk
+                                </p>
+                                <p className="font-semibold">
+                                    {summary.totalPopulation}
+                                </p>
+                            </div>
+                            <div className="bg-[#A3DC9A] py-4 px-8 rounded-md">
+                                <p className="text-gray-700 capitalize">
+                                    Penduduk Datang
+                                </p>
+                                <p className="font-semibold">
+                                    {summary.totalDatang}
+                                </p>
+                            </div>
+                            <div className="bg-[#C0C9EE] py-4 px-8 rounded-md">
+                                <p className="text-gray-700 capitalize">
+                                    Penduduk Pindah
+                                </p>
+                                <p className="font-semibold">
+                                    {summary.totalPindah}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </DialogContent>
             </Dialog>
@@ -252,7 +336,6 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                         </p>
 
                         <form
-                            
                             className="space-y-1 flex flex-col gap-2 "
                             onSubmit={(e) => {
                                 handleSubmit(e);
@@ -278,7 +361,9 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                                 onChange={(e) =>
                                                     setData(
                                                         "jumlah_laki_laki_awal",
-                                                        parseInt(e.target.value) || 0
+                                                        parseInt(
+                                                            e.target.value
+                                                        ) || 0
                                                     )
                                                 }
                                             />
@@ -297,7 +382,9 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                                 onChange={(e) =>
                                                     setData(
                                                         "jumlah_perempuan_awal",
-                                                        parseInt(e.target.value) || 0
+                                                        parseInt(
+                                                            e.target.value
+                                                        ) || 0
                                                     )
                                                 }
                                             />
@@ -325,7 +412,9 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                                 onChange={(e) =>
                                                     setData(
                                                         "jumlah_laki_laki_akhir",
-                                                        parseInt(e.target.value) || 0
+                                                        parseInt(
+                                                            e.target.value
+                                                        ) || 0
                                                     )
                                                 }
                                             />
@@ -344,7 +433,9 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                                 onChange={(e) =>
                                                     setData(
                                                         "jumlah_perempuan_akhir",
-                                                        parseInt(e.target.value) || 0
+                                                        parseInt(
+                                                            e.target.value
+                                                        ) || 0
                                                     )
                                                 }
                                             />
@@ -353,7 +444,6 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                 </div>
                             </div>
                             <div>
-
                                 {/* Section Pindah */}
                                 <div className="border rounded-lg p-4 space-y-4">
                                     <h3 className="font-medium">
@@ -374,7 +464,9 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                                 onChange={(e) =>
                                                     setData(
                                                         "jumlah_laki_laki_pindah",
-                                                        parseInt(e.target.value) || 0
+                                                        parseInt(
+                                                            e.target.value
+                                                        ) || 0
                                                     )
                                                 }
                                             />
@@ -393,7 +485,9 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                                 onChange={(e) =>
                                                     setData(
                                                         "jumlah_perempuan_pindah",
-                                                        parseInt(e.target.value) || 0
+                                                        parseInt(
+                                                            e.target.value
+                                                        ) || 0
                                                     )
                                                 }
                                             />
@@ -407,7 +501,6 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                         Jumlah Penduduk Datang
                                     </h3>
                                     <div className="grid grid-cols-2 gap-4">
-
                                         <div className="grid gap-2">
                                             <Label htmlFor="jumlah_laki_laki_datang">
                                                 Laki-laki
@@ -422,7 +515,9 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                                 onChange={(e) =>
                                                     setData(
                                                         "jumlah_laki_laki_datang",
-                                                        parseInt(e.target.value) || 0
+                                                        parseInt(
+                                                            e.target.value
+                                                        ) || 0
                                                     )
                                                 }
                                             />
@@ -441,7 +536,9 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                                 onChange={(e) =>
                                                     setData(
                                                         "jumlah_perempuan_datang",
-                                                        parseInt(e.target.value) || 0
+                                                        parseInt(
+                                                            e.target.value
+                                                        ) || 0
                                                     )
                                                 }
                                             />
@@ -459,10 +556,7 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                 >
                                     Batal
                                 </Button>
-                                <Button
-                                    type="submit"
-                                    disabled={ processing }
-                                >
+                                <Button type="submit" disabled={processing}>
                                     {processing ? "Menyimpan..." : "Simpan"}
                                 </Button>
                             </div>

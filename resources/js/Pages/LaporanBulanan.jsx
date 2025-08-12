@@ -80,7 +80,18 @@ const formSchema = z.object({
             message: "Tahun harus antara 2000-2100",
         }),
 });
-
+const formSchemaEdit = z.object({
+    id_rekap: z.string().min(1, "id_rekap tidak ada"),
+    bulan: z.string().min(1, "Bulan harus dipilih"),
+    tahun: z
+        .string()
+        .min(4, "Tahun harus 4 digit")
+        .max(4, "Tahun harus 4 digit")
+        .regex(/^[0-9]+$/, "Tahun harus angka")
+        .refine((val) => parseInt(val) >= 2000 && parseInt(val) <= 2100, {
+            message: "Tahun harus antara 2000-2100",
+        }),
+});
 const months = [
     { value: "01", label: "Januari" },
     { value: "02", label: "Februari" },
@@ -97,10 +108,20 @@ const months = [
 ];
 const LaporanBulanan = ({ datas }) => {
     const [open, setOpen] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+
     const { post } = useInertiaForm();
     const form = useReactHookForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
+            bulan: "",
+            tahun: new Date().getFullYear().toString(),
+        },
+    });
+    const formEdit = useReactHookForm({
+        resolver: zodResolver(formSchemaEdit),
+        defaultValues: {
+            id_rekap: "",
             bulan: "",
             tahun: new Date().getFullYear().toString(),
         },
@@ -116,7 +137,7 @@ const LaporanBulanan = ({ datas }) => {
             toast.onmouseleave = Swal.resumeTimer;
         },
     });
-    // console.log(datas);
+    // console.log(formEdit.getValues());
     const onSubmit = (data) => {
         const isDuplicate = datas.some(
             (report) =>
@@ -130,7 +151,7 @@ const LaporanBulanan = ({ datas }) => {
             });
             return;
         }
-        console.log("data yang akan dikirim:", data);
+        // console.log("data yang akan dikirim:", data);
         post(
             route("laporan.store", {
                 bulan: data.bulan,
@@ -161,6 +182,51 @@ const LaporanBulanan = ({ datas }) => {
         //             });
     };
 
+    const onEditSubmit = (data) => {
+        // console.log("Form data:", data);
+        // console.log("ID Rekap:", data.id_rekap);
+
+         const isDuplicate = datas.some(
+            (report) =>
+                report.bulan === data.bulan && report.tahun === data.tahun
+        );
+
+        if (isDuplicate) {
+            Toast.fire({
+                icon: "error",
+                title: `Laporan untuk ${data.bulan} ${data.tahun}  sudah ada`,
+            });
+            return;
+        }
+
+        const requestData = {
+            bulan: data.bulan,
+            tahun: data.tahun,
+        };
+
+        // console.log("Request data:", requestData);
+
+        router.put(route("laporan.update", data.id_rekap), requestData, {
+            onSuccess: () => {
+                form.reset({
+                    bulan: "",
+                    tahun: new Date().getFullYear().toString(),
+                });
+                setShowEditModal(false);
+                Toast.fire({
+                    icon: "success",
+                    title: "Berhasil mengubah laporan",
+                });
+            },
+            onError: (errors) => {
+                console.error("Update errors:", errors);
+                Toast.fire({
+                    icon: "error",
+                    title: "Gagal mengubah laporan",
+                });
+            },
+        });
+    };
     const columnHelper = createColumnHelper();
     const columns = [
         columnHelper.accessor("id_rekap", {
@@ -184,6 +250,7 @@ const LaporanBulanan = ({ datas }) => {
             header: "Tahun",
             cell: (info) => info.getValue(),
         }),
+
         // columnHelper.accessor("jumlahLaporan", {
         //     header: "Jumlah Laporan",
         //     cell: (info) => info.getValue(),
@@ -192,7 +259,6 @@ const LaporanBulanan = ({ datas }) => {
             id: "actions",
             header: "Aksi",
             cell: ({ row }) => {
-                const [showEditModal, setShowEditModal] = useState(false);
                 // console.log("row:", row.original.id);
                 return (
                     <div className="flex space-x-2">
@@ -200,53 +266,59 @@ const LaporanBulanan = ({ datas }) => {
                             variant="outline"
                             className="bg-gray-200"
                             size="icon"
-                            // onClick={() => setShowEditModal(true)}
+                            onClick={() => {
+                              
+
+                                const resetData = {
+                                    id_rekap: row.original.id_rekap,
+                                    bulan: row.original.bulan,
+                                    tahun: row.original.tahun.toString(), // Make sure tahun is string
+                                };
+
+                               
+                                formEdit.reset(resetData);
+                                setShowEditModal(true);
+                            }}
                         >
                             <Pencil className="h-4 w-4" />
                         </Button>
                         <Button
                             variant="destructive"
                             size="icon"
-                            // onClick={(e) => {
-                            //     // console.log(row.original.id_rt)
-                            //     // e.stopPropagation();
-                            //     // handleDelete(row.original.id);
-                            //     Swal.fire({
-                            //         title: "yakin ingin menghapus ini ?",
-                            //         showConfirmButton: true,
-                            //         showCancelButton: true,
-                            //         confirmButtonText: "Ya",
-                            //     }).then((result) => {
-                            //         if (result.isConfirmed) {
-                            //             // Swal.fire("Saved!", "", "success");
-                            //             // router.delete(
-                            //             //     route(
-                            //             //         "rt.destroy",
-                            //             //         row.original.id_rt
-                            //             //     ),
-                            //             //     {
-                            //             //         onSuccess: () => {
-                            //             //             Toast.fire({
-                            //             //                 icon: "success",
-                            //             //                 title: "Berhasil dihapus",
-                            //             //             });
-                            //             //         },
-                            //             //     }
-                            //             // );
-                            //         }
-                            //     });
-                            //     // if (confirm("yakin ingin menghapus ini ?")) {
-                            //     // }
-                            // }}
+                            onClick={(e) => {
+                                // console.log(row.original)
+                                // e.stopPropagation();
+                                // handleDelete(row.original.id);
+                                Swal.fire({
+                                    title: "yakin ingin menghapus ini ?",
+                                    showConfirmButton: true,
+                                    showCancelButton: true,
+                                    confirmButtonText: "Ya",
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // Swal.fire("Saved!", "", "success");
+                                        router.delete(
+                                            route(
+                                                "laporan.destroy",
+                                                row.original.id_rekap
+                                            ),
+                                            {
+                                                onSuccess: () => {
+                                                    Toast.fire({
+                                                        icon: "success",
+                                                        title: "Berhasil dihapus",
+                                                    });
+                                                },
+                                            }
+                                        );
+                                    }
+                                });
+                                // if (confirm("yakin ingin menghapus ini ?")) {
+                                // }
+                            }}
                         >
                             <Trash2 className="h-4 w-4" />
                         </Button>
-                        {/* {showEditModal && (
-                                    <EditRTModal
-                                        rt={row.original}
-                                        // onClose={() => setShowEditModal(false)}
-                                    />
-                                )} */}
                     </div>
                 );
             },
@@ -387,6 +459,101 @@ const LaporanBulanan = ({ datas }) => {
                     onRowClick={handleRowClick}
                     pageSize={5}
                 />
+                <div className="mt-4 text-sm text-gray-500">
+                    Total {datas.length} Laporan bulanan
+                </div>
+                <Dialog open={showEditModal} onOpenChange={setShowEditModal}>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Tambah Laporan Bulanan</DialogTitle>
+                            <DialogDescription>
+                                Isi form berikut untuk menambahkan laporan
+                            </DialogDescription>
+                        </DialogHeader>
+
+                        <Form {...formEdit}>
+                            <form
+                                onSubmit={formEdit.handleSubmit(onEditSubmit)}
+                                className="space-y-6"
+                            >
+                               
+                                <FormField
+                                    control={formEdit.control}
+                                    name="bulan"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Bulan</FormLabel>
+                                            <Select
+                                                onValueChange={field.onChange}
+                                                value={field.value}
+                                            >
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Pilih bulan" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    {months.map((month) => (
+                                                        <SelectItem
+                                                            key={month.value}
+                                                            value={month.label}
+                                                        >
+                                                            {month.label}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={formEdit.control}
+                                    name="tahun"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Tahun</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="text"
+                                                    inputMode="numeric"
+                                                    pattern="[0-9]*"
+                                                    maxLength={4}
+                                                    placeholder="Contoh: 2024"
+                                                    {...field}
+                                                    onChange={(e) => {
+                                                        // Hanya izinkan angka dan maksimal 4 digit
+                                                        const value =
+                                                            e.target.value
+                                                                .replace(
+                                                                    /[^0-9]/g,
+                                                                    ""
+                                                                )
+                                                                .slice(0, 4);
+                                                        field.onChange(value);
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <div className="flex justify-end gap-2">
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        onClick={() => setOpen(false)}
+                                    >
+                                        Batal
+                                    </Button>
+                                    <Button type="submit">Simpan</Button>
+                                </div>
+                            </form>
+                        </Form>
+                    </DialogContent>
+                </Dialog>
             </div>
         </AuthenticatedLayout>
     );

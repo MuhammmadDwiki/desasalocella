@@ -132,7 +132,7 @@ export function GenericTable({
                                     table.setPageSize(Number(value));
                                 }}
                             >
-                                <SelectTrigger className="w-16">
+                                <SelectTrigger className="w-16 h-8">
                                     <SelectValue
                                         placeholder={
                                             table.getState().pagination.pageSize
@@ -153,6 +153,7 @@ export function GenericTable({
                         </div>
 
                         <Pagination
+                            className={'ms-5 gap-2'}
                             currentPage={
                                 table.getState().pagination.pageIndex + 1
                             }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useCallback} from "react";
 import { useForm as userFormReactHook } from "react-hook-form";
 import axios from "axios";
 
@@ -7,6 +7,7 @@ import {
     router,
     useForm as useFormInertia,
     usePage,
+    
 } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,28 +25,40 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
+    DialogDescription
 } from "@/components/ui/dialog";
 
 import Swal from "sweetalert2";
+
+const defaultFormValues = {
+    id_rt: "",
+    kelompok_umur: "",
+    jumlah_laki_laki_awal: 0,
+    jumlah_perempuan_awal: 0,
+    jumlah_laki_laki_akhir: 0,
+    jumlah_perempuan_akhir: 0,
+    jumlah_laki_laki_pindah: 0,
+    jumlah_perempuan_pindah: 0,
+    jumlah_laki_laki_datang: 0,
+    jumlah_perempuan_datang: 0,
+};
 
 const CreateDetailLaporan = ({ idRekap, rtList }) => {
     const [open, setOpen] = useState(false);
     const [usedAgeGroups, setUsedAgeGroups] = useState([]);
     const [loadingAgeGroups, setLoadingAgeGroups] = useState(false);
 
-    const { data, setData, post, processing, errors, reset } = useFormInertia({
-        id_rekap: idRekap,
-        id_rt: "",
-        kelompok_umur: "",
-        jumlah_laki_laki_awal: 0,
-        jumlah_perempuan_awal: 0,
-        jumlah_laki_laki_akhir: 0,
-        jumlah_perempuan_akhir: 0,
-        jumlah_laki_laki_pindah: 0,
-        jumlah_perempuan_pindah: 0,
-        jumlah_laki_laki_datang: 0,
-        jumlah_perempuan_datang: 0,
+    const { data, setData, post,  reset, processing, errors } = useFormInertia({
+        ...defaultFormValues,
+        id_rekap: idRekap, // Pastikan idRekap didefinisikan
     });
+    const handleReset = useCallback(() => {
+        setData({
+            ...defaultFormValues,
+            id_rekap: idRekap, // Pertahankan id_rekap
+        });
+    }, [reset, idRekap]);
+    
     const kelompokUmurOptions = [
         "0-5",
         "6-12",
@@ -124,14 +137,27 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
             setLoadingAgeGroups(false);
         }
     };
+    const handleDialogClose = () => {
+        // console.log(open);
+       
+        handleReset(); 
+        // console.log(data);
+        // setShowEditModal(false);
+        setOpen(!open);
+    
+    };
+
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={(e) => handleDialogClose()}>
             <DialogTrigger asChild>
-                <Button variant="default">Tambah Detail Laporan</Button>
+                <Button variant="default" onClick={() => reset("id_rt")}>
+                    Tambah Detail Laporan
+                </Button>
             </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Tambah Detail Laporan</DialogTitle>
+                    <DialogDescription>tambah data jumlah penduduk berdasarkan umur</DialogDescription>
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -147,6 +173,7 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
                                 <SelectValue placeholder="Pilih RT" />
                             </SelectTrigger>
                             <SelectContent>
+                                
                                 {rtList.map((rt) => (
                                     <SelectItem key={rt.id_rt} value={rt.id_rt}>
                                         RT {rt.nomor_rt}

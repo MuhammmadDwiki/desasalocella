@@ -29,31 +29,32 @@ class DatabaseSeeder extends Seeder
 
         ]
         );
-        RT::create([
-            'id_rt' => '01',
-            'nama_rt' => 'mariadi',
-            "nomor_rt" => "01",
-            'alamat_rt' => 'Alamat RT 01',
-            "is_active" => true,
-        ]);
+        
+        // RT::create([
+        //     'id_rt' => '01',
+        //     'nama_rt' => 'mariadi',
+        //     "nomor_rt" => "01",
+        //     'alamat_rt' => 'Alamat RT 01',
+        //     "is_active" => true,
+        // ]);
         // User::factory(10)->create();
-        RekapitulasiPenduduk::factory(1)->create();
-        DetailRekapitulasi::create([
-            "id_detail_rekap"=> fake()->uuid(),
-            "id_rekap" => "1",
-            "id_rt" => "01",
-            "kelompok_umur" => fake()->randomElement(['0-5', '6-12', '13-17', '18-25', '26-35', '36-45', '46-55', '56+']),
-            "jumlah_laki_laki_awal" => fake()->numberBetween(0, 100),
-            "jumlah_perempuan_awal" => fake()->numberBetween(0, 100),
-            "jumlah_laki_laki_akhir" => fake()->numberBetween(0, 100),
-            "jumlah_perempuan_akhir" => fake()->numberBetween(0, 100),
-            "jumlah_laki_laki_pindah" => fake()->numberBetween( 0, 50),
-            "jumlah_perempuan_pindah" => fake()->numberBetween(0, 50),
-            "jumlah_laki_laki_datang" => fake()->numberBetween(0, 50),
-            "jumlah_perempuan_datang" => fake()->numberBetween(0, 50),
+        // RekapitulasiPenduduk::factory(1)->create();
+        // DetailRekapitulasi::create([
+        //     "id_detail_rekap"=> fake()->uuid(),
+        //     "id_rekap" => "1",
+        //     "id_rt" => "01",
+        //     "kelompok_umur" => fake()->randomElement(['0-5', '6-12', '13-17', '18-25', '26-35', '36-45', '46-55', '56+']),
+        //     "jumlah_laki_laki_awal" => fake()->numberBetween(0, 100),
+        //     "jumlah_perempuan_awal" => fake()->numberBetween(0, 100),
+        //     "jumlah_laki_laki_akhir" => fake()->numberBetween(0, 100),
+        //     "jumlah_perempuan_akhir" => fake()->numberBetween(0, 100),
+        //     "jumlah_laki_laki_pindah" => fake()->numberBetween( 0, 50),
+        //     "jumlah_perempuan_pindah" => fake()->numberBetween(0, 50),
+        //     "jumlah_laki_laki_datang" => fake()->numberBetween(0, 50),
+        //     "jumlah_perempuan_datang" => fake()->numberBetween(0, 50),
         
             
-        ]);
+        // ]);
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
