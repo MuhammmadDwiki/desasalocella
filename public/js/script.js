@@ -1,16 +1,15 @@
-let slides = document.querySelectorAll('.slide');
-let current = 0;
-
-document.querySelector('.next').addEventListener('click', () => {
-    slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
-    slides[current].classList.add('active');
+document.querySelectorAll('.has-dropdown').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+        item.querySelector('.dropdown').style.display = 'block';
+    });
+    item.addEventListener('mouseleave', () => {
+        item.querySelector('.dropdown').style.display = 'none';
+    });
 });
 
-document.querySelector('.prev').addEventListener('click', () => {
-    slides[current].classList.remove('active');
-    current = (current - 1 + slides.length) % slides.length;
-    slides[current].classList.add('active');
-});
-
-
+function showSearch() {
+    const term = prompt("Masukkan kata kunci pencarian:");
+    if (term) {
+        alert("Anda mencari: " + term);
+    }
+}

@@ -1,9 +1,149 @@
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 20px;
+    font-family: Arial, sans-serif;
+    margin: 0;
     background: #fff;
     color: #222;
-    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background: #e60000;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+header .logo {
+    height: 70px;
+    margin-right: 15px;
+}
+header .title {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+header .subtitle {
+    font-size: 1em;
+    margin-top: 5px;
+}
+
+nav {
+    background: #000;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 0.9em;
+}
+nav a:hover {
+    color: red;
+}
+
+.has-dropdown {
+    position: relative;
+    margin: 0 10px;
+}
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #222;
+    padding: 10px;
+    border-radius: 4px;
+    min-width: 200px;
+    z-index: 10;
+}
+.dropdown a {
+    display: block;
+    color: white;
+    padding: 5px 10px;
+}
+.dropdown a:hover {
+    background: #222;
+    color: red !important;
+}
+
+.search-icon {
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-left: 15px;
+}
+
+.hero {
+    position: relative;
+    background: url('../images/bgdesa.jpeg') center/cover no-repeat;
+    text-align: center;
+    color: white;
+    padding: 80px 20px;
+}
+.hero::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1;
+}
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+.hero h2 {
+    margin: 0;
+    font-size: 2.2em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+.hero p {
+    font-size: 1em;
+    margin: 10px 0 0;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+    flex: 1;
+}
+.card {
+    background: #e60000;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    border-top: 4px solid #000;
+    color: #fff;
+}
+.card h3 {
+    margin: 10px 0;
+    font-size: 1em;
+}
+.card p {
+    font-size: 0.9em;
+}
+.card .icon {
+    font-size: 2em;
+}
+
+footer {
+    background-color: #000;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    margin-top: 20px;
 }
 
 h2 {

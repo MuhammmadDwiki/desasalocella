@@ -4,211 +4,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Desa Sallo Cela</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        background: #fff;
-        color: #222;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-    header {
-        background-color: #000;
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-        position: relative;
-    }
-    header h1 {
-        font-size: 1.2em;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-    }
-    header h1 img {
-        height: 30px;
-        margin-right: 10px;
-    }
-    header h1 .subinfo {
-        font-size: 0.8em;
-        color: #ccc;
-    }
-    nav {
-        display: flex;
-        align-items: center;
-    }
-    nav > div {
-        position: relative;
-        margin: 0 10px;
-    }
-
-    nav > div > a:hover {
-    color: red !important;
-    }
-
-    nav a {
-        color: white;
-        text-decoration: none;
-        font-size: 0.9em;
-        padding: 5px;
-    }
-    nav a:hover {
-        color: #e60000;
-    }
-    .dropdown {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background: #222;
-        padding: 10px;
-        border-radius: 4px;
-        min-width: 200px;
-        z-index: 10;
-    }
-    .dropdown a {
-        display: block;
-        color: white;
-        padding: 5px 10px;
-    }
-    .dropdown a:hover {
-        background: #222;
-        color: red !important;
-    }
-    .has-dropdown:hover .dropdown {
-        display: block;
-    }
-
-    .search-icon {
-        cursor: pointer;
-        font-size: 1.2em;
-        margin-left: 15px;
-    }
-    .hero {
-        position: relative;
-        background: url('{{ asset("images/bgdesa.jpeg") }}') center/cover no-repeat;
-        text-align: center;
-        color: white;
-        padding: 80px 20px;
-    }
-    .hero::after {
-        content: "";
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 1;
-    }
-    .hero-content {
-        position: relative;
-        z-index: 2;
-    }
-    .hero h2 {
-        margin: 0;
-        font-size: 2.2em;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-    }
-    .hero p {
-        font-size: 1em;
-        margin: 10px 0 0;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-    }
-    .cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 15px;
-        padding: 20px;
-        max-width: 1000px;
-        margin: auto;
-        flex: 1;
-    }
-    .card {
-        background: #e60000;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        text-align: center;
-        border-top: 4px solid #000;
-        color: #fff;
-    }
-    .card h3 {
-        margin: 10px 0;
-        font-size: 1em;
-        color: #fff;
-    }
-    .card p {
-        font-size: 0.9em;
-        color: #fff;
-    }
-    .card .icon {
-        font-size: 2em;
-        color: #fff;
-    }
-    footer {
-        background-color: #000;
-        color: white;
-        text-align: center;
-        padding: 10px;
-        font-size: 0.9em;
-        margin-top: 20px;
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 </head>
 <body>
 
-<header style="background: #e60000; color: white; padding: 10px; display: flex; justify-content: flex-start; align-items: center;">
-    <img src="{{ asset('images/logo.jpeg') }}" alt="Logo" style="height: 70px; margin-right: 15px;">
+<header>
+    <img src="{{ asset('images/logo.jpeg') }}" alt="Logo" class="logo">
     <div>
-        <div style="font-size: 1.8em; font-weight: bold;">Desa Sallo Cela</div>
-        <div style="font-size: 1em; margin-top: 5px;">
+        <div class="title">Desa Sallo Cela</div>
+        <div class="subtitle">
             Kec. Muara Badak, Kab. Kutai Kartanegara,<br>
             Prov. Kalimantan Timur
         </div>
     </div>
 </header>
 
-<nav style="background: #000; color: white; display: flex; justify-content: center; align-items: center; padding: 10px 0;">
-    <div><a href="#" style="color:white; text-decoration:none; margin:0 10px;">🏠</a></div>
+<nav>
+    <div><a href="#">🏠</a></div>
 
-    <div class="has-dropdown" style="position:relative; margin:0 10px;">
-        <a href="#" style="color:white; text-decoration:none;">Profil Desa ▼</a>
-        <div class="dropdown" style="display:none; position:absolute; top:100%; left:0; background:#222; padding:10px; border-radius:4px; min-width:200px; z-index:10;">
-            <a href="{{route('profile')}}" style="color:white; display:block; margin-bottom:5px;">Profil Kepala Desa</a>
-            <a href="{{route('sejarah')}}" style="color:white; display:block; margin-bottom:5px;">Sejarah Desa</a>
-            <a href="{{route('visi')}}" style="color:white; display:block; margin-bottom:5px;">Visi & Misi</a>
-            <a href="{{route('struk')}}" style="color:white; display:block;">Struktur Organisasi</a>
+    <div class="has-dropdown">
+        <a href="#">Profil Desa ▼</a>
+        <div class="dropdown">
+            <a href="{{route('sejarah')}}">Sejarah Desa</a>
+            <a href="{{route('visi')}}">Visi & Misi</a>
+            <a href="{{route('struk')}}">Struktur Organisasi</a>
         </div>
     </div>
 
-    <div class="has-dropdown" style="position:relative; margin:0 10px;">
-        <a href="#" style="color:white; text-decoration:none;">Data Desa ▼</a>
-        <div class="dropdown" style="display:none; position:absolute; top:100%; left:0; background:#222; padding:10px; border-radius:4px; min-width:200px; z-index:10;">
-            <a href="{{route('dapen')}}" style="color:white; display:block; margin-bottom:5px;">Data Penduduk</a>
-            <a href="{{route('anggaran')}}" style="color:white; display:block; margin-bottom:5px;">Anggaran Desa</a>
+    <div class="has-dropdown">
+        <a href="#">Data Desa ▼</a>
+        <div class="dropdown">
+            <a href="{{route('dapen')}}">Data Penduduk</a>
+            <a href="{{route('anggaran')}}">Anggaran Desa</a>
         </div>
     </div>
 
-    <div class="has-dropdown" style="position:relative; margin:0 10px;">
-        <a href="#" style="color:white; text-decoration:none;">Kelembagaan ▼</a>
-        <div class="dropdown" style="display:none; position:absolute; top:100%; left:0; background:#222; padding:10px; border-radius:4px; min-width:200px; z-index:10;">
-            <a href="{{route('bpd')}}" style="color:white; display:block; margin-bottom:5px;">BPD</a>
-            <a href="{{route('karangtrn')}}" style="color:white; display:block; margin-bottom:5px;">Karang Taruna</a>
-            <a href="{{route('ketua')}}" style="color:white; display:block; margin-bottom:5px;">Ketua RT</a>
-            <a href="{{route('linmass')}}" style="color:white; display:block; margin-bottom:5px;">Linmas</a>
-            <a href="{{route('posy')}}" style="color:white; display:block; margin-bottom:5px;">Posyandu</a>
-            <a href="{{route('pkk')}}" style="color:white; display:block;">PKK</a>
+    <div class="has-dropdown">
+        <a href="#">Kelembagaan ▼</a>
+        <div class="dropdown">
+            <a href="{{route('bpd')}}">BPD</a>
+            <a href="{{route('karangtrn')}}">Karang Taruna</a>
+            <a href="{{route('ketua')}}">Ketua RT</a>
+            <a href="{{route('linmass')}}">Linmas</a>
+            <a href="{{route('posy')}}">Posyandu</a>
+            <a href="{{route('pkk')}}">PKK</a>
         </div>
     </div>
 
-    <div><a href="{{route('potensi')}}" style="color:white; text-decoration:none; margin:0 10px;">Potensi Desa</a></div>
-    <div><a href="{{route('layanan')}}" style="color:white; text-decoration:none; margin:0 10px;">Layanan</a></div>
+    <div><a href="{{route('potensi')}}">Potensi Desa</a></div>
+    <div><a href="{{route('layanan')}}">Layanan</a></div>
 
-    <div><span class="search-icon" onclick="showSearch()" style="cursor:pointer; margin-left:15px;">🔍</span></div>
+    <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
 </nav>
 
 <section class="hero">
@@ -241,27 +87,96 @@
     </div>
 </section>
 
-<footer>
-    &copy; {{ date('Y') }} Desa Sallo Cela. Semua Hak Dilindungi.
+{{-- Bagian Selikas Desa Salo Cella --}}
+<section class="stats">
+    <h2>Sekilas Salo Cella</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>🌦️ Cuaca</h3>
+            <ul>
+                <li>12 Aug 03:00 → 27.95°C</li>
+                <li>12 Aug 06:00 → 30.86°C</li>
+                <li>12 Aug 09:00 → 30.76°C</li>
+                <li>12 Aug 12:00 → 27.82°C</li>
+                <li>12 Aug 15:00 → 26.78°C</li>
+                <li>12 Aug 18:00 → 26.05°C</li>
+                <li>12 Aug 21:00 → 22.19°C</li>
+                <li>13 Aug 00:00 → 23.32°C</li>
+                <li>13 Aug 03:00 → 29.19°C</li>
+                <li>13 Aug 06:00 → 31.76°C</li>
+                <li>13 Aug 09:00 → 29.14°C</li>
+                <li>13 Aug 12:00 → 26.1°C</li>
+            </ul>
+        </div>
+        <div class="stat-card">
+            <h3>❤️ Kesehatan</h3>
+            <p>Puskesmas II Eromoko</p>
+            <p>PKD Desa Pasekan</p>
+            <p>Pos Yandu Balita: 8 Unit</p>
+            <p>Pos Yandu Lansia: 3 Unit</p>
+            <p>Sarana Air Bersih</p>
+            <p>Jamban Keluarga tersedia</p>
+            <p>Balai Kesehatan Ibu dan Anak</p>
+        </div>
+        <div class="stat-card">
+            <h3>🧒 Posyandu</h3>
+            <p>Balita: 190 Anak</p>
+            <p>Lansia: 105 Jiwa</p>
+            <p>Data posyandu diperbarui secara berkala</p>
+        </div>
+        <div class="stat-card">
+            <h3>🏫 Sekolah</h3>
+            <p>PAUD: 3 unit</p>
+            <p>SD: 2 unit</p>
+            <p>SMP: 1 unit</p>
+        </div>
+        <div class="stat-card">
+            <h3>👥 Kependudukan</h3>
+            <p>Laki-laki: 51%</p>
+            <p>Perempuan: 49%</p>
+            <p>Total: 2.361 jiwa</p>
+        </div>
+    </div>
+</section>
+
+
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h4>Sekilas Pasekan</h4>
+            <ul>
+                <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
+                <li><a href="#">Sekilas Pasekan</a></li>
+                <li><a href="#">Profil</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Pemerintah</h4>
+            <ul>
+                <li><a href="{{ route('visi') }}">Visi Misi</a></li>
+                <li><a href="#">SOT</a></li>
+                <li><a href="{{ route('struk') }}">Struktur Organisasi</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Info Publik</h4>
+            <ul>
+                <li><a href="#">Pengumuman</a></li>
+                <li><a href="#">Infografis</a></li>
+                <li><a href="#">Produk Hukum</a></li>
+                <li><a href="#">Info Berkala</a></li>
+                <li><a href="#">Info serta merta</a></li>
+                <li><a href="#">Info setiap saat</a></li>
+                <li><a href="#">DIP</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; {{ date('Y') }} Desa Pasekan. All Rights Reserved.
+    </div>
 </footer>
 
-<script>
-document.querySelectorAll('.has-dropdown').forEach(item => {
-    item.addEventListener('mouseenter', () => {
-        item.querySelector('.dropdown').style.display = 'block';
-    });
-    item.addEventListener('mouseleave', () => {
-        item.querySelector('.dropdown').style.display = 'none';
-    });
-});
 
-function showSearch() {
-    const term = prompt("Masukkan kata kunci pencarian:");
-    if (term) {
-        alert("Anda mencari: " + term);
-    }
-}
-</script>
-
+<script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>

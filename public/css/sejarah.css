@@ -137,87 +137,34 @@ nav a:hover {
     font-size: 2em;
 }
 
-.stats {
-    padding: 20px;
-    background: #f8f9fa;
-}
+    /* Judul Halaman */
+    .page-header {
+        background: #e60000;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
 
-.stats h2 {
-    margin-bottom: 20px;
-}
+    /* Konten */
+    .content {
+        padding: 20px;
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        line-height: 1.6;
+    }
+    .content h3 {
+        color: #e60000;
+        margin-top: 0;
+    }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
-}
-
-.stat-card {
-    background: #fff;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.stat-card h3 {
-    margin-top: 0;
-    font-size: 1.1em;
-}
-
-.stat-card ul {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.stat-card p, .stat-card li {
-    margin: 5px 0;
-}
-
-.site-footer {
-    background-color: #f9f9f9;
-    padding: 40px 20px 20px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-}
-
-.footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 80px;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.footer-column h4 {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.footer-column ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-column ul li {
-    margin: 4px 0;
-}
-
-.footer-column ul li a {
-    text-decoration: none;
-    color: #000;
-}
-
-.footer-column ul li a:hover {
-    text-decoration: underline;
-}
-
-.footer-bottom {
+    /* Footer */
+    footer {
+    background-color: #000;
+    color: white;
     text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
     margin-top: 20px;
-    font-size: 13px;
-    color: #333;
 }
-
