@@ -8,6 +8,7 @@ use App\Http\Controllers\DetailRekapitulasiController;
 use App\Http\Controllers\KarangTarunaController;
 use App\Http\Controllers\KegiatanRTController;
 use App\Http\Controllers\RTController;
+use App\Http\Controllers\User\PageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,7 @@ use Inertia\Inertia;
 //         'title' => 'Desa Salocella'
 //     ]);
 // });
-
+## =========== ADMIN =========== ##
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/user-account', [UserController::class, "index"])->middleware(['auth', 'verified'])->name('userAccount');
 
@@ -56,9 +57,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('agamas', AgamaController::class);
     Route::resource('karangTarunas', KarangTarunaController::class);
     
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 require __DIR__ . '/auth.php';
 
@@ -86,9 +87,7 @@ Route::get('/struk', function () {
     return view('strukturorganisasi');
 })->name('struk');
 
-Route::get('/dapen', function () {
-    return view('datapenduduk');
-})->name('dapen');
+Route::get('/dapen', [PageController::class, 'pendudukIndex'])->name('dapen'); // [nama controller, nama function]
 
 Route::get('/anggaran', function () {
     return view('anggarandesa');
@@ -127,4 +126,4 @@ Route::get('/layanan', function () {
 })->name('layanan');
 
 
-## =========== ADMIN =========== ##
+

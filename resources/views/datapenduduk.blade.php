@@ -35,13 +35,21 @@
 </div>
 
 <script>
+    const penduduk = @json($penduduk);
+    
+    // Hitung persentase
+    const total = penduduk.totalLaki + penduduk.totalPerempuan;
+    const persenLaki = ((penduduk.totalLaki / total) * 100).toFixed(1);
+    const persenPerempuan = ((penduduk.totalPerempuan / total) * 100).toFixed(1);
+    // console.log(penduduk)
+    
     // ===== Grafik Jumlah Penduduk =====
     new Chart(document.getElementById('chartPenduduk'), {
         type: 'pie',
         data: {
             labels: ['Laki-laki', 'Perempuan'],
             datasets: [{
-                data: [49.6, 50.4],
+                 data: [persenLaki, persenPerempuan],
                 backgroundColor: ['#1E56E7', '#E23B0F']
             }]
         },
