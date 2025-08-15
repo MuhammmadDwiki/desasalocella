@@ -9,7 +9,7 @@
 <body>
 
 <header>
-    <img src="{{ asset('images/logo.jpeg') }}" alt="Logo" class="logo">
+    <img src="{{ asset('images/logodesa.png') }}" alt="Logo" class="logo">
     <div>
         <div class="title">Desa Sallo Cela</div>
         <div class="subtitle">
@@ -20,7 +20,7 @@
 </header>
 
 <nav>
-    <div><a href="#">🏠</a></div>
+    <div><a href="#">Home</a></div>
 
     <div class="has-dropdown">
         <a href="#">Profil Desa ▼</a>
@@ -35,7 +35,6 @@
         <a href="#">Data Desa ▼</a>
         <div class="dropdown">
             <a href="{{route('dapen')}}">Data Penduduk</a>
-            <a href="{{route('anggaran')}}">Anggaran Desa</a>
         </div>
     </div>
 
@@ -45,8 +44,6 @@
             <a href="{{route('bpd')}}">BPD</a>
             <a href="{{route('karangtrn')}}">Karang Taruna</a>
             <a href="{{route('ketua')}}">Ketua RT</a>
-            <a href="{{route('linmass')}}">Linmas</a>
-            <a href="{{route('posy')}}">Posyandu</a>
             <a href="{{route('pkk')}}">PKK</a>
         </div>
     </div>
@@ -108,33 +105,80 @@
                 <li>13 Aug 12:00 → 26.1°C</li>
             </ul>
         </div>
-        <div class="stat-card">
+        <div class="stat-column">
+        <div class="stat-card kesehatan-card">
             <h3>❤️ Kesehatan</h3>
-            <p>Puskesmas II Eromoko</p>
-            <p>PKD Desa Pasekan</p>
-            <p>Pos Yandu Balita: 8 Unit</p>
-            <p>Pos Yandu Lansia: 3 Unit</p>
-            <p>Sarana Air Bersih</p>
-            <p>Jamban Keluarga tersedia</p>
-            <p>Balai Kesehatan Ibu dan Anak</p>
+            <p>POLINDES 1 Unit</p>
+            <p>PUSBAN 1 Unit</p>
+            <p>POSBINDU 2 Unit</p>
+            <p>Layanan Lansia 2 Unit</p>
         </div>
-        <div class="stat-card">
-            <h3>🧒 Posyandu</h3>
-            <p>Balita: 190 Anak</p>
-            <p>Lansia: 105 Jiwa</p>
-            <p>Data posyandu diperbarui secara berkala</p>
+
+         <div class="stat-card">
+            <h3>❤️ Peribadatan</h3>
+            <p>Masjid/Mushola 10 Unit</p>
         </div>
-        <div class="stat-card">
+        </div>
+        <div class="stat-column">
+        <div class="stat-card sekolah-card">
             <h3>🏫 Sekolah</h3>
             <p>PAUD: 3 unit</p>
-            <p>SD: 2 unit</p>
+            <p>SD: 1 unit</p>
             <p>SMP: 1 unit</p>
         </div>
+
         <div class="stat-card">
             <h3>👥 Kependudukan</h3>
-            <p>Laki-laki: 51%</p>
-            <p>Perempuan: 49%</p>
-            <p>Total: 2.361 jiwa</p>
+            <div class="population-stats">
+                <div>
+                    <p>Laki-laki</p>
+                    <p>51%</p>
+                </div>
+                <div>
+                    <p>Perempuan</p>
+                    <p>49%</p>
+                </div>
+            </div>
+            <div class="population-total">
+                <p>Jumlah</p>
+                <p>2.361 jiwa</p>
+            </div>
+            <p>Jumlah penduduk diupdate secara berkala.</p>
+        </div>
+    </div>
+    </div>
+</section>
+
+<section class="contact-info">
+    <div class="contact-left">
+        <img src="{{ asset('images/logo.jpeg') }}" alt="Logo Desa" class="contact-logo">
+        <div>
+            <h3>Desa Sallo Cela</h3>
+            <p>Bersatu Maju Dan Sejahtera</p>
+            <p>Kec. Muara Badak, Kab. Kutai Kartanegara,<br>Prov. Kalimantan Timur</p>
+        </div>
+    </div>
+    <div class="contact-right">
+        <div class="contact-card">
+            <span>📧</span>
+            <div>
+                <strong>Email</strong>
+                <p>desasallocella@gmail.com</p>
+            </div>
+        </div>
+        <div class="contact-card">
+            <span>👥</span>
+            <div>
+                <strong>Pengunjung</strong>
+                <p>Jumlah pengunjung: 344,652</p>
+            </div>
+        </div>
+        <div class="contact-card">
+            <span>🕒</span>
+            <div>
+                <strong>Jam Layanan</strong>
+                <p>Senin - Kamis: 07.30 – 14.00</p>
+            </div>
         </div>
     </div>
 </section>
@@ -172,7 +216,7 @@
         </div>
     </div>
     <div class="footer-bottom">
-        &copy; {{ date('Y') }} Desa Pasekan. All Rights Reserved.
+        &copy; {{ date('Y') }} Desa Salo Cella. All Rights Reserved.
     </div>
 </footer>
 

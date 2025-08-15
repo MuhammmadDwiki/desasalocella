@@ -9,7 +9,7 @@
 <body>
 
 <header>
-    <img src="{{ asset('images/logo.jpeg') }}" alt="Logo" class="logo">
+    <img src="{{ asset('images/logodesa.png') }}" alt="Logo" class="logo">
     <div>
         <div class="title">Desa Sallo Cela</div>
         <div class="subtitle">
@@ -81,10 +81,41 @@
     </p>
 </section>
 
-<footer>
-    &copy; {{ date('Y') }} Desa Sallo Cela. Semua Hak Dilindungi.
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h4>Sekilas Pasekan</h4>
+            <ul>
+                <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
+                <li><a href="#">Sekilas Pasekan</a></li>
+                <li><a href="#">Profil</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Pemerintah</h4>
+            <ul>
+                <li><a href="{{ route('visi') }}">Visi Misi</a></li>
+                <li><a href="#">SOT</a></li>
+                <li><a href="{{ route('struk') }}">Struktur Organisasi</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Info Publik</h4>
+            <ul>
+                <li><a href="#">Pengumuman</a></li>
+                <li><a href="#">Infografis</a></li>
+                <li><a href="#">Produk Hukum</a></li>
+                <li><a href="#">Info Berkala</a></li>
+                <li><a href="#">Info serta merta</a></li>
+                <li><a href="#">Info setiap saat</a></li>
+                <li><a href="#">DIP</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; {{ date('Y') }} Desa Salo Cella. All Rights Reserved.
+    </div>
 </footer>
-
 <script src="{{ asset('js/script.js') }}"></script>
 
 </body>

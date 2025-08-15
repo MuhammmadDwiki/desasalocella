@@ -126,4 +126,11 @@ Route::get('/layanan', function () {
 })->name('layanan');
 
 
+<<<<<<< HEAD
+=======
+Route::get('/cuaca', [App\Http\Controllers\WeatherController::class, '']);
+
+
+## =========== ADMIN =========== ##
+>>>>>>> e774ed2 (tambahanFronten)
 
