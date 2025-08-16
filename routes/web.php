@@ -26,10 +26,14 @@ use Inertia\Inertia;
 //     ]);
 // });
 ## =========== ADMIN =========== ##
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard', [
+        "routeUser" => route('userWelcome'),
+    ]);
+})->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/user-account', [UserController::class, "index"])->middleware(['auth', 'verified'])->name('userAccount');
 
-Route::get('/data-pdn', function () {
+Route::get('/data-pdn', function(){
     return Inertia::render('DataPenduduk');
 })->middleware(['auth', 'verified'])->name('userAccount');
 
@@ -50,9 +54,9 @@ Route::get('/karang-taruna', [KarangTarunaController::class, 'index'])->middlewa
 
 Route::middleware('auth')->group(function () {
     Route::resource('Dashboard', DashboardController::class);
-    Route::resource('rt', RTController::class)->except(['create', 'edit']);
-    Route::resource('laporan', RekapitulasiPendudukController::class);
-    Route::resource('detailLaporan', DetailRekapitulasiController::class);
+Route::resource('rt', RTController::class)->except(['create', 'edit']);
+Route::resource('laporan', RekapitulasiPendudukController::class);
+Route::resource('detailLaporan', DetailRekapitulasiController::class);
     Route::resource('kegiatans', KegiatanRTController::class);
     Route::resource('agamas', AgamaController::class);
     Route::resource('karangTarunas', KarangTarunaController::class);
@@ -126,11 +130,11 @@ Route::get('/layanan', function () {
 })->name('layanan');
 
 
-<<<<<<< HEAD
-=======
+
+
 Route::get('/cuaca', [App\Http\Controllers\WeatherController::class, '']);
 
 
 ## =========== ADMIN =========== ##
->>>>>>> e774ed2 (tambahanFronten)
+
 

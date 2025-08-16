@@ -22,7 +22,7 @@
 </header>
 
 <nav>
-    <div><a href="{{route('userWelcome')}}">🏠</a></div>
+    <div><a href="{{route('userWelcome')}}">Home</a></div>
 
     <div class="has-dropdown">
         <a href="#">Profil Desa ▼</a>
@@ -30,6 +30,7 @@
             <a href="{{route('sejarah')}}">Sejarah Desa</a>
             <a href="{{route('visi')}}">Visi & Misi</a>
             <a href="{{route('struk')}}">Struktur Organisasi</a>
+            <a href="{{route('peta')}}">Peta Administrasi</a>
         </div>
     </div>
 
@@ -37,7 +38,6 @@
         <a href="#">Data Desa ▼</a>
         <div class="dropdown">
             <a href="{{route('dapen')}}">Data Penduduk</a>
-            <a href="{{route('anggaran')}}">Anggaran Desa</a>
         </div>
     </div>
 

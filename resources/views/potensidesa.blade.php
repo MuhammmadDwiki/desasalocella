@@ -20,7 +20,7 @@
 </header>
 
 <nav>
-    <div><a href="{{route('userWelcome')}}">🏠</a></div>
+    <div><a href="{{route('userWelcome')}}">Home</a></div>
 
     <div class="has-dropdown">
         <a href="#">Profil Desa ▼</a>
@@ -28,6 +28,7 @@
             <a href="{{route('sejarah')}}">Sejarah Desa</a>
             <a href="{{route('visi')}}">Visi & Misi</a>
             <a href="{{route('struk')}}">Struktur Organisasi</a>
+            <a href="{{route('peta')}}">Peta Administrasi</a>
         </div>
     </div>
 
@@ -35,7 +36,6 @@
         <a href="#">Data Desa ▼</a>
         <div class="dropdown">
             <a href="{{route('dapen')}}">Data Penduduk</a>
-            <a href="{{route('anggaran')}}">Anggaran Desa</a>
         </div>
     </div>
 
@@ -45,8 +45,6 @@
             <a href="{{route('bpd')}}">BPD</a>
             <a href="{{route('karangtrn')}}">Karang Taruna</a>
             <a href="{{route('ketua')}}">Ketua RT</a>
-            <a href="{{route('linmass')}}">Linmas</a>
-            <a href="{{route('posy')}}">Posyandu</a>
             <a href="{{route('pkk')}}">PKK</a>
         </div>
     </div>
@@ -58,36 +56,30 @@
 </nav>
 
 <section class="page-header">
-    <h2>Sejarah Desa Sallo Cela</h2>
+    <h2>Potensi Desa Sallo Cela</h2>
 </section>
 
 <section class="content">
-    <h3>Asal Usul Desa</h3>
+    <h3>Potensi Desa</h3>
     <p>
-        Desa Sallo Cela berdiri sejak puluhan tahun yang lalu sebagai salah satu pemukiman yang berkembang di wilayah Kecamatan Muara Badak.
-        Awalnya desa ini merupakan kumpulan beberapa kelompok masyarakat yang menetap di sekitar daerah aliran sungai untuk bercocok tanam dan menangkap ikan.
+        Desa Sallo Cela memiliki berbagai potensi yang dapat mendukung kesejahteraan masyarakat dan kemajuan wilayah, antara lain:
     </p>
-
-    <h3>Perkembangan Desa</h3>
-    <p>
-        Seiring berjalannya waktu, Desa Sallo Cela berkembang menjadi pusat kegiatan pertanian, perkebunan, perikanan, dan peternakan di wilayahnya.
-        Pembangunan infrastruktur seperti jalan, jembatan, dan fasilitas umum mulai dibangun untuk mendukung aktivitas masyarakat.
-    </p>
-
-    <h3>Kehidupan Masyarakat</h3>
-    <p>
-        Masyarakat Desa Sallo Cela dikenal memiliki nilai kebersamaan, gotong royong, dan menjunjung tinggi adat istiadat setempat.
-        Hingga kini, desa ini terus berkembang menuju masyarakat yang sejahtera dengan tetap menjaga tradisi dan kearifan lokal.
-    </p>
+    <ul>
+        <li><strong>Pertanian dan Perkebunan:</strong> Potensi lahan yang luas untuk pengembangan kelapa sawit, karet, serta tanaman pangan lainnya.</li>
+        <li><strong>Perikanan:</strong> Didukung oleh sungai dan perairan sekitar yang menjadi sumber ikan air tawar.</li>
+        <li><strong>Peternakan:</strong> Potensi pengembangan ternak seperti sapi, kambing, dan unggas.</li>
+        <li><strong>Sumber Daya Alam:</strong> Terdapat sumur minyak dan gas bumi yang dikelola oleh perusahaan, memberikan kontribusi ekonomi bagi masyarakat.</li>
+    </ul>
 </section>
+
 
 <footer class="site-footer">
     <div class="footer-content">
         <div class="footer-column">
-            <h4>Sekilas Pasekan</h4>
+            <h4>Sekilas Desa Salo Cella</h4>
             <ul>
                 <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
-                <li><a href="#">Sekilas Pasekan</a></li>
+                <li><a href="#">Sekilas Desa Salo Cella</a></li>
                 <li><a href="#">Profil</a></li>
             </ul>
         </div>
