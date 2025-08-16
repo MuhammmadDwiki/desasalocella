@@ -27,6 +27,7 @@ class PageController extends Controller
         // dd($summary);
         return view("datapenduduk", [
             'penduduk' => array_map('number_format', $summary),
+            //  'dataRt' => RT::all(),
         ]);
     }    
 }

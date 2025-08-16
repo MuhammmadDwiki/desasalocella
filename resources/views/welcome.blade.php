@@ -20,7 +20,7 @@
 </header>
 
 <nav>
-    <div><a href="#">Home</a></div>
+    <div><a href="userWelcome">Home</a></div>
 
     <div class="has-dropdown">
         <a href="#">Profil Desa ▼</a>
@@ -28,6 +28,7 @@
             <a href="{{route('sejarah')}}">Sejarah Desa</a>
             <a href="{{route('visi')}}">Visi & Misi</a>
             <a href="{{route('struk')}}">Struktur Organisasi</a>
+            <a href="{{route('peta')}}">Peta Administrasi</a>
         </div>
     </div>
 
@@ -55,32 +56,13 @@
 </nav>
 
 <section class="hero">
+    <video autoplay muted loop playsinline class="hero-video">
+        <source src="{{ asset('videos/bgdesaa.mp4') }}" type="video/mp4">
+        Browser Anda tidak mendukung video tag.
+    </video>
     <div class="hero-content">
         <h2>SELAMAT DATANG DI<br> DESA SALLO CELA</h2>
         <p>Website Resmi Desa Sallo Cela</p>
-    </div>
-</section>
-
-<section class="cards">
-    <div class="card">
-        <div class="icon">🏛️</div>
-        <h3>Struktur Pemerintahan</h3>
-        <p>Informasi mengenai susunan organisasi pemerintahan Desa Sallo Cela</p>
-    </div>
-    <div class="card">
-        <div class="icon">📍</div>
-        <h3>Potensi Wilayah</h3>
-        <p>Eksplorasi potensi dan sumber daya alam yang dimiliki desa</p>
-    </div>
-    <div class="card">
-        <div class="icon">👥</div>
-        <h3>Kegiatan Masyarakat</h3>
-        <p>Berita terbaru seputar aktivitas dan acara yang berlangsung di desa</p>
-    </div>
-    <div class="card">
-        <div class="icon">📝</div>
-        <h3>Layanan Publik</h3>
-        <p>Informasi tentang layanan publik yang tersedia bagi masyarakat desa</p>
     </div>
 </section>
 

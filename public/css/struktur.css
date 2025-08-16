@@ -1,13 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #fff;
-    color: #222;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
 header {
     background: #e60000;
     color: white;
@@ -78,50 +68,93 @@ nav a:hover {
     margin-left: 15px;
 }
 
-
-    /* Judul Halaman */
-    .page-header {
+.page-header {
         background: #e60000;
         color: white;
         padding: 20px;
         text-align: center;
     }
 
-    /* Konten */
-    .content {
-        padding: 20px;
-        max-width: 900px;
-        margin: auto;
-        background: white;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        line-height: 1.6;
-    }
-    .content h3 {
-        color: #e60000;
-        margin-top: 0;
-    }
+.struktur-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 40px;
+}
 
-    /* Footer */
+.card-biodata {
+    display: flex;
+    background: #fff;
+    border: 2px solid #d35400;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    align-items: center;
+}
+
+.foto-perangkat {
+    width: 160px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+    border: 3px solid #d35400;
+}
+
+.biodata h3 {
+    color: #d35400;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+.biodata ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.biodata li {
+    margin: 5px 0;
+    font-size: 15px;
+}
+
 .site-footer {
     background-color: #f9f9f9;
     padding: 40px 20px 20px;
     font-family: Arial, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     color: #000;
 }
 
 .footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 kolom */
     max-width: 1100px;
     margin: 0 auto;
+    gap: 20px;
+}
+
+.footer-column {
+    flex: 1;
+}
+
+.footer-column:nth-child(1) {
+    text-align: left; /* Sekilas Pasekan di kiri */
+}
+
+.footer-column:nth-child(2) {
+    text-align: center; /* Pemerintah di tengah */
+}
+
+.footer-column:nth-child(3) {
+    text-align: right; /* Info Publik di kanan */
 }
 
 .footer-column h4 {
     font-weight: bold;
     margin-bottom: 10px;
+    font-size: 18px;
 }
 
 .footer-column ul {
@@ -131,12 +164,13 @@ nav a:hover {
 }
 
 .footer-column ul li {
-    margin: 4px 0;
+    margin: 6px 0;
 }
 
 .footer-column ul li a {
     text-decoration: none;
     color: #000;
+    font-size: 16px;
 }
 
 .footer-column ul li a:hover {
@@ -145,8 +179,19 @@ nav a:hover {
 
 .footer-bottom {
     text-align: center;
-    margin-top: 20px;
-    font-size: 13px;
+    margin-top: 30px;
+    font-size: 14px;
     color: #333;
 }
 
+/* Responsive untuk HP */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr; /* Jadi 1 kolom */
+        text-align: center;
+    }
+
+    .footer-column {
+        text-align: center !important; /* Semua tengah di HP */
+    }
+}

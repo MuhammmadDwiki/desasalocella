@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
+<link rel="stylesheet" href="{{ asset('css/struktur.css') }}">
 <title>Desa Sallo Cela</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
 </header>
 
 <nav>
-    <div><a href="{{route('userWelcome')}}">🏠</a></div>
+    <div><a href="{{route('userWelcome')}}">Home</a></div>
 
     <div class="has-dropdown">
         <a href="#">Profil Desa ▼</a>
@@ -27,6 +27,7 @@
             <a href="{{route('sejarah')}}">Sejarah Desa</a>
             <a href="{{route('visi')}}">Visi & Misi</a>
             <a href="{{route('struk')}}">Struktur Organisasi</a>
+            <a href="{{route('peta')}}">Peta Administrasi</a>
         </div>
     </div>
 
@@ -34,7 +35,6 @@
         <a href="#">Data Desa ▼</a>
         <div class="dropdown">
             <a href="{{route('dapen')}}">Data Penduduk</a>
-            <a href="{{route('anggaran')}}">Anggaran Desa</a>
         </div>
     </div>
 
@@ -57,6 +57,98 @@
 </nav>
 
 <section class="page-header">
-    <h2>Visi & Misi Desa Sallo Cela</h2>
+    <h2>Struktur Organisasi Desa Sallo Cela</h2>
 </section>
+
+<section class="struktur-container">
+    <!-- Kepala Desa -->
+    <div class="card-biodata">
+        <img src="{{ asset('images/kepala_desa.jpg') }}" alt="Kepala Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA KEPALA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Sutaryo</li>
+                <li><strong>Jabatan</strong> : Kepala Desa</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : Wonogiri, 12 Juli 1964</li>
+                <li><strong>Pendidikan</strong> : SMA</li>
+                <li><strong>Agama</strong> : Islam</li>
+                <li><strong>Alamat</strong> : Jatiharjo Rt 002/006 Pasekan</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sekretaris Desa -->
+    <div class="card-biodata">
+        <img src="{{ asset('images/sekretaris_desa.jpg') }}" alt="Sekretaris Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA SEKRETARIS DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Nama Sekretaris</li>
+                <li><strong>Jabatan</strong> : Sekretaris Desa</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bendahara Desa -->
+    <div class="card-biodata">
+        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA BENDAHARA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Nama Bendahara</li>
+                <li><strong>Jabatan</strong> : Bendahara Desa</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Tambahkan perangkat desa lainnya dengan format sama -->
+</section>
+
+
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h4>Sekilas Pasekan</h4>
+            <ul>
+                <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
+                <li><a href="#">Sekilas Pasekan</a></li>
+                <li><a href="#">Profil</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Pemerintah</h4>
+            <ul>
+                <li><a href="{{ route('visi') }}">Visi Misi</a></li>
+                <li><a href="#">SOT</a></li>
+                <li><a href="{{ route('struk') }}">Struktur Organisasi</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Info Publik</h4>
+            <ul>
+                <li><a href="#">Pengumuman</a></li>
+                <li><a href="#">Infografis</a></li>
+                <li><a href="#">Produk Hukum</a></li>
+                <li><a href="#">Info Berkala</a></li>
+                <li><a href="#">Info serta merta</a></li>
+                <li><a href="#">Info setiap saat</a></li>
+                <li><a href="#">DIP</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; {{ date('Y') }} Desa Salo Cella. All Rights Reserved.
+    </div>
+</footer>
+
+
+<script src="{{ asset('js/script.js') }}"></script>
 </body>

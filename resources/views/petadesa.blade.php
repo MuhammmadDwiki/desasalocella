@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{{ asset('css/visimisi.css') }}">
-<title>Visi & Misi - Desa Sallo Cela</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Desa - Desa Sallo Cela</title>
+    <link rel="stylesheet" href="{{ asset('css/petadesa.css') }}">
 </head>
 <body>
-
-<header>
+    <header>
     <img src="{{ asset('images/logodesa.png') }}" alt="Logo" class="logo">
     <div>
         <div class="title">Desa Sallo Cela</div>
@@ -38,15 +37,13 @@
             <a href="{{route('dapen')}}">Data Penduduk</a>
         </div>
     </div>
-    
+
     <div class="has-dropdown">
         <a href="#">Kelembagaan ▼</a>
         <div class="dropdown">
             <a href="{{route('bpd')}}">BPD</a>
             <a href="{{route('karangtrn')}}">Karang Taruna</a>
             <a href="{{route('ketua')}}">Ketua RT</a>
-            <a href="{{route('linmass')}}">Linmas</a>
-            <a href="{{route('posy')}}">Posyandu</a>
             <a href="{{route('pkk')}}">PKK</a>
         </div>
     </div>
@@ -57,31 +54,29 @@
     <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
 </nav>
 
-<section class="page-header">
-    <h2>Visi & Misi Desa Sallo Cela</h2>
+    <section class="page-header">
+        <h2>Peta Desa Sallo Cela</h2>
+    </section>
+
+   <section class="peta-container">
+    <h2>Peta Administrasi Desa Salo Cella</h2>
+    <img src="{{ asset('images/petadesa.png') }}" alt="Peta Administrasi Desa Sallo Cela">
+    <p class="peta-deskripsi">
+        Peta Administrasi Desa Salo Cella menampilkan batas wilayah desa, sungai, jalan,
+        serta pemukiman. Peta ini berguna untuk memberikan gambaran umum wilayah
+        administrasi desa beserta posisi strategisnya di Kecamatan Muara Badak.
+    </p>
 </section>
 
-<section class="visi-misi">
-    <h3>Visi</h3>
-    <p>"Mewujudkan masyarakat desa yang sejahtera dan damai melalui program-program yang berkelanjutan."</p>
-
-    <h3>Misi</h3>
-    <ol>
-        <li>Melakukan reformasi kinerja aparatur pemerintah desa guna meningkatkan kualitas pelayanan kepada masyarakat yang prima, yaitu cepat, tepat, dan benar, serta menyelenggarakan pemerintah desa secara transparan, efisien, akuntabel, dan bertanggung jawab sesuai dengan perundang-undangan.</li>
-        <li>Peningkatan/pembangunan di seluruh wilayah Desa Sallo Cela, baik desa, pemukiman, dan peningkatan sarana prasarana pertanian, perkebunan, perikanan, dan peternakan.</li>
-        <li>Meningkatkan sarana dan prasarana dari segi fisik, ekonomi, pendidikan, kesehatan, olahraga, dan kebudayaan.</li>
-        <li>Meningkatkan kesejahteraan masyarakat desa dengan mewujudkan usaha milik desa (BUMDes) dan program lain untuk membuka lapangan kerja bagi masyarakat desa.</li>
-        <li>Menjalin komunikasi yang harmonis antara masyarakat, pemerintah dan lembaga desa, saling menghormati dalam kehidupan berbudaya.</li>
-        <li>Memberdayakan semua potensi yang ada pada masyarakat yang meliputi:
-            <ul>
-                <li>Pemberdayaan sumber daya manusia (SDM)</li>
-                <li>Pemberdayaan sumber daya alam (SDA)</li>
-                <li>Pemberdayaan ekonomi masyarakat</li>
-            </ul>
-        </li>
-    </ol>
+<section class="peta-container">
+    <h2>Peta Batas RT Desa Salo Cella</h2>
+    <img src="{{ asset('images/petabatasrt.png') }}" alt="Peta Batas RT Desa Sallo Cela">
+    <p class="peta-deskripsi">
+        Peta Batas RT Desa Salo Cella memperlihatkan pembagian wilayah berdasarkan
+        Rukun Tetangga (RT). Peta ini menunjukkan luas wilayah masing-masing RT yang
+        dapat digunakan untuk perencanaan pembangunan dan pelayanan masyarakat.
+    </p>
 </section>
-
 
 <footer class="site-footer">
     <div class="footer-content">
@@ -119,6 +114,6 @@
     </div>
 </footer>
 
-<script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>
