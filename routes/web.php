@@ -93,9 +93,9 @@ Route::get('/struk', function () {
 
 Route::get('/dapen', [PageController::class, 'pendudukIndex'])->name('dapen'); // [nama controller, nama function]
 
-Route::get('/anggaran', function () {
-    return view('anggarandesa');
-})->name('anggaran');
+Route::get('/peta', function () {
+    return view('petadesa');
+})->name('peta');
 
 Route::get('/bpd', function () {
     return view('badanpermusyawaratandesa');
