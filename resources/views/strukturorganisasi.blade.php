@@ -65,12 +65,12 @@
         <div class="biodata">
             <h3>BIODATA KEPALA DESA</h3>
             <ul>
-                <li><strong>Nama</strong> : Sutaryo</li>
+                <li><strong>Nama</strong> : Salama</li>
                 <li><strong>Jabatan</strong> : Kepala Desa</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : Wonogiri, 12 Juli 1964</li>
-                <li><strong>Pendidikan</strong> : SMA</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : </li>
+                <li><strong>Pendidikan</strong> : </li>
                 <li><strong>Agama</strong> : Islam</li>
-                <li><strong>Alamat</strong> : Jatiharjo Rt 002/006 Pasekan</li>
+                <li><strong>Alamat</strong> : Badak 1</li>
             </ul>
         </div>
     </div>
@@ -81,7 +81,7 @@
         <div class="biodata">
             <h3>BIODATA SEKRETARIS DESA</h3>
             <ul>
-                <li><strong>Nama</strong> : Nama Sekretaris</li>
+                <li><strong>Nama</strong> : Feriansyah</li>
                 <li><strong>Jabatan</strong> : Sekretaris Desa</li>
                 <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
                 <li><strong>Pendidikan</strong> : …</li>
@@ -97,7 +97,7 @@
         <div class="biodata">
             <h3>BIODATA BENDAHARA DESA</h3>
             <ul>
-                <li><strong>Nama</strong> : Nama Bendahara</li>
+                <li><strong>Nama</strong> : Siti Aisyah</li>
                 <li><strong>Jabatan</strong> : Bendahara Desa</li>
                 <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
                 <li><strong>Pendidikan</strong> : …</li>
@@ -108,6 +108,155 @@
     </div>
 
     <!-- Tambahkan perangkat desa lainnya dengan format sama -->
+     <div class="card-biodata">
+        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA BENDAHARA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Rudy Rusandi</li>
+                <li><strong>Jabatan</strong> : KASI KESRA</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card-biodata">
+        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA BENDAHARA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Muhammad Yunus</li>
+                <li><strong>Jabatan</strong> : KASI PLT Pemerintahan dan Perencanaan</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card-biodata">
+        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA BENDAHARA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Nur Afiah</li>
+                <li><strong>Jabatan</strong> : Staff Keuangan</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card-biodata">
+        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA BENDAHARA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Usri</li>
+                <li><strong>Jabatan</strong> : Staff KESRA</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card-biodata">
+        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA BENDAHARA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Sulfiani</li>
+                <li><strong>Jabatan</strong> : Staff KESRA</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card-biodata">
+        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA BENDAHARA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Ardiansyah</li>
+                <li><strong>Jabatan</strong> : Staff Perencanaan</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card-biodata">
+        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA BENDAHARA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Abdul Razak</li>
+                <li><strong>Jabatan</strong> : Staff Pemerintahan</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card-biodata">
+        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA BENDAHARA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Herawati</li>
+                <li><strong>Jabatan</strong> : Staff Pemerintahan</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card-biodata">
+        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA BENDAHARA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Udin</li>
+                <li><strong>Jabatan</strong> : Staff Desa</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card-biodata">
+        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
+        <div class="biodata">
+            <h3>BIODATA BENDAHARA DESA</h3>
+            <ul>
+                <li><strong>Nama</strong> : Surti Yanti</li>
+                <li><strong>Jabatan</strong> : Staff Desa</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
+                <li><strong>Pendidikan</strong> : …</li>
+                <li><strong>Agama</strong> : …</li>
+                <li><strong>Alamat</strong> : …</li>
+            </ul>
+        </div>
+    </div>
 </section>
 
 
