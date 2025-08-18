@@ -26,7 +26,7 @@
         <div class="dropdown">
             <a href="{{route('sejarah')}}">Sejarah Desa</a>
             <a href="{{route('visi')}}">Visi & Misi</a>
-            <a href="{{route('struk')}}">Struktur Organisasi</a>
+            <a href="{{route('struk')}}">Perangkat Desa</a>
             <a href="{{route('peta')}}">Peta Administrasi</a>
         </div>
     </div>

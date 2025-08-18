@@ -1,41 +1,82 @@
-header {
-    background: #e60000;
-    color: white;
-    padding: 10px;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #fff;
+    color: #222;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-header .logo {
-    height: 70px;
-    margin-right: 15px;
-}
-header .title {
-    font-size: 1.8em;
-    font-weight: bold;
-}
-header .subtitle {
-    font-size: 1em;
-    margin-top: 5px;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-nav {
-    background: #000;
-    color: white;
+/* ===== TOP BAR (header + nav) ===== */
+.top-bar {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; 
     align-items: center;
-    padding: 10px 0;
+    padding: 10px 40px;
+    background: rgba(0,0,0,0.4) url("../images/bgnav.png") no-repeat center;
+        background-size: cover; /* biar penuh */
+    background-position: center -500px; /* ✅ geser ke bawah 50px */
+    color: white;
+    z-index: 1000;
 }
-nav a {
+
+.top-bar .left {
+    display: flex;
+    align-items: center;
+    margin-right: 40px; /* kasih jarak dengan menu */
+}
+
+.top-bar .logo {
+    height: 50px;
+    margin-right: 15px;
+}
+
+.top-bar .title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.top-bar .subtitle {
+    font-size: 0.85em;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* ===== NAVIGATION ===== */
+.top-bar nav {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* atur jarak antar menu */
+    margin-left: 200px;
+    flex : 0 0 auto;
+    background: transparent; /* ✅ hilangkan warna putih */
+    height: auto;            /* ✅ biar tidak memanjang */
+}
+
+.top-bar nav div {
+    flex: 0 0 auto;   /* ✅ jangan melar */
+    background: none; /* ✅ hilangkan background putih */
+}
+
+.top-bar nav a {
     color: white;
     text-decoration: none;
     margin: 0 10px;
     font-size: 0.9em;
+    transition: color 0.3s;
 }
-nav a:hover {
-    color: red;
+
+.top-bar nav a:hover {
+    color: #ff3333;
 }
+
 
 .has-dropdown {
     position: relative;
@@ -62,18 +103,15 @@ nav a:hover {
     color: red !important;
 }
 
-.search-icon {
-    cursor: pointer;
-    font-size: 1.2em;
-    margin-left: 15px;
-}
 
+    /* Judul Halaman */
 .page-header {
-        background: #e60000;
-        color: white;
-        padding: 20px;
-        text-align: center;
-    }
+    background: #e60000;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: 80px; /* ✅ kasih jarak dari navbar */
+}
 
 .struktur-container {
     display: flex;
@@ -119,6 +157,7 @@ nav a:hover {
     font-size: 15px;
 }
 
+    /* Footer */
 .site-footer {
     background-color: #f9f9f9;
     padding: 40px 20px 20px;
