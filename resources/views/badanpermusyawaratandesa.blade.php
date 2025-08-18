@@ -69,47 +69,27 @@
     <tbody>
         <tr>
             <td style="text-align:center;">1</td>
-            <td>Muhammad Aris</td>
+            <td>Dr.Ns.Putri Jamal, S.ST., M.Kes. Ph.d</td>
             <td>Ketua</td>
         </tr>
         <tr>
             <td style="text-align:center;">2</td>
-            <td>Rahman</td>
-            <td>Sekretaris</td>
+            <td>Jumriani. SE</td>
+            <td>Wakil Ketua</td>
         </tr>
         <tr>
             <td style="text-align:center;">3</td>
-            <td>Udin</td>
-            <td>Bendahara</td>
+            <td>Erwin</td>
+            <td>Sekretaris</td>
         </tr>
         <tr>
             <td style="text-align:center;">4</td>
-            <td>Heri</td>
-            <td>Sekretaris II</td>
+            <td>Hasnani</td>
+            <td>Anggota</td>
         </tr>
         <tr>
             <td style="text-align:center;">5</td>
-            <td>Henri Setiawan</td>
-            <td>Bendahara I</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">6</td>
-            <td>Tria Ayu Retnaningtyas</td>
-            <td>Bendahara II</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">7</td>
-            <td></td>
-            <td>Anggota</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">8</td>
-            <td></td>
-            <td>Anggota</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">9</td>
-            <td></td>
+            <td>Sitti Harsiah</td>
             <td>Anggota</td>
         </tr>
     </tbody>

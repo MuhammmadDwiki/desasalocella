@@ -62,115 +62,40 @@
     <thead style="background-color: #f2f2f2;">
         <tr>
             <th style="width: 50px; text-align:center;">No</th>
-            <th>Nama</th>
-            <th>Status Dalam Organisasi</th>
+            <th>Budi</th>
+            <th>Ketua</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td style="text-align:center;">1</td>
-            <td>Muhammad Aris</td>
-            <td>Ketua</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">2</td>
-            <td>Rahman</td>
+            <td>Sunarti</td>
             <td>Sekretaris</td>
         </tr>
         <tr>
-            <td style="text-align:center;">3</td>
-            <td>Udin</td>
+            <td style="text-align:center;">2</td>
+            <td>Nursidi</td>
             <td>Bendahara</td>
         </tr>
         <tr>
+            <td style="text-align:center;">3</td>
+            <td>Sudirman</td>
+            <td>Anggota</td>
+        </tr>
+        <tr>
             <td style="text-align:center;">4</td>
-            <td>Arif Hidayatullah</td>
-            <td>Seksi Bidang Pendidikan</td>
+            <td>Sutriana</td>
+            <td>Anggota</td>
         </tr>
         <tr>
             <td style="text-align:center;">5</td>
-            <td>Budiman</td>
-            <td>Seksi Bidang Pendidikan</td>
+            <td>Hendrik</td>
+            <td>Anggota</td>
         </tr>
         <tr>
             <td style="text-align:center;">6</td>
-            <td>Irwan Nur</td>
-            <td>Seksi Bidang Pendidikan</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">7</td>
-            <td>Rusdi</td>
-            <td>Seksi Bidang Usaha Kesejahteraan</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">8</td>
-            <td>Saripodding</td>
-            <td>Seksi Bidang Usaha Kesejahteraan</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">9</td>
-            <td>Jumardi</td>
-            <td>Seksi Bidang Usaha Kesejahteraan</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">10</td>
-            <td>Muh. Yunus</td>
-            <td>Seksi Bidang Keagamaan</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">11</td>
-            <td>Ismanto</td>
-            <td>Seksi Bidang Keagamaan</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">12</td>
-            <td>Irvan</td>
-            <td>Seksi Bidang Keagamaan</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">13</td>
-            <td>Junaidi</td>
-            <td>Seksi Bidang Kerohanian dan Pembinaan Mental</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">14</td>
-            <td>Suardi</td>
-            <td>Seksi Bidang Kerohanian dan Pembinaan Mental</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">15</td>
-            <td>Zainal Abidin</td>
-            <td>Seksi Bidang Kerohanian dan Pembinaan Mental</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">16</td>
-            <td>Rudi Rushandi</td>
-            <td>Seksi Bidang Olahraga dan Seni Budaya</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">17</td>
-            <td>Wawan</td>
-            <td>Seksi Bidang Olahraga dan Seni Budayan</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">18</td>
-            <td>Supriadi.B</td>
-            <td>Seksi Bidang Lingkungan Hidup</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">19</td>
-            <td>Aldi Revaldi</td>
-            <td>Seksi Bidang Lingkungan Hidup</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">20</td>
-            <td>Naharullah</td>
-            <td>Seksi Bidang Humas dan Kerjasama Kemitraan</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">21</td>
-            <td>Nursamsu</td>
-            <td>Seksi Bidang Humas dan Kerjasama Kemitraan</td>
+            <td>Surahman</td>
+            <td>Anggota</td>
         </tr>
     </tbody>
 </table>

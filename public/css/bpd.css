@@ -121,56 +121,7 @@ html, body {
     margin-top: 80px; /* ✅ kasih jarak dari navbar */
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-    padding: 20px;
-    max-width: 1000px;
-    margin: auto;
-    flex: 1;
-}
-.card {
-    background: #e60000;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    text-align: center;
-    border-top: 4px solid #000;
-    color: #fff;
-}
-.card h3 {
-    margin: 10px 0;
-    font-size: 1em;
-}
-.card p {
-    font-size: 0.9em;
-}
-.card .icon {
-    font-size: 2em;
-}
 
-    /* Konten */
-    .content {
-        padding: 20px;
-        max-width: 900px;
-        margin: auto;
-        background: white;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        line-height: 1.6;
-    }
-    .content h3 {
-        color: #e60000;
-        margin-top: 0;
-    }
-
-    .site-footer {
-    background-color: #f9f9f9;
-    padding: 40px 20px 20px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-}
 
 .site-footer {
     background-color: #f9f9f9;
