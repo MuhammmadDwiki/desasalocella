@@ -48,6 +48,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
         
         // Redirect to login page after logout
-        return Inertia::location(route('userWelcome'));
+        return Inertia::location(route('beranda'));
     }
 }

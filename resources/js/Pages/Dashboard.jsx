@@ -71,15 +71,15 @@ export default function Dashboard({
     lastUpdated,
     pendudukByBulan,
 }) {
-    console.log(
-        "summary :",
-        summary,
-        "\ndetail Data :",
-        detailData,
-        ageGroups,
-        "\nPenduduk By bulan",
-        pendudukByBulan
-    );
+    // console.log(
+    //     "summary :",
+    //     summary,
+    //     "\ndetail Data :",
+    //     detailData,
+    //     ageGroups,
+    //     "\nPenduduk By bulan",
+    //     pendudukByBulan
+    // );
 
     const columnHelper = createColumnHelper();
     const column = [
@@ -132,7 +132,7 @@ export default function Dashboard({
                                 Total Penduduk
                             </h2>
                             <p className="text-3xl font-bold mt-2">
-                                {summary.totalPenduduk.toLocaleString("id-ID")}
+                                {summary?.totalPenduduk.toLocaleString("id-ID")}
                             </p>
                         </div>
 
@@ -142,7 +142,7 @@ export default function Dashboard({
                                 Penduduk Datang
                             </h2>
                             <p className="text-3xl font-bold mt-2">
-                                {summary.totalDatang.toLocaleString("id-ID")}
+                                {summary?.totalDatang.toLocaleString("id-ID")}
                             </p>
                         </div>
 
@@ -152,7 +152,7 @@ export default function Dashboard({
                                 Penduduk Pindah
                             </h2>
                             <p className="text-3xl font-bold mt-2">
-                                {summary.totalPindah.toLocaleString("id-ID")}
+                                {summary?.totalPindah.toLocaleString("id-ID")}
                             </p>
                         </div>
                     </div>

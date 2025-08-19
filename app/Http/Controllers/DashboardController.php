@@ -98,6 +98,8 @@ class DashboardController extends Controller
             'genderRatio' => $pendudukDetail->sum('jumlah_perempuan_akhir') /
                 max(1, $pendudukDetail->sum('jumlah_laki_laki_akhir'))
         ];
+        // dd($pendudukByBulan);
+
         $lastUpdated = DetailRekapitulasi::latest('updated_at')->value('updated_at');
 
         return Inertia::render('Dashboard', [
