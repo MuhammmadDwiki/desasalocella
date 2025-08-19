@@ -1,35 +1,3 @@
-<<<<<<< HEAD
-header {
-    background: #e60000;
-    color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-header .logo {
-    height: 70px;
-    margin-right: 15px;
-}
-header .title {
-    font-size: 1.8em;
-    font-weight: bold;
-}
-header .subtitle {
-    font-size: 1em;
-    margin-top: 5px;
-}
-
-nav {
-    background: #000;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-}
-nav a {
-=======
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -98,18 +66,10 @@ html, body {
 }
 
 .top-bar nav a {
->>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
     color: white;
     text-decoration: none;
     margin: 0 10px;
     font-size: 0.9em;
-<<<<<<< HEAD
-}
-nav a:hover {
-    color: red;
-}
-
-=======
     transition: color 0.3s;
 }
 
@@ -118,7 +78,6 @@ nav a:hover {
 }
 
 
->>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
 .has-dropdown {
     position: relative;
     margin: 0 10px;
@@ -144,20 +103,6 @@ nav a:hover {
     color: red !important;
 }
 
-<<<<<<< HEAD
-.search-icon {
-    cursor: pointer;
-    font-size: 1.2em;
-    margin-left: 15px;
-}
-
-.page-header {
-        background: #e60000;
-        color: white;
-        padding: 20px;
-        text-align: center;
-    }
-=======
 
     /* Judul Halaman */
 .page-header {
@@ -167,7 +112,6 @@ nav a:hover {
     text-align: center;
     margin-top: 80px; /* ✅ kasih jarak dari navbar */
 }
->>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
 
 .peta-deskripsi {
     margin-top: 10px;
@@ -196,10 +140,7 @@ nav a:hover {
 
 
 
-<<<<<<< HEAD
-=======
     /* Footer */
->>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
 .site-footer {
     background-color: #f9f9f9;
     padding: 40px 20px 20px;
@@ -275,8 +216,4 @@ nav a:hover {
     .footer-column {
         text-align: center !important; /* Semua tengah di HP */
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c

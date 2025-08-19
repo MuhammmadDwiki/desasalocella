@@ -17,7 +17,7 @@
         </div>
     </div>
 </header>
-
+{{-- 
 <nav>
     <div><a href="{{route('userWelcome')}}">Home</a></div>
 
@@ -51,7 +51,7 @@
     <div><a href="{{route('potensi')}}">Potensi Desa</a></div>
     <div><a href="{{route('layanan')}}">Layanan</a></div>
 
-</nav>
+</nav> --}}
 
 <section class="page-header">
     <h2>Data Ketua RT Desa Sallo Cela</h2>

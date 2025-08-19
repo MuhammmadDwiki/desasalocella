@@ -54,8 +54,8 @@
     </div>
 </header>
 
-<nav>
-    <div><a href="{{route('userWelcome')}}">Home</a></div>
+{{-- <nav>
+    <div><a href="{{route('beranda')}}">Home</a></div>
 
     <div class="has-dropdown">
         <a href="#">Profil Desa ▼</a>
@@ -90,7 +90,7 @@
     <div><a href="{{route('layanan')}}">Layanan</a></div>
 
     <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
-</nav>
+</nav> --}}
 
 <section class="page-header">
     <h2>Visi & Misi Desa Sallo Cela</h2>

@@ -26,7 +26,7 @@ class SendEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Welcome to laracoding.com EmailDemo',
+            subject: 'Reset Password',
         );
     }
 

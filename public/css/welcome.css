@@ -108,11 +108,7 @@ html, body {
 .hero {
     position: relative;
     width: 100%;
-<<<<<<< HEAD
-    height: 80vh;
-=======
     min-height: 120vh;
->>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -121,10 +117,6 @@ html, body {
     text-align: center;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
 .hero-video {
     position: absolute;
     top: 50%; left: 50%;
