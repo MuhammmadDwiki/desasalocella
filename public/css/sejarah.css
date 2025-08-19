@@ -103,15 +103,12 @@ html, body {
     color: red !important;
 }
 
-<<<<<<< HEAD
 .search-icon {
     cursor: pointer;
     font-size: 1.2em;
     margin-left: 15px;
 }
 
-=======
->>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
 
     /* Judul Halaman */
 .page-header {

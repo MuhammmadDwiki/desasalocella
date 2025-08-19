@@ -149,16 +149,6 @@ html, body {
 .card .icon {
     font-size: 2em;
 }
-<<<<<<< HEAD
-    /* Judul Halaman */
-.page-header {
-        background: #e60000;
-        color: white;
-        padding: 20px;
-        text-align: center;
-    }
-=======
->>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
 
     /* Konten */
     .content {

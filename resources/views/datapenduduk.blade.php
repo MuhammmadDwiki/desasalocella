@@ -55,7 +55,7 @@
         </nav>
     </div>
 </header>
-
+{{-- 
 <nav>
     <div><a href="{{route('userWelcome')}}">Home</a></div>
 
@@ -92,7 +92,7 @@
     <div><a href="{{route('layanan')}}">Layanan</a></div>
 
     <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
-</nav>
+</nav> --}}
 
 <section class="page-header">
     <h2>Data Penduduk Desa Sallo Cela</h2>

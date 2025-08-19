@@ -15,16 +15,14 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmail;
 
-// Route::get('/admin', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//         'title' => 'Desa Salocella'
-//     ]);
-// });
+use App\Http\Controllers\EmailController;
+
+Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);
+
+
 ## =========== ADMIN =========== ##
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
@@ -71,7 +69,7 @@ require __DIR__ . '/auth.php';
 
 
 
-Route::get('/welcome', function () {
+Route::get('/', function () {
     return view('welcome');
 })->name('beranda');
 

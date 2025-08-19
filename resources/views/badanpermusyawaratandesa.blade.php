@@ -55,7 +55,7 @@
 </header>
 
 <nav>
-    <div><a href="{{route('userWelcome')}}">Home</a></div>
+    <div><a href="{{route('beranda')}}">Home</a></div>
 
     <div class="has-dropdown">
         <a href="#">Profil Desa ▼</a>

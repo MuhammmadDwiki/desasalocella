@@ -54,7 +54,7 @@
     </div>
 </header>
 
-<nav>
+{{-- <nav>
     <div><a href="{{route('userWelcome')}}">Home</a></div>
 
     <div class="has-dropdown">
@@ -90,7 +90,7 @@
     <div><a href="{{route('layanan')}}">Layanan</a></div>
 
     <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
-</nav>
+</nav> --}}
 
 <section class="page-header">
     <h2>Sejarah Desa Sallo Cela</h2>

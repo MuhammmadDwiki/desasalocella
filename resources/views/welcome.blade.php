@@ -56,7 +56,7 @@
     </div>
 </header>
 
-<nav>
+{{-- <nav>
     <div><a href="userWelcome">Home</a></div>
 
     <div class="has-dropdown">
@@ -90,7 +90,7 @@
     <div><a href="{{route('layanan')}}">Layanan</a></div>
 
     <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
-</nav>
+</nav> --}}
 
 <section class="hero">
     <video autoplay muted loop playsinline class="hero-video">
