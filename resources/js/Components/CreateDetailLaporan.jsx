@@ -1,4 +1,4 @@
-import React, { useState , useCallback} from "react";
+import React, { useState, useCallback } from "react";
 import { useForm as userFormReactHook } from "react-hook-form";
 import axios from "axios";
 
@@ -7,7 +7,6 @@ import {
     router,
     useForm as useFormInertia,
     usePage,
-    
 } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,9 +24,9 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-    DialogDescription
+    DialogDescription,
 } from "@/components/ui/dialog";
-
+import { AlertTriangle, PlusCircle, AlertCircle } from "lucide-react";
 import Swal from "sweetalert2";
 
 const defaultFormValues = {
@@ -41,6 +40,7 @@ const defaultFormValues = {
     jumlah_perempuan_pindah: 0,
     jumlah_laki_laki_datang: 0,
     jumlah_perempuan_datang: 0,
+    jumlah_kk: 0,
 };
 
 const CreateDetailLaporan = ({ idRekap, rtList }) => {
@@ -48,7 +48,7 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
     const [usedAgeGroups, setUsedAgeGroups] = useState([]);
     const [loadingAgeGroups, setLoadingAgeGroups] = useState(false);
 
-    const { data, setData, post,  reset, processing, errors } = useFormInertia({
+    const { data, setData, post, reset, processing, errors } = useFormInertia({
         ...defaultFormValues,
         id_rekap: idRekap, // Pastikan idRekap didefinisikan
     });
@@ -58,7 +58,7 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
             id_rekap: idRekap, // Pertahankan id_rekap
         });
     }, [reset, idRekap]);
-    
+
     const kelompokUmurOptions = [
         "0-5",
         "6-12",
@@ -139,12 +139,11 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
     };
     const handleDialogClose = () => {
         // console.log(open);
-       
-        handleReset(); 
+
+        handleReset();
         // console.log(data);
         // setShowEditModal(false);
         setOpen(!open);
-    
     };
 
     return (
@@ -157,23 +156,29 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Tambah Detail Laporan</DialogTitle>
-                    <DialogDescription>tambah data jumlah penduduk berdasarkan umur</DialogDescription>
+                    <DialogDescription>
+                        tambah data jumlah penduduk berdasarkan umur
+                    </DialogDescription>
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Input RT */}
                     <div className="grid gap-2">
                         <Label htmlFor="id_rt">RT</Label>
                         <Select
                             onValueChange={(value) => handleRTChange(value)}
-                            // onValueChange={(value) => setData("id_rt", value)}
                             value={data.id_rt}
+                            disabled={rtList.length === 0}
                         >
                             <SelectTrigger>
-                                <SelectValue placeholder="Pilih RT" />
+                                <SelectValue
+                                    placeholder={
+                                        rtList.length === 0
+                                            ? "Data RT kosong (tidak bisa dipilih)"
+                                            : "Pilih RT"
+                                    }
+                                />
                             </SelectTrigger>
                             <SelectContent>
-                                
                                 {rtList.map((rt) => (
                                     <SelectItem key={rt.id_rt} value={rt.id_rt}>
                                         RT {rt.nomor_rt}
@@ -181,6 +186,20 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
                                 ))}
                             </SelectContent>
                         </Select>
+                        {rtList.length === 0 && (
+                            <div className="flex items-center gap-2 mt-1 text-sm text-yellow-600">
+                                <AlertCircle className="w-4 h-4" />
+                                <span>
+                                    Harap tambah data RT terlebih dahulu{" "}
+                                    <a
+                                        href="/manage-rt"
+                                        className="text-blue-500 hover:underline"
+                                    >
+                                        disini.
+                                    </a>
+                                </span>
+                            </div>
+                        )}
                         {errors.id_rt && (
                             <p className="text-sm text-red-500">
                                 {errors.id_rt}
@@ -243,7 +262,9 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
 
                     {/* Section Awal Bulan */}
                     <div className="border rounded-lg p-4 space-y-4">
-                        <h3 className="font-medium">Awal Bulan</h3>
+                        <h3 className="font-medium">
+                            Jumlah Penduduk Awal Bulan
+                        </h3>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="grid gap-2">
                                 <Label htmlFor="jumlah_laki_laki_awal">
@@ -284,7 +305,9 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
 
                     {/* Section Akhir Bulan */}
                     <div className="border rounded-lg p-4 space-y-4">
-                        <h3 className="font-medium">Akhir Bulan</h3>
+                        <h3 className="font-medium">
+                            Jumlah Penduduk Akhir Bulan
+                        </h3>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="grid gap-2">
                                 <Label htmlFor="jumlah_laki_laki_akhir">
@@ -325,7 +348,7 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
 
                     {/* Section Pindah */}
                     <div className="border rounded-lg p-4 space-y-4">
-                        <h3 className="font-medium">Pindah</h3>
+                        <h3 className="font-medium">Jumlah Penduduk Pindah</h3>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="grid gap-2">
                                 <Label htmlFor="jumlah_laki_laki_pindah">
@@ -366,7 +389,7 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
 
                     {/* Section Datang */}
                     <div className="border rounded-lg p-4 space-y-4">
-                        <h3 className="font-medium">Datang</h3>
+                        <h3 className="font-medium">Jumlah Penduduk Datang</h3>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="grid gap-2">
                                 <Label htmlFor="jumlah_laki_laki_datang">
@@ -404,7 +427,20 @@ const CreateDetailLaporan = ({ idRekap, rtList }) => {
                             </div>
                         </div>
                     </div>
-
+                    <div className="border rounded-lg p-4 space-y-4">
+                        <div className="grid gap-2">
+                            <Label htmlFor="jumlah_kk">Jumlah KK</Label>
+                            <Input
+                                id="jumlah_kk"
+                                type="number"
+                                min="0"
+                                value={data.jumlah_kk}
+                                onChange={(e) =>
+                                    setData("jumlah_kk", e.target.value)
+                                }
+                            />
+                        </div>
+                    </div>
                     <div className="flex justify-end gap-2 pt-4">
                         <Button
                             type="button"

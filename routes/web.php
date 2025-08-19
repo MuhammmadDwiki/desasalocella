@@ -71,13 +71,9 @@ require __DIR__ . '/auth.php';
 
 
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
-})->name('userWelcome');
-
-Route::get('/profile', function () {
-    return view('profilkepaladesa');
-})->name('profile');
+})->name('beranda');
 
 Route::get('/sejarah', function () {
     return view('sejarahdesa');

@@ -165,9 +165,9 @@ export default function Dashboard({
                         <div className="md:max-w-[500px] h-[260px] md:h-[220px] px-2 py-1">
                             <ChartContainer
                                 config={chartConfig}
-                                className="w-full h-full"
+                                className="w-full h-full "
                             >
-                                <BarChart accessibilityLayer data={ageGroups}>
+                                <BarChart accessibilityLayer data={ageGroups} className="" >
                                     <CartesianGrid vertical={false} />
                                     <XAxis
                                         dataKey="kelompok_umur"
@@ -186,10 +186,12 @@ export default function Dashboard({
                                     <ChartLegend
                                         content={<ChartLegendContent />}
                                     />
+                                    
                                     <Bar
                                         dataKey="laki"
                                         fill="var(--color-laki)"
                                         radius={[4, 4, 0, 0]}
+                                    
                                     />
                                     <Bar
                                         dataKey="perempuan"
