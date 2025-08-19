@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('id_rekap');
             $table->string('id_rt');
             $table->string('kelompok_umur');
+            $table->integer('jumlah_kk')->nullable()->default(0);
             $table->integer('jumlah_laki_laki_awal')->nullable()->default(0);
             $table->integer('jumlah_perempuan_awal')->nullable()->default(0);
             $table->integer('jumlah_laki_laki_akhir')->nullable()->default(0);

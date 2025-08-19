@@ -59,6 +59,7 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
         jumlah_perempuan_pindah: 0,
         jumlah_laki_laki_datang: 0,
         jumlah_perempuan_datang: 0,
+        jumlah_kk:0
     });
     // console.log("datas: ", datas);
     const handleEditButton = (row) => {
@@ -69,7 +70,7 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log("data yang akan dikirim : \n", data)
-        put(route("detailLaporan.update", data.id_detail_rekap), {
+    put(route("detailLaporan.update", data.id_detail_rekap), {
             onSuccess: () => {
                 reset();
                 Toast.fire({
@@ -88,6 +89,10 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
     const columns = [
         columnHelper.accessor("kelompok_umur", {
             header: "Kelompok Umur",
+            cell: (info) => info.getValue(),
+        }),
+        columnHelper.accessor("jumlah_kk", {
+            header: "Jumlah KK",
             cell: (info) => info.getValue(),
         }),
         columnHelper.accessor("jumlah_laki_laki_awal", {
@@ -230,8 +235,8 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
         );
 
         const totalPopulationAkhir = totals.lakiAkhir + totals.perempuanAkhir;
-        const totalPopulationAwal = totals.lakiAwal = totals.perempuanAwal;
-        const totalPopulation =  totalPopulationAkhir;
+        const totalPopulationAwal = (totals.lakiAwal = totals.perempuanAwal);
+        const totalPopulation = totalPopulationAkhir;
         const totalHouseholds = totalPopulation / 4; // Asumsi 1 household = 2 orang
         const newHouseholds = Math.max(
             0,
@@ -243,8 +248,8 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
 
         return {
             totalPopulation: totalPopulation,
-            totalDatang : totals.lakiDatang + totals.perempuanDatang,
-            totalPindah: totals.lakiPindah + totals.perempuanPindah
+            totalDatang: totals.lakiDatang + totals.perempuanDatang,
+            totalPindah: totals.lakiPindah + totals.perempuanPindah,
         };
     };
     // let summary = {};
@@ -274,7 +279,7 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                             Rincian Laporan Penduduk tiap RT
                         </DialogDescription>
                     </DialogHeader>
-              
+
                     <div className="mt-4">
                         <GenericTable
                             data={datas}
@@ -284,7 +289,7 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                         />
                     </div>
 
-                          <div className="flex flex-col w-full flex-wrap mt-4 pb-8 border-b">
+                    <div className="flex flex-col w-full flex-wrap mt-4 pb-8 border-b">
                         <div>
                             <h2 className="text-md font-semibold mb-3">
                                 Ringkasan Penduduk
@@ -392,7 +397,6 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                     </div>
                                 </div>
 
-                                {/* Section Akhir Bulan */}
                                 <div className="border rounded-lg p-4 space-y-4">
                                     <h3 className="font-medium">
                                         Jumlah Penduduk Akhir
@@ -444,7 +448,6 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                 </div>
                             </div>
                             <div>
-                                {/* Section Pindah */}
                                 <div className="border rounded-lg p-4 space-y-4">
                                     <h3 className="font-medium">
                                         Jumlah Penduduk Pindah
@@ -495,7 +498,6 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                     </div>
                                 </div>
 
-                                {/* Section Datang */}
                                 <div className="border rounded-lg p-4 space-y-4">
                                     <h3 className="font-medium">
                                         Jumlah Penduduk Datang
@@ -547,6 +549,20 @@ export default function DetailLaporanBulanan({ datas, onClose }) {
                                 </div>
                             </div>
 
+                            <div className="border rounded-lg p-4 space-y-4">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="jumlah_kk">Jumlah KK</Label>
+                                    <Input
+                                        id="jumlah_kk"
+                                        type="number"
+                                        min="0"
+                                        value={data.jumlah_kk}
+                                        onChange={(e) =>
+                                            setData("jumlah_kk", e.target.value)
+                                        }
+                                    />
+                                </div>
+                            </div>
                             <div className="flex justify-end gap-2 pt-4">
                                 <Button
                                     type="button"

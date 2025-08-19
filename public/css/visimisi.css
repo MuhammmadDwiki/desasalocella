@@ -8,44 +8,75 @@ body {
     min-height: 100vh;
 }
 
-header {
-    background: #e60000;
-    color: white;
-    padding: 10px;
+/* ===== TOP BAR (header + nav) ===== */
+.top-bar {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-start; 
     align-items: center;
-}
-header .logo {
-    height: 70px;
-    margin-right: 15px;
-}
-header .title {
-    font-size: 1.8em;
-    font-weight: bold;
-}
-header .subtitle {
-    font-size: 1em;
-    margin-top: 5px;
+    padding: 10px 40px;
+    background: rgba(0,0,0,0.4) url("../images/bgnav.png") no-repeat center;
+        background-size: cover; /* biar penuh */
+    background-position: center -500px; /* ✅ geser ke bawah 50px */
+    color: white;
+    z-index: 1000;
 }
 
-nav {
-    background: #000;
-    color: white;
+.top-bar .left {
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 10px 0;
+    margin-right: 40px; /* kasih jarak dengan menu */
 }
-nav a {
+
+.top-bar .logo {
+    height: 50px;
+    margin-right: 15px;
+}
+
+.top-bar .title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.top-bar .subtitle {
+    font-size: 0.85em;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* ===== NAVIGATION ===== */
+.top-bar nav {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* atur jarak antar menu */
+    margin-left: 200px;
+    flex : 0 0 auto;
+    background: transparent; /* ✅ hilangkan warna putih */
+    height: auto;            /* ✅ biar tidak memanjang */
+}
+
+.top-bar nav div {
+    flex: 0 0 auto;   /* ✅ jangan melar */
+    background: none; /* ✅ hilangkan background putih */
+}
+
+.top-bar nav a {
     color: white;
     text-decoration: none;
     margin: 0 10px;
     font-size: 0.9em;
+    transition: color 0.3s;
 }
-nav a:hover {
-    color: red;
+
+.top-bar nav a:hover {
+    color: #ff3333;
 }
+
 
 .has-dropdown {
     position: relative;
@@ -72,79 +103,15 @@ nav a:hover {
     color: red !important;
 }
 
-.search-icon {
-    cursor: pointer;
-    font-size: 1.2em;
-    margin-left: 15px;
-}
 
-.hero {
-    position: relative;
-    background: url('../images/bgdesa.jpeg') center/cover no-repeat;
-    text-align: center;
-    color: white;
-    padding: 80px 20px;
-}
-.hero::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 1;
-}
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
-.hero h2 {
-    margin: 0;
-    font-size: 2.2em;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-}
-.hero p {
-    font-size: 1em;
-    margin: 10px 0 0;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-    padding: 20px;
-    max-width: 1000px;
-    margin: auto;
-    flex: 1;
-}
-.card {
+    /* Judul Halaman */
+.page-header {
     background: #e60000;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    color: white;
+    padding: 20px;
     text-align: center;
-    border-top: 4px solid #000;
-    color: #fff;
+    margin-top: 80px; /* ✅ kasih jarak dari navbar */
 }
-.card h3 {
-    margin: 10px 0;
-    font-size: 1em;
-}
-.card p {
-    font-size: 0.9em;
-}
-.card .icon {
-    font-size: 2em;
-}
-
-/* Judul Halaman */
-    .page-header {
-        background: #e60000;
-        color: white;
-        padding: 20px;
-        text-align: center;
-    }
-
     /* Konten Visi Misi */
     .visi-misi {
         padding: 20px;
@@ -175,22 +142,38 @@ nav a:hover {
     background-color: #f9f9f9;
     padding: 40px 20px 20px;
     font-family: Arial, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     color: #000;
 }
 
 .footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 kolom */
     max-width: 1100px;
     margin: 0 auto;
+    gap: 20px;
+}
+
+.footer-column {
+    flex: 1;
+}
+
+.footer-column:nth-child(1) {
+    text-align: left; /* Sekilas Pasekan di kiri */
+}
+
+.footer-column:nth-child(2) {
+    text-align: center; /* Pemerintah di tengah */
+}
+
+.footer-column:nth-child(3) {
+    text-align: right; /* Info Publik di kanan */
 }
 
 .footer-column h4 {
     font-weight: bold;
     margin-bottom: 10px;
+    font-size: 18px;
 }
 
 .footer-column ul {
@@ -200,12 +183,13 @@ nav a:hover {
 }
 
 .footer-column ul li {
-    margin: 4px 0;
+    margin: 6px 0;
 }
 
 .footer-column ul li a {
     text-decoration: none;
     color: #000;
+    font-size: 16px;
 }
 
 .footer-column ul li a:hover {
@@ -214,9 +198,19 @@ nav a:hover {
 
 .footer-bottom {
     text-align: center;
-    margin-top: 20px;
-    font-size: 13px;
+    margin-top: 30px;
+    font-size: 14px;
     color: #333;
 }
 
+/* Responsive untuk HP */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr; /* Jadi 1 kolom */
+        text-align: center;
+    }
 
+    .footer-column {
+        text-align: center !important; /* Semua tengah di HP */
+    }
+}

@@ -26,20 +26,20 @@ const MainNav = () => {
         });
     };
     return (
-        <div className="bg-blue-800 relative">
+        <div className="bg-red-800 relative">
             <nav className="w-full h-screen ">
                 <div className="flex flex-col h-screen">
-                    <div className="flex flex-col items-center py-2  gap-3 ">
+                    <div className="flex flex-col items-center py-3 pt-5 mb-4 gap-3 border-b border-white/45 w-full shadow-sm ">
                         <span className="text-2xl font-bold uppercase text-white">
                             Desa Salo Cella
                         </span>
-                        <div class="border-t border-blue-200 w-full shadow-sm  "></div>
+                        <div class=" "></div>
                     </div>
                     <div className="flex flex-col  items-center  h-full">
                         <div className="flex flex-auto  max-h-[80%] overflow-y-auto flex-col items-center justify-between pt-2">
                             <NavLink
                                 containerStyles="flex flex-col gap-4 w-full px-6 text-white"
-                                childStyles="relative z-10 rounded py-4 flex items-center px-4 gap-2 hover:bg-blue-700/80 transition-all duration-300 "
+                                childStyles="relative z-10 rounded py-4 flex items-center px-4 gap-2 hover:bg-red-700/80 transition-all duration-300 "
                             />
                         </div>
 

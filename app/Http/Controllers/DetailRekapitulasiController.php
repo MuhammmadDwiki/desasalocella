@@ -34,6 +34,7 @@ class DetailRekapitulasiController extends Controller
             ->select(
                 'r_t_s.id_rt',
                 'r_t_s.nomor_rt',
+                DB::raw('SUM(jumlah_kk) as total_kk'),
                 DB::raw('SUM(jumlah_laki_laki_akhir + jumlah_perempuan_akhir) as total_penduduk_akhir'),
                 DB::raw('SUM(jumlah_laki_laki_awal + jumlah_perempuan_awal) as total_penduduk_awal')
             )
@@ -81,6 +82,7 @@ class DetailRekapitulasiController extends Controller
             'jumlah_perempuan_pindah' => 'required|integer|min:0',
             'jumlah_laki_laki_datang' => 'required|integer|min:0',
             'jumlah_perempuan_datang' => 'required|integer|min:0',
+            'jumlah_kk' => 'required|integer|min:0',
         ]);
         $validated['id_detail_rekap'] = time() . bin2hex(random_bytes(4));
         // dd($validated);
@@ -133,6 +135,7 @@ class DetailRekapitulasiController extends Controller
             'jumlah_perempuan_pindah' => 'required|integer|min:0',
             'jumlah_laki_laki_datang' => 'required|integer|min:0',
             'jumlah_perempuan_datang' => 'required|integer|min:0',
+             'jumlah_kk' => 'required|integer|min:0',
         ]);
 
         $detailRekap->update($validated);

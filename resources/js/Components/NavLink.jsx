@@ -104,10 +104,10 @@ export default function NavLink({ containerStyles, childStyles }) {
                                     className={
                                         childStyles +
                                         (isActive || isSubMenuActive
-                                            ? " bg-blue-700"
+                                            ? " bg-red-700"
                                             : "") +
                                         (hasSubMenu
-                                            ? " group-hover:bg-blue-700"
+                                            ? " group-hover:bg-red-700"
                                             : "")
                                     }
                                 >
@@ -129,9 +129,9 @@ export default function NavLink({ containerStyles, childStyles }) {
                                             <li
                                                 key={subIndex}
                                                 className={
-                                                    "hover:bg-blue-700 ms-2 px-4 py-3 mt-1 rounded-md " +
+                                                    "hover:bg-red-700 ms-2 px-4 py-3 mt-1 rounded-md " +
                                                     (isActive
-                                                        ? " bg-blue-700"
+                                                        ? " bg-red-700"
                                                         : "")
                                                 }
                                             >

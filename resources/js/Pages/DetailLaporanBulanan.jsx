@@ -11,64 +11,6 @@ import { Button } from "@/components/ui/button";
 import DetailLaporanModal from "@/Components/DetailLaporanModal";
 import axios from "axios";
 
-const detailLaporan = [
-    {
-        id_detail_rekap: 1,
-        id_rekap: 1,
-        id_rt: "RT001",
-        kelompok_umur: "0-5",
-        jumlah_laki_laki_awal: 10,
-        jumlah_perempuan_awal: 8,
-        jumlah_laki_laki_akhir: 12,
-        jumlah_perempuan_akhir: 9,
-        jumlah_laki_laki_pindah: 2,
-        jumlah_perempuan_pindah: 1,
-        jumlah_laki_laki_datang: 3,
-        jumlah_perempuan_datang: 2,
-    },
-    {
-        id_detail_rekap: 2,
-        id_rekap: 1,
-        id_rt: "RT001",
-        kelompok_umur: "6-12",
-        jumlah_laki_laki_awal: 15,
-        jumlah_perempuan_awal: 14,
-        jumlah_laki_laki_akhir: 16,
-        jumlah_perempuan_akhir: 15,
-        jumlah_laki_laki_pindah: 1,
-        jumlah_perempuan_pindah: 0,
-        jumlah_laki_laki_datang: 2,
-        jumlah_perempuan_datang: 1,
-    },
-    {
-        id_detail_rekap: 3,
-        id_rekap: 1,
-        id_rt: "RT002",
-        kelompok_umur: "0-5",
-        jumlah_laki_laki_awal: 8,
-        jumlah_perempuan_awal: 7,
-        jumlah_laki_laki_akhir: 9,
-        jumlah_perempuan_akhir: 8,
-        jumlah_laki_laki_pindah: 1,
-        jumlah_perempuan_pindah: 1,
-        jumlah_laki_laki_datang: 1,
-        jumlah_perempuan_datang: 0,
-    },
-    {
-        id_detail_rekap: 3,
-        id_rekap: 2,
-        id_rt: "RT001",
-        kelompok_umur: "0-5",
-        jumlah_laki_laki_awal: 18,
-        jumlah_perempuan_awal: 7,
-        jumlah_laki_laki_akhir: 29,
-        jumlah_perempuan_akhir: 8,
-        jumlah_laki_laki_pindah: 1,
-        jumlah_perempuan_pindah: 1,
-        jumlah_laki_laki_datang: 1,
-        jumlah_perempuan_datang: 0,
-    },
-];
 
 const DetailLaporanBulanan = ({ id, datas, rtList }) => {
     const { data, setData, post, processing, errors, reset } = useForm();
@@ -111,6 +53,12 @@ const DetailLaporanBulanan = ({ id, datas, rtList }) => {
         ),
         columnHelper.accessor("total_penduduk_akhir", {
             header: "Jumlah Akhir Penduduk",
+            cell: (info) => {
+                return `${info.getValue()} Orang `;
+            },
+        }),
+        columnHelper.accessor("total_kk", {
+            header: "Jumlah Kepala keluarga",
             cell: (info) => {
                 return `${info.getValue()} Orang `;
             },
