@@ -24,11 +24,7 @@ Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);
 
 
 ## =========== ADMIN =========== ##
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard', [
-        "routeUser" => route('userWelcome'),
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class , 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/user-account', [UserController::class, "index"])->middleware(['auth', 'verified'])->name('userAccount');
 
 Route::get('/data-pdn', function(){
