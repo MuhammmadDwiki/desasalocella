@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rekapitulasi_penduduks', function (Blueprint $table) {
             $table->string('id_rekap')->primary();
-            // $table->string('id_rt');
+
             $table->string('bulan');
             $table->string('tahun');
             $table->timestamps();

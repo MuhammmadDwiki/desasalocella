@@ -18,4 +18,9 @@ class RT extends Model
         'is_active' => 'boolean', // Konversi 1/0 ke true/false
         'nomor_hp' => 'string'
     ];
+
+    public function rekapitulasiRTs()
+{
+    return $this->hasMany(RekapitulasiRT::class, 'id_rt', 'id_rt');
+}
 }

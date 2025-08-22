@@ -14,6 +14,7 @@ import { useForm } from "@inertiajs/react";
 import { FaUserCircle } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { Input } from "@/components/ui/input"
+import { MdOutlineLogout } from "react-icons/md";
 
 const Header = (props) => {
     const { post } = useForm();
@@ -69,14 +70,14 @@ const Header = (props) => {
                             </div>
                         </div> */}
 
-                        <div className="xl:hidden block">
+                        <div className="xl:hidden block ">
                             <Sheet>
                                 <SheetTrigger className="cursor-pointer text-[30px] text-black">
                                     <CiMenuFries />
                                 </SheetTrigger>
 
                                 <SheetContent
-                                    className="bg-primary border-0 flex flex-col justify-center items-center pt-16 pb-20"
+                                    className="bg-primary border-0 flex flex-col justify-center items-center pt-16 pb-10 bg-red-800"
                                     side="left"
                                 >
                                     <SheetHeader className="">
@@ -89,8 +90,22 @@ const Header = (props) => {
                                     </SheetHeader>
                                     <NavLink
                                         containerStyles="flex flex-col gap-6 w-full px-6 text-white "
-                                        childStyles="relative z-10 rounded py-4 flex items-center px-4 gap-4 hover:bg-gray-400 transition-all duration-300 "
+                                        childStyles="relative z-10 rounded py-4 flex items-center px-4 gap-4  hover:bg-red-700/80  transition-all duration-300 "
                                     />
+                                     <div className="flex items-end justify-center mt-52  z-2 w-full px-6">
+                                        <div className="mb-6">
+                                            <form onSubmit={handleLogout}>
+                                                <button
+                                                    type="submit"
+                                                    className="flex items-center w-full  text-lg gap-2 px-4 justify-center text-white hover:text-gray-300"
+                                                >
+                                                    <MdOutlineLogout />
+            
+                                                    Log Out
+                                                </button>
+                                            </form>
+                                        </div>
+                                     </div>
                                 </SheetContent>
                             </Sheet>
                         </div>

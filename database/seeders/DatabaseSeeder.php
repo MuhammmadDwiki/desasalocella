@@ -22,13 +22,25 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin Desa',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'), // Use bcrypt for password hashing
-            'role' => 'Super Admin', // Set role to admin
-            'assignedRT' => 'Semua RT', // Example RT assignment
+            'role' => 'super_admin', // Set role to admin
+            'id_rt' => null, // Example RT assignment
             'email_verified_at' => now(),
             'last_login' => now(),
 
         ]
         );
+        // User::create([
+        //     'username' => 'username moderator',
+        //     'name' => 'moderator name',
+        //     'email' => 'admin@desa.com',
+        //     'password' => bcrypt('@Amway123'), // Use bcrypt for password hashing
+        //     'role' => 'moderator', // Set role to admin
+        //     'id_rt' => null, // Example RT assignment
+        //     'email_verified_at' => now(),
+        //     'last_login' => now(),
+
+        // ]
+        // );
         
         // RT::create([
         //     'id_rt' => '01',

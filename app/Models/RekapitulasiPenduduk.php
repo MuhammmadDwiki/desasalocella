@@ -13,15 +13,18 @@ class RekapitulasiPenduduk extends Model
     use HasFactory, Notifiable;
     protected $guarded = [];
 
-    protected $primaryKey = 'id_rekap'; // Tambahkan ini
-    public $incrementing = false; // Jika ID bukan auto-increment
-    protected $keyType = 'string'; // Jika ID bertipe string
-    public function details()
-    {
-        return $this->hasMany(DetailRekapitulasi::class, 'id_rekap', 'id_rekap');
-    }
-    // public function rt()
+    protected $primaryKey = 'id_rekap'; 
+    public $incrementing = false; 
+    protected $keyType = 'string'; 
+    // public function detailRekapitulasi()
     // {
-    //     return $this->belongsTo(Rt::class, 'id_rt');
+    //     return $this->hasMany(DetailRekapitulasi::class, 'id_rekap', 'id_rekap');
     // }
+     public function rekapitulasiRTs()
+    {
+        return $this->hasMany(RekapitulasiRT::class, 'id_rekap', 'id_rekap');
+    }
+  
+ 
+
 }
