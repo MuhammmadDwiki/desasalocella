@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
     MdOutlineSpaceDashboard,
     MdOutlineAccountCircle,
@@ -8,51 +8,66 @@ import {
 import { LiaPeopleCarrySolid } from "react-icons/lia";
 import { usePage } from "@inertiajs/react";
 import { FaAngleDown } from "react-icons/fa";
-const links = [
+
+import Can from '@/components/Can'
+
+const allLinks = [
     {
         name: "dashboard",
         path: "/dashboard",
         icon: <MdOutlineSpaceDashboard className="text-xl" />,
     },
     {
+        name: "Akun Staff",
+        path: "/user-account",
+        icon: <MdOutlineAccountCircle className="text-xl" />,
+        permission: "manage.users",
+    },
+    {
         name: "Kelola RT",
         path: "/manage-rt",
         icon: <MdOutlineAccountCircle className="text-xl" />,
+        permission: "manage.rt",
     },
     {
         name: "Rekapitulasi",
         icon: <MdList className="text-xl" />,
+        permission: "view.laporan",
         subMenu: [
             {
                 name: "Laporan Bulanan",
                 path: "/laporan-bulanan",
+                permission: "view.laporan",
             },
             {
                 name: "Agama",
                 path: "/agama",
+                permission: "view.agama",
             },
         ],
     },
     {
-        name: "kegiatan",
+        name: "Kegiatan",
         path: "/kegiatan",
         icon: <MdWorkOutline className="text-xl" />,
+        permission: "view.kegiatan",
     },
     {
-        name: "karang Taruna",
+        name: "Karang Taruna",
         path: "/karang-taruna",
         icon: <LiaPeopleCarrySolid className='text-xl'/>,
+        permission: "view.karang_taruna",
     },
-    
 ];
+
 export default function NavLink({ containerStyles, childStyles }) {
-    //   const pathname = usePathname();
     const { url } = usePage();
     const currentPath = url;
     const [hoveredMenu, setHoveredMenu] = useState(null);
     const [openSubMenu, setOpenSubMenu] = useState(null);
+
     useEffect(() => {
-        links.forEach((link, index) => {
+        allLinks.forEach((link, index) => {
             if (link.subMenu) {
                 const isActiveSub = link.subMenu.some(
                     (sub) => currentPath.startsWith(sub.path)
@@ -63,93 +78,95 @@ export default function NavLink({ containerStyles, childStyles }) {
             }
         });
     }, [currentPath]);
-    return (
-        <>
-            <ul className={containerStyles}>
-                {links.map((link, index) => {
-                    const isActive = currentPath === link.path;
 
-                    const hasSubMenu = link.subMenu && link.subMenu.length > 0;
-                    const isSubMenuActive = link.subMenu?.some(
-                        (sub) => currentPath.startsWith(sub.path)
-                    );
-                    const isSubMenuOpen =
-                        hoveredMenu === index || openSubMenu === index;
+    const renderLink = (link, index) => {
+        const isActive = currentPath === link.path;
+        const hasSubMenu = link.subMenu && link.subMenu.length > 0;
+        const isSubMenuActive = link.subMenu?.some(
+            (sub) => currentPath.startsWith(sub.path)
+        );
+        const isSubMenuOpen = hoveredMenu === index || openSubMenu === index;
 
-                    // console.log(isSubMenuActive, currentPath);
+        const linkContent = (
+            <li
+                className="relative transition-all cursor-pointer duration-700 ease-in-out"
+                key={index}
+                onMouseEnter={() => setHoveredMenu(index)}
+                onMouseLeave={() => setHoveredMenu(null)}
+                onClick={() => setHoveredMenu(index)}
+            >
+                <a
+                    href={hasSubMenu ? "#" : link.path}
+                    className={`relative text-lg uppercase`}
+                    onClick={(e) => {
+                        if (hasSubMenu) {
+                            e.preventDefault();
+                            setOpenSubMenu(
+                                openSubMenu === index ? null : index
+                            );
+                        }
+                    }}
+                >
+                    <div
+                        className={
+                            childStyles +
+                            (isActive || isSubMenuActive
+                                ? " bg-red-700"
+                                : "") +
+                            (hasSubMenu
+                                ? " group-hover:bg-red-700"
+                                : "")
+                        }
+                    >
+                        <span>{link.icon}</span>
+                        <span>{link.name}</span>
+                        {hasSubMenu && (
+                            <span className="ml-2">
+                                <FaAngleDown />
+                            </span>
+                        )}
+                    </div>
+                </a>
 
-                    const charLength = link.name.length;
-                    return (
-                        <li
-                            className="relative transition-all cursor-pointer duration-700 ease-in-out"
-                            key={index}
-                            onMouseEnter={() => setHoveredMenu(index)}
-                            onMouseLeave={() => setHoveredMenu(null)}
-                            onClick={() => setHoveredMenu(index)}
-                        >
-                            <a
-                                href={link?.path}
-                                className={`relative text-lg uppercase `}
-                                onClick={(e) => {
-                                    if (hasSubMenu) {
-                                        e.preventDefault();
-                                        setOpenSubMenu(
-                                            openSubMenu === index ? null : index
-                                        );
-                                    }
-                                }}
-                            >
-                                {/* <span className="relative z-10">{link.name}</span> */}
-                                <div
+                {hasSubMenu && isSubMenuOpen && (
+                    <ul className="inline-block left-0 mt-2 w-full transition-all duration-800 ease-in-out">
+                        {link.subMenu.map((subItem, subIndex) => (
+                            <Can key={subIndex} permission={subItem.permission}>
+                                <li
                                     className={
-                                        childStyles +
-                                        (isActive || isSubMenuActive
-                                            ? " bg-red-700"
-                                            : "") +
-                                        (hasSubMenu
-                                            ? " group-hover:bg-red-700"
-                                            : "")
+                                        "hover:bg-red-700 ms-2 px-4 py-3 mt-1 rounded-md " +
+                                        (currentPath.startsWith(subItem.path) ? " bg-red-700" : "")
                                     }
                                 >
-                                    <span>{link.icon}</span>
-                                    <span>{link.name}</span>
-                                    {hasSubMenu && (
-                                        <span className="ml-2 ">
-                                            <FaAngleDown />
-                                        </span>
-                                    )}
-                                </div>
-                            </a>
-                            {hasSubMenu && isSubMenuOpen && (
-                                <ul className="inline-block left-0 mt-2 w-full transition-all duration-800 ease-in-out  ">
-                                    {link.subMenu.map((subItem, subIndex) => {
-                                        const isActive =
-                                            currentPath.startsWith(subItem.path);
-                                        return (
-                                            <li
-                                                key={subIndex}
-                                                className={
-                                                    "hover:bg-red-700 ms-2 px-4 py-3 mt-1 rounded-md " +
-                                                    (isActive
-                                                        ? " bg-red-700"
-                                                        : "")
-                                                }
-                                            >
-                                                <a
-                                                    href={subItem.path}
-                                                    className="block text-lg text-white "
-                                                >
-                                                    {subItem.name}
-                                                </a>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            )}
-                        </li>
-                    );
-                })}
-            </ul>
-        </>
+                                    <a
+                                        href={subItem.path}
+                                        className="block text-lg text-white"
+                                    >
+                                        {subItem.name}
+                                    </a>
+                                </li>
+                            </Can>
+                        ))}
+                    </ul>
+                )}
+            </li>
+        );
+
+        // Jika link butuh permission, wrap dengan Can component
+        if (link.permission) {
+            return (
+                <Can key={index} permission={link.permission}>
+                    {linkContent}
+                </Can>
+            );
+        }
+
+        return linkContent;
+    };
+
+    return (
+        <ul className={containerStyles}>
+            {allLinks.map((link, index) => renderLink(link, index))}
+        </ul>
     );
 }

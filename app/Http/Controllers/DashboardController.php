@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function index()
     {
         $pendudukDetail = DetailRekapitulasi::select(
-            'id_rt',
+            // 'id_rt',
             'kelompok_umur',
             'jumlah_laki_laki_akhir',
             'jumlah_perempuan_akhir',
@@ -51,36 +51,36 @@ class DashboardController extends Controller
             ->orderBy('age_sort')
             ->get();
 
-        $pendudukByBulan =  DetailRekapitulasi::join('rekapitulasi_penduduks', 'detail_rekapitulasis.id_rekap', '=', 'rekapitulasi_penduduks.id_rekap')
-    ->select(
-        'rekapitulasi_penduduks.bulan',
-        'rekapitulasi_penduduks.tahun',
-        
-        DB::raw('SUM(jumlah_laki_laki_akhir) as total_laki'),
-        DB::raw('SUM(jumlah_perempuan_akhir) as total_perempuan'),
-        DB::raw('SUM(jumlah_laki_laki_akhir + jumlah_perempuan_akhir) as total_akhir'),
-        DB::raw('SUM(jumlah_laki_laki_datang + jumlah_perempuan_datang) as total_datang'),
-        DB::raw('SUM(jumlah_laki_laki_pindah + jumlah_perempuan_pindah) as total_pindah')
-    )
-    ->groupBy('rekapitulasi_penduduks.bulan', 'rekapitulasi_penduduks.tahun') // Group by bulan dan tahun
-    ->orderBy('rekapitulasi_penduduks.tahun')
-    ->orderByRaw("
-        CASE 
-            WHEN bulan = 'Januari' THEN 1
-            WHEN bulan = 'Februari' THEN 2
-            WHEN bulan = 'Maret' THEN 3
-            WHEN bulan = 'April' THEN 4
-            WHEN bulan = 'Mei' THEN 5
-            WHEN bulan = 'Juni' THEN 6
-            WHEN bulan = 'Juli' THEN 7
-            WHEN bulan = 'Agustus' THEN 8
-            WHEN bulan = 'September' THEN 9
-            WHEN bulan = 'Oktober' THEN 10
-            WHEN bulan = 'November' THEN 11
-            WHEN bulan = 'Desember' THEN 12
-        END
-    ")
-    ->get();
+        // $pendudukByBulan =  DetailRekapitulasi::join('rekapitulasi_penduduks', 'detail_rekapitulasis.id_rekap', '=', 'rekapitulasi_penduduks.id_rekap')
+        //                                         ->select(
+        //                                             'rekapitulasi_penduduks.bulan',
+        //                                             'rekapitulasi_penduduks.tahun',
+                                                    
+        //                                             DB::raw('SUM(jumlah_laki_laki_akhir) as total_laki'),
+        //                                             DB::raw('SUM(jumlah_perempuan_akhir) as total_perempuan'),
+        //                                             DB::raw('SUM(jumlah_laki_laki_akhir + jumlah_perempuan_akhir) as total_akhir'),
+        //                                             DB::raw('SUM(jumlah_laki_laki_datang + jumlah_perempuan_datang) as total_datang'),
+        //                                             DB::raw('SUM(jumlah_laki_laki_pindah + jumlah_perempuan_pindah) as total_pindah')
+        //                                         )
+        //                                         ->groupBy('rekapitulasi_penduduks.bulan', 'rekapitulasi_penduduks.tahun') // Group by bulan dan tahun
+        //                                         ->orderBy('rekapitulasi_penduduks.tahun')
+        //                                         ->orderByRaw("
+        //                                             CASE 
+        //                                                 WHEN bulan = 'Januari' THEN 1
+        //                                                 WHEN bulan = 'Februari' THEN 2
+        //                                                 WHEN bulan = 'Maret' THEN 3
+        //                                                 WHEN bulan = 'April' THEN 4
+        //                                                 WHEN bulan = 'Mei' THEN 5
+        //                                                 WHEN bulan = 'Juni' THEN 6
+        //                                                 WHEN bulan = 'Juli' THEN 7
+        //                                                 WHEN bulan = 'Agustus' THEN 8
+        //                                                 WHEN bulan = 'September' THEN 9
+        //                                                 WHEN bulan = 'Oktober' THEN 10
+        //                                                 WHEN bulan = 'November' THEN 11
+        //                                                 WHEN bulan = 'Desember' THEN 12
+        //                                             END
+        //                                         ")
+        //                                         ->get();
         // dd($pendudukByBulan);
 
         // Calculate summary statistics
@@ -127,17 +127,17 @@ class DashboardController extends Controller
             }),
             'summary' => array_map('number_format', $summary),
             'lastUpdated' => $lastUpdated ? \Carbon\Carbon::parse($lastUpdated)->format('d F Y H:i') : '',
-            'pendudukByBulan' => $pendudukByBulan->map(function ($item) {
-                return [
-                    'bulan' => $item->bulan,
-                    'tahun' => $item->tahun,
-                    'totalLaki' => $item->total_laki,
-                    'totalPerempuan' => $item->total_perempuan,
-                    'totalPenduduk' => $item->total_akhir,
-                    'totalDatang' => $item->total_datang,
-                    'totalPindah' => $item->total_pindah
-                ];
-            }),
+            // 'pendudukByBulan' => $pendudukByBulan->map(function ($item) {
+            //     return [
+            //         'bulan' => $item->bulan,
+            //         'tahun' => $item->tahun,
+            //         'totalLaki' => $item->total_laki,
+            //         'totalPerempuan' => $item->total_perempuan,
+            //         'totalPenduduk' => $item->total_akhir,
+            //         'totalDatang' => $item->total_datang,
+            //         'totalPindah' => $item->total_pindah
+            //     ];
+            // }),
             // 'lastUpdated' => ""
 
         ]);

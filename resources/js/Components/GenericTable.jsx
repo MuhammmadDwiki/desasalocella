@@ -69,7 +69,7 @@ export function GenericTable({
                             {headerGroup.headers.map((header) => (
                                 <TableHead
                                     key={header.id}
-                                    className="bg-gray-50 capitalize"
+                                    className="bg-gray-50 capitalize text-start"
                                 >
                                     {header.isPlaceholder
                                         ? null

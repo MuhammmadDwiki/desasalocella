@@ -29,8 +29,7 @@ import Swal from "sweetalert2";
 
 export default function Kegiatan({ datas }) {
     const [showEditModal, setShowEditModal] = useState(false);
-    const [editData, setEditData] = useState(null);
-
+    
     // Form for creating new data
     const {
         data: createData,
