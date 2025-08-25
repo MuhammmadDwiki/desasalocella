@@ -63,11 +63,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
     const { auth } = usePage().props;
     const [usedAgeGroups, setUsedAgeGroups] = useState([]);
     const [loadingAgeGroups, setLoadingAgeGroups] = useState(false);
-    console.log(idRekap, idRekapRt)
-
-    useEffect(() => {
-        
-    }, [idRekapRt])
+ 
     const getUsedAge = async() =>{
 
             try {
@@ -75,7 +71,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                 route("detail-laporan.getUsedAgeGroups", {id_rekap_rt : idRekapRt})
             );
             const data = await response.data;
-            console.log(data)
+            // console.log(data)
 
             setUsedAgeGroups(data);
         } catch (error) {
@@ -104,12 +100,10 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
             (group) => !usedAgeGroups.includes(group.value)
         );
     const handleRTChange = async (rtId) => {
-        setData("id_rt", rtId);
-        setData("kelompok_umur", ""); // Reset pilihan kelompok umur
-        form.setValue({
-            'id_rt' : rtId,
-            'kelompok_umur': ""
-        })
+         // Reset pilihan kelompok umur
+         console.log(rtId)
+        form.setValue("id_rt", rtId); // <-- jangan pakai object
+        form.setValue("kelompok_umur", "");
         if (!rtId) {
             setUsedAgeGroups([]);
             return;
@@ -119,10 +113,11 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
         try {
             const response = await axios.get(
                 route("detail-laporan.getUsedAgeGroups", {
-                    idRekap: idRekap,
-                    idRT: rtId,
+                    id_rekap_rt: idRekapRt,
+                 
                 })
             );
+            // console.log(response)
             const data = await response.data;
 
             setUsedAgeGroups(data);
@@ -199,7 +194,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
 
     const availableRtList = getAvailableRtList();
 
-    // console.log(rtList, auth.user)
+    // console.log(form.getValues())
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -231,7 +226,13 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                     <FormItem>
                                         <FormLabel>RT</FormLabel>
                                         <Select
-                                            onValueChange={field.onChange}
+                                            onValueChange={(value)=>{
+                                                // console.log(value)
+                                                field.onChange(value); // Update form state
+                                                handleRTChange(value);
+                                            }
+                                                
+                                            }
                                             value={field.value}
                                             disabled={auth.user.role === "moderator"}
                                         >
@@ -244,7 +245,8 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                                 {availableRtList.map((rt) => (
                                                     <SelectItem
                                                         key={rt.id_rt}
-                                                        value={rt.id_rt}
+                                                        value={String(rt.id_rt)}
+
                                                     >
                                                         RT {rt.nomor_rt} - {rt.nama_rt}
                                                     </SelectItem>
@@ -355,7 +357,51 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                 />
                             </div>
                         </div>
+ {/* Data Akhir */}
+                        <div className="space-y-4">
+                            <h3 className="text-lg font-medium text-gray-900">Data Akhir Bulan</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <FormField
+                                    control={form.control}
+                                    name="jumlah_laki_laki_akhir"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Jumlah Laki-laki Akhir</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="number"
+                                                    min="0"
+                                                    placeholder="0"
+                                                    {...field}
+                                                    onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
 
+                                <FormField
+                                    control={form.control}
+                                    name="jumlah_perempuan_akhir"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Jumlah Perempuan Akhir</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="number"
+                                                    min="0"
+                                                    placeholder="0"
+                                                    {...field}
+                                                    onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                        </div>
                         {/* Data Mutasi */}
                         <div className="space-y-4">
                             <h3 className="text-lg font-medium text-gray-900">Data Mutasi Penduduk</h3>
@@ -448,51 +494,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                             </div>
                         </div>
 
-                        {/* Data Akhir */}
-                        <div className="space-y-4">
-                            <h3 className="text-lg font-medium text-gray-900">Data Akhir Bulan</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <FormField
-                                    control={form.control}
-                                    name="jumlah_laki_laki_akhir"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Jumlah Laki-laki Akhir</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    type="number"
-                                                    min="0"
-                                                    placeholder="0"
-                                                    {...field}
-                                                    onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-
-                                <FormField
-                                    control={form.control}
-                                    name="jumlah_perempuan_akhir"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Jumlah Perempuan Akhir</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    type="number"
-                                                    min="0"
-                                                    placeholder="0"
-                                                    {...field}
-                                                    onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-                        </div>
+                       
 
                         <div className="flex justify-end gap-2 pt-4">
                             <Button

@@ -51,6 +51,7 @@ class LoginRequest extends FormRequest
                 'email' => trans('auth.failed'),
             ]);
         }
+        Auth::user()->update(['last_login' => now()]);
 
         RateLimiter::clear($this->throttleKey());
     }

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class RekapitulasiRT extends Model
 {
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable;
+
     protected $guarded = [];
 
     protected $primaryKey = 'id_rekap_rt'; 

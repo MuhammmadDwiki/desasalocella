@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RekapitulasiRT;
+use App\Notifications\LaporanStatusChanged;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +64,7 @@ class RekapitulasiRTController extends Controller
     {
         $rekap = RekapitulasiRT::findOrFail($id_rekap_rt);
         // Authorization check
-        if (Auth::check() && Auth::user()->role === 'moderator') {
+        if (Auth::check() && Auth::user()->role !== 'super_admin') {
             if (!$rekap->where('id_rt', Auth::user()->id_rt)->first()) {
                 abort(403, 'Unauthorized');
             }
@@ -74,10 +75,77 @@ class RekapitulasiRTController extends Controller
             'submitted_at' => now()
         
         ]);
+        // kirim notif ke superadmin
+        $superAdmins = \App\Models\User::where('role', 'super_admin')->first();
+        $superAdmins->notify(
+            new LaporanStatusChanged(
+                $rekap,
+                'pending',     
+            )
+        );
+    //     foreach ($superAdmins as $admin) {
+    // }
 
         return redirect()->back()->with('success', 'Laporan diajukan untuk verifikasi');
 
     }
+    public function reject(Request $request,  string $id_rekap_rt)
+    {
+
+        $request->validate([
+        'message' => 'nullable|string|max:500',
+        ]);
+        $rekap = RekapitulasiRT::findOrFail($id_rekap_rt);
+
+        // Authorization check
+        if (Auth::check() && Auth::user()->role !== 'super_admin') {
+            if (!$rekap->where('id_rt', Auth::user()->id_rt)->first()) {
+                abort(403, 'Unauthorized');
+            }
+        }
+        $oldStatus = $rekap->status;
+        $newStatus = 'rejected';
+        // $message = `laporan pada bulan {$rekap->bulan} {$rekap->tahun} Ditolak`;
+
+        $rekap->update([    
+            'status'          => $newStatus,
+            'catatan_validasi'=> $request->message,
+            'validated_at'    => now(),
+        ]);
+        
+        $rekap->submittedBy->notify(
+            new LaporanStatusChanged($rekap,  $newStatus , $request->message)
+        );
+        // dd($id_rekap_rt, $request);
+         return back()->with('success', 'Laporan RT berhasil ditolak.');
+
+    }
+
+    public function validate( string $id_rekap_rt)
+    {
+        // dd(Auth::user()->role);
+
+        $rekap = RekapitulasiRT::findOrFail($id_rekap_rt);
+        // Authorization check
+        if (Auth::check() && Auth::user()->role !== 'super_admin') {
+            if (!$rekap->where('id_rt', Auth::user()->id_rt)->first()) {
+                abort(403, 'Unauthorized');
+            }
+        }
+        $newStatus = 'approved';
+         $rekap->update([
+            'status'          => $newStatus,
+            'validated_at'    => now(),
+        ]);
+        $rekap->submittedBy->notify(
+                new LaporanStatusChanged($rekap,  $newStatus  )
+        );
+        
+        // dd($id_rekap_rt, $request);
+         return back()->with('success', 'Laporan RT berhasil diterima.');
+
+    }
+
 
     /**
      * Show the form for editing the specified resource.

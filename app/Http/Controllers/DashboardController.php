@@ -7,6 +7,7 @@ use App\Models\RekapitulasiPenduduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use App\Models\RekapitulasiRT;
 
 class DashboardController extends Controller
 {
@@ -28,7 +29,8 @@ class DashboardController extends Controller
             DB::raw('(jumlah_laki_laki_datang + jumlah_perempuan_datang) as total_datang'),
             DB::raw('(jumlah_laki_laki_pindah + jumlah_perempuan_pindah) as total_pindah'),
         )->get();
-
+        
+        $pendingCount = RekapitulasiRT::where('status', 'pending')->count();
         // Get aggregated data by age group
         $pendudukByUmur = DetailRekapitulasi::select(
             'kelompok_umur',
@@ -51,36 +53,33 @@ class DashboardController extends Controller
             ->orderBy('age_sort')
             ->get();
 
-        // $pendudukByBulan =  DetailRekapitulasi::join('rekapitulasi_penduduks', 'detail_rekapitulasis.id_rekap', '=', 'rekapitulasi_penduduks.id_rekap')
-        //                                         ->select(
-        //                                             'rekapitulasi_penduduks.bulan',
-        //                                             'rekapitulasi_penduduks.tahun',
-                                                    
-        //                                             DB::raw('SUM(jumlah_laki_laki_akhir) as total_laki'),
-        //                                             DB::raw('SUM(jumlah_perempuan_akhir) as total_perempuan'),
-        //                                             DB::raw('SUM(jumlah_laki_laki_akhir + jumlah_perempuan_akhir) as total_akhir'),
-        //                                             DB::raw('SUM(jumlah_laki_laki_datang + jumlah_perempuan_datang) as total_datang'),
-        //                                             DB::raw('SUM(jumlah_laki_laki_pindah + jumlah_perempuan_pindah) as total_pindah')
-        //                                         )
-        //                                         ->groupBy('rekapitulasi_penduduks.bulan', 'rekapitulasi_penduduks.tahun') // Group by bulan dan tahun
-        //                                         ->orderBy('rekapitulasi_penduduks.tahun')
-        //                                         ->orderByRaw("
-        //                                             CASE 
-        //                                                 WHEN bulan = 'Januari' THEN 1
-        //                                                 WHEN bulan = 'Februari' THEN 2
-        //                                                 WHEN bulan = 'Maret' THEN 3
-        //                                                 WHEN bulan = 'April' THEN 4
-        //                                                 WHEN bulan = 'Mei' THEN 5
-        //                                                 WHEN bulan = 'Juni' THEN 6
-        //                                                 WHEN bulan = 'Juli' THEN 7
-        //                                                 WHEN bulan = 'Agustus' THEN 8
-        //                                                 WHEN bulan = 'September' THEN 9
-        //                                                 WHEN bulan = 'Oktober' THEN 10
-        //                                                 WHEN bulan = 'November' THEN 11
-        //                                                 WHEN bulan = 'Desember' THEN 12
-        //                                             END
-        //                                         ")
-        //                                         ->get();
+        $pendudukByBulan = DetailRekapitulasi::select(
+            'rekapitulasi_penduduks.bulan',
+            'rekapitulasi_penduduks.tahun',
+            DB::raw('SUM(detail_rekapitulasis.jumlah_laki_laki_akhir) as total_laki'),
+            DB::raw('SUM(detail_rekapitulasis.jumlah_perempuan_akhir) as total_perempuan'),
+            DB::raw('SUM(detail_rekapitulasis.jumlah_laki_laki_akhir + detail_rekapitulasis.jumlah_perempuan_akhir) as total_penduduk'),
+            DB::raw('SUM(detail_rekapitulasis.jumlah_laki_laki_datang + detail_rekapitulasis.jumlah_perempuan_datang) as total_datang'),
+            DB::raw('SUM(detail_rekapitulasis.jumlah_laki_laki_pindah + detail_rekapitulasis.jumlah_perempuan_pindah) as total_pindah')
+        )
+            ->join('rekapitulasi_r_t_s', 'detail_rekapitulasis.id_rekap_rt', '=', 'rekapitulasi_r_t_s.id_rekap_rt')
+            ->join('rekapitulasi_penduduks', 'rekapitulasi_r_t_s.id_rekap', '=', 'rekapitulasi_penduduks.id_rekap')
+            ->orderBy('rekapitulasi_penduduks.tahun')
+            ->orderBy(DB::raw("FIELD(rekapitulasi_penduduks.bulan,
+        'Januari','Februari','Maret','April','Mei','Juni',
+        'Juli','Agustus','September','Oktober','November','Desember')"))
+            ->groupBy('rekapitulasi_penduduks.bulan', 'rekapitulasi_penduduks.tahun')
+            ->get()
+            ->map(fn($item) => [
+                'bulan'           => $item->bulan,
+                'tahun'           => $item->tahun,
+                'totalLaki'       => (int) $item->total_laki,
+                'totalPerempuan'  => (int) $item->total_perempuan,
+                'totalPenduduk'   => (int) $item->total_penduduk,
+                'totalDatang'     => (int) $item->total_datang,
+                'totalPindah'     => (int) $item->total_pindah,
+            ]);
+
         // dd($pendudukByBulan);
 
         // Calculate summary statistics
@@ -127,17 +126,8 @@ class DashboardController extends Controller
             }),
             'summary' => array_map('number_format', $summary),
             'lastUpdated' => $lastUpdated ? \Carbon\Carbon::parse($lastUpdated)->format('d F Y H:i') : '',
-            // 'pendudukByBulan' => $pendudukByBulan->map(function ($item) {
-            //     return [
-            //         'bulan' => $item->bulan,
-            //         'tahun' => $item->tahun,
-            //         'totalLaki' => $item->total_laki,
-            //         'totalPerempuan' => $item->total_perempuan,
-            //         'totalPenduduk' => $item->total_akhir,
-            //         'totalDatang' => $item->total_datang,
-            //         'totalPindah' => $item->total_pindah
-            //     ];
-            // }),
+            'pendudukByBulan' => $pendudukByBulan,
+            'laporanPendingCount' => $pendingCount
             // 'lastUpdated' => ""
 
         ]);

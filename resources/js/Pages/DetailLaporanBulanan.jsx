@@ -11,6 +11,17 @@ import DetailLaporanModal from "@/Components/DetailLaporanModal";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Badge } from "@/components/ui/badge";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+    TooltipProvider,
+} from "@/components/ui/tooltip";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 const Toast = Swal.mixin({
     toast: true,
@@ -18,7 +29,6 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-    
 });
 
 const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
@@ -27,6 +37,10 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
     const [showDetailModal, setShowDetailModal] = useState(false);
     const [showCreateModal, setShowCreateModal] = useState(false);
     const { auth } = usePage().props;
+    // const { notifications } = usePage().props;
+    // console.log(notifications)
+    const isModerator = auth.user.role === "moderator";
+    const isSuperAdmin = auth.user.role === "super_admin";
 
     const canAccessRT = (rtId) => {
         return auth.user.role === "super_admin" || auth.user.id_rt === rtId;
@@ -36,7 +50,7 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
         auth.user.role === "super_admin"
             ? datas
             : datas.filter((item) => item.id_rt === auth.user.id_rt);
-    console.log(filteredData);
+    // console.log(filteredData);
 
     // console.log("Filtered data:", filteredData);
 
@@ -151,19 +165,38 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
         return months[monthNumber] || monthNumber;
     };
 
-    // TODO: handle accepted and reject rekap
-      
-    const openRejectModal = async() => {
-       const { value: text } = await Swal.fire({
-        input: "textarea",
-        inputLabel: "Pesan",
-        inputPlaceholder: "Type your message here...",
-        inputAttributes: {
-            "aria-label": "Type your message here"
-        },
-        showCancelButton: true
+  
+    const openRejectModal = async (idRekapRt) => {
+        const { value: text, isConfirmed } = await Swal.fire({
+            input: "textarea",
+            inputLabel: "Pesan (opsional)",
+            inputPlaceholder: "Type your message here...",
+            inputAttributes: {
+                "aria-label": "Type your message here",
+            },
+            showCancelButton: true,
         });
-    }
+
+        if (!isConfirmed) return;
+        const message = (text ?? "").trim() || null;
+
+        console.log("reject : ", idRekapRt, message);
+        router.post(
+            route("rekapitulasi-rt.reject", { id_rekap_rt: idRekapRt }),
+            { message }, 
+            {
+                onSuccess: () =>
+                    Toast.fire({
+                        icon: "success",
+                        title: "Status berhasil ditolak",
+                    }),
+                onError: (e) => {
+                    Toast.fire({ icon: "error", title: "Gagal menolak" });
+                    console.error(e);
+                },
+            }
+        );
+    };
 
     const columnHelper = createColumnHelper();
     const columns = [
@@ -189,7 +222,7 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
                 const value = info.getValue() || 0;
                 return (
                     <div className="text-center">
-                        <span className="font-semibold">{value}</span>
+                        <span className="font-medium">{value}</span>
                         <span className="text-xs text-gray-500 ml-1">KK</span>
                     </div>
                 );
@@ -201,7 +234,7 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
                 const value = info.getValue() || 0;
                 return (
                     <div className="text-center">
-                        <span className="font-semibold">{value}</span>
+                        <span className="font-medium">{value}</span>
                         <span className="text-xs text-gray-500 ml-1">
                             Orang
                         </span>
@@ -217,39 +250,62 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
 
                 return (
                     <Badge
-                        // variant='secondary'
-                        className={status === "approved"
+                        variant='simple'
+                        className={
+                            status === "approved"
                                 ? "bg-green-500"
                                 : status === "rejected"
                                 ? "bg-red-500"
                                 : status === "pending"
                                 ? "bg-yellow-500"
-                                : "bg-gray-500" }
+                                : "bg-gray-500"
+                        }
                     >
                         {status.toUpperCase()}
                     </Badge>
                 );
             },
         }),
+
         columnHelper.accessor("catatan_validasi", {
             header: "Keterangan",
             cell: (info) => {
-                // const status = "draft";
-                const value = info.getValue() || '-';
-
+                const text = info.getValue() || "-";
+                const maxLen = 25;
+                const isLong = text.length > maxLen;
                 return (
-                    <div className="text-center">
-                        <span className="font-semibold">{value}</span>
-                    </div>
+                    // <TooltipProvider>
+                    //     <Tooltip>
+                    //         <TooltipTrigger >
+                             
+                    //             <span className="ml-1 text-blue-500 text-sm group-hover:underline">
+                    //                 lihat
+                    //             </span>
+                               
+                    //         </TooltipTrigger>
+                    //         <TooltipContent>
+                    //             <p>{text}</p>
+                    //         </TooltipContent>
+                    //     </Tooltip>
+                    // </TooltipProvider>
+                    <Popover>
+                        <PopoverTrigger>
+                            <span className="ml-1 text-blue-500 text-sm group-hover:underline">
+                                   lihat
+                            </span>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                            <p className="text-sm">{text}</p>
+                        </PopoverContent>
+                    </Popover>
                 );
             },
         }),
-        ,
         columnHelper.accessor("submitted_at", {
             header: "submitted at",
             cell: (info) => {
                 // const status = "draft";
-                const value = info.getValue() || '-';
+                const value = info.getValue() || "-";
 
                 return (
                     <div className="text-center">
@@ -264,12 +320,10 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
             header: "Aksi",
             cell: ({ row }) => {
                 const { status, id_rekap_rt, id_rt } = row.original;
-                const isModerator = auth.user.role === "moderator";
-                const isSuperAdmin = auth.user.role === "super_admin";
 
                 return (
                     <div className="flex space-x-1 items-center">
-                        {/* Lihat detail (selalu ada) */}
+                  
                         <Button
                             size="sm"
                             variant="secondary"
@@ -285,13 +339,16 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
                             <Button
                                 size="sm"
                                 // className="bg-blue-600 hover:bg-blue-700"
-                                variant='default'
+                                variant="default"
                                 onClick={() =>
-                                    router.post(route("rekapitulasi-rt.submit", {id_rekap_rt}), {},{
-                                        onSuccess: () => {
-
+                                    router.post(
+                                        route("rekapitulasi-rt.submit", {
+                                            id_rekap_rt,
+                                        }),
+                                        {},
+                                        {
+                                            onSuccess: () => {},
                                         }
-                                    } 
                                     )
                                 }
                             >
@@ -304,14 +361,18 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
                                 size="sm"
                                 className="bg-yellow-600 hover:bg-yellow-700"
                                 onClick={() =>
-                                    router.get(
-                                        route("rekapitulasi-rt.edit", {
+                                    router.post(
+                                        route("rekapitulasi-rt.submit", {
                                             id_rekap_rt,
-                                        })
+                                        }),
+                                        {},
+                                        {
+                                            onSuccess: () => {},
+                                        }
                                     )
                                 }
                             >
-                                Edit Ulang
+                                Kirim Ulang
                             </Button>
                         )}
 
@@ -349,9 +410,7 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
         }),
     ];
 
-    const handleRowClick = (row) => {
-        // Optional: bisa redirect ke detail atau tidak melakukan apa-apa
-    };
+    const handleRowClick = (row) => {};
 
     return (
         <AuthenticatedLayout headerName="Detail Laporan Bulanan">
@@ -395,23 +454,7 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
                                 )}
                                 existingData={filteredData}
                             />
-                            {/* <Button
-                        onClick={() => {
-                            router.post(route('rekapitulasi-rt.store'), {
-                                id_rekap: id,
-                                id_rt: rtList[0].id_rt,
-                            }, {
-                            onSuccess: (response) => {
-                                // router.get(route('detail-rt.create', {
-                                //     idRekap: id,
-                                //     idRT: form.watch('id_rt')
-                                // }));
-                            }
-                            });
-                        }}
-                        >
-                        Lanjut Isi Detail
-                        </Button> */}
+                           
                         </div>
                     )}
                 </div>
