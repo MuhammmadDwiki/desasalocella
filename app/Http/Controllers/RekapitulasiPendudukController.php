@@ -117,9 +117,9 @@ class RekapitulasiPendudukController extends Controller
     {
         try {
             $user = Auth::user();
-            // dd($id_rekap);
             // Ambil data rekapitulasi
             $rekapitulasi = RekapitulasiPenduduk::where('id_rekap', $id_rekap)->first();
+            // dd($rekapitulasi->bulan);
             
             if (!$rekapitulasi) {
                 return back()->withErrors(['error' => 'Laporan tidak ditemukan']);

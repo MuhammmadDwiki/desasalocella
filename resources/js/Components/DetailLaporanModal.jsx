@@ -273,7 +273,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
                         onClose();
                     }
                 }}>
-            <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="md:max-w-4xl max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader className="flex flex-row items-center justify-between">
                     <div>
                         <DialogTitle>Detail Laporan RT</DialogTitle>
@@ -286,7 +286,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
 
                 <div className="space-y-6">
                     {/* Summary Cards */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                         <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
                             <h3 className="text-sm font-medium text-blue-800">Total KK</h3>
                             <p className="text-2xl font-bold text-blue-900">{grandTotals.jumlah_kk}</p>
@@ -312,7 +312,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
                         </div>
                     </div>
 
-                  <div className="mt-4">
+                    <div className="mt-4 overflow-x-auto w-full">
                         <GenericTable
                             data={datas}
                             columns={columns}

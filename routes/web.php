@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmail;
 
 use App\Http\Controllers\EmailController;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -55,7 +56,10 @@ Route::middleware(['auth', 'can:super_admin'])->group(function () {
     Route::get('/user-account', [UserController::class, "index"])->name('userAccount');
     Route::get('/manage-rt', [RTController::class, 'index'])->name('RTController');
 
-    Route::post('/rekapitulasi-rt/{id_rekap_rt}/validate', [RekapitulasiRTController::class, 'validate']);
+    Route::post('/rekapitulasi-rt/{id_rekap_rt}/validate', [RekapitulasiRTController::class, 'validate'])->name("rekapitulasi-rt.validate");
+    Route::post('/rekapitulasi-rt/{id_rekap_rt}/reject', [RekapitulasiRTController::class, 'reject'])->name("rekapitulasi-rt.reject");
+  
+
 });
 
 Route::middleware(['auth', 'can:moderator'])->group(function() {
@@ -74,13 +78,22 @@ Route::middleware('auth')->group(function () {
     Route::resource('karangTarunas', KarangTarunaController::class);
 
     Route::post('/rekapitulasi-rt', [RekapitulasiRTController::class, 'store'])->name('rekapitulasi-rt.store');
+    
+    Route::post('/notifications/{id}/mark-as-read', function ($id) {
+        Auth::user()         // atau auth()->user()
+            ->notifications()
+            ->where('read_at', null)
+            ->where('id', $id)
+            ->update(['read_at' => now()]);
 
+        return back()->with('success', 'Notifikasi dibaca');
+    })->middleware('auth')->name('notifications.markAsRead');
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('detail-laporan/by-rt/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getByRT'])->name('detail-laporan.by-rt');
     Route::get('detail-laporan/used-age-groups/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
+    Route::get('detail-laporan/by-rt/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getByRT'])->name('detail-laporan.by-rt');
+  
 });
 require __DIR__ . '/auth.php';
 
