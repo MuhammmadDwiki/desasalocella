@@ -8,6 +8,7 @@ import {
 import { LiaPeopleCarrySolid } from "react-icons/lia";
 import { usePage } from "@inertiajs/react";
 import { FaAngleDown } from "react-icons/fa";
+import  { MdOutlineNewspaper  } from 'react-icons/md';
 
 import Can from '@/components/Can'
 
@@ -57,6 +58,12 @@ const allLinks = [
         path: "/karang-taruna",
         icon: <LiaPeopleCarrySolid className='text-xl'/>,
         permission: "view.karang_taruna",
+    },
+     {
+        name: "Berita",
+        path: "/Berita",
+        icon: <MdOutlineNewspaper  className='text-xl'/>,
+        permission: "view.berita",
     },
 ];
 

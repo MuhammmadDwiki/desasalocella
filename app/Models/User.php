@@ -35,6 +35,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+     public function berita()
+    {
+        return $this->hasMany(Berita::class, 'id_user');
+    }
+    
     public function isSuperAdmin()
     {
         return $this->role === 'super_admin';
