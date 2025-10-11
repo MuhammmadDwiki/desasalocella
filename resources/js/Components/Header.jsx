@@ -31,7 +31,7 @@ const NotificationBell = ({ notifications }) => {
     const { auth } = usePage().props;
     const unread = notifications.filter((n) => !n.read_at);
     const unreadCount = unread?.length || 0;
-    console.log(notifications, unread);
+    // console.log(notifications, unread);
     // console.log(auth);
     const handleRead = (id, link) => {
         // console.log(id, link);

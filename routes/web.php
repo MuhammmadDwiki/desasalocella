@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgamaController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekapitulasiPendudukController;
@@ -76,6 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('kegiatans', KegiatanRTController::class);
     Route::resource('agamas', AgamaController::class);
     Route::resource('karangTarunas', KarangTarunaController::class);
+    Route::resource('Berita', BeritaController::class);
 
     Route::post('/rekapitulasi-rt', [RekapitulasiRTController::class, 'store'])->name('rekapitulasi-rt.store');
     
@@ -93,7 +95,6 @@ Route::middleware('auth')->group(function () {
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('detail-laporan/used-age-groups/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
     Route::get('detail-laporan/by-rt/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getByRT'])->name('detail-laporan.by-rt');
-  
 });
 require __DIR__ . '/auth.php';
 
@@ -156,11 +157,13 @@ Route::get('/layanan', function () {
 })->name('layanan');
 
 
-
-
+Route::get('/berita', [PageController::class, 'beritaIndex'])->name('berita');
+Route::get('/berita/load-more', [PageController::class, 'loadMoreBerita'])->name('berita.load-more');
+Route::get('/berita/{slug}', [PageController::class, 'beritaDetail'])->name('berita.detail');
+Route::get('/berita/related/{slug}', [PageController::class, 'relatedNews'])->name('berita.related');
 Route::get('/cuaca', [App\Http\Controllers\WeatherController::class, '']);
 
 
-## =========== ADMIN =========== ##
+
 
 

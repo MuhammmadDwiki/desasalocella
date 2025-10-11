@@ -52,6 +52,7 @@
 
             <a href="{{route('potensi')}}">Potensi Desa</a>
             <a href="{{route('layanan')}}">Layanan</a>
+            <a href="{{route('berita')}}">Berita</a>
         </nav>
     </div>
 </header>
