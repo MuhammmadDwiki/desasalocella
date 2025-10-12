@@ -52,20 +52,56 @@
 
             <a href="{{route('potensi')}}">Potensi Desa</a>
             <a href="{{route('layanan')}}">Layanan</a>
+            <a href="{{route('berita')}}">Berita</a>
         </nav>
     </div>
 </header>
 
+{{-- <nav>
+    <div><a href="userWelcome">Home</a></div>
+
+    <div class="has-dropdown">
+        <a href="#">Profil Desa ▼</a>
+        <div class="dropdown">
+            <a href="{{route('sejarah')}}">Sejarah Desa</a>
+            <a href="{{route('visi')}}">Visi & Misi</a>
+            <a href="{{route('struk')}}">Struktur Organisasi</a>
+            <a href="{{route('peta')}}">Peta Administrasi</a>
+        </div>
+    </div>
+
+    <div class="has-dropdown">
+        <a href="#">Data Desa ▼</a>
+        <div class="dropdown">
+            <a href="{{route('dapen')}}">Data Penduduk</a>
+        </div>
+    </div>
+
+    <div class="has-dropdown">
+        <a href="#">Kelembagaan ▼</a>
+        <div class="dropdown">
+            <a href="{{route('bpd')}}">BPD</a>
+            <a href="{{route('karangtrn')}}">Karang Taruna</a>
+            <a href="{{route('ketua')}}">Ketua RT</a>
+            <a href="{{route('pkk')}}">PKK</a>
+        </div>
+    </div>
+
+    <div><a href="{{route('potensi')}}">Potensi Desa</a></div>
+    <div><a href="{{route('layanan')}}">Layanan</a></div>
+
+    <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
+</nav> --}}
+
 <section class="hero">
     <video autoplay muted loop playsinline class="hero-video">
-        <source src="{{ asset('videos/bgdesaaa.mp4') }}" type="video/mp4">
+        <source src="{{ asset('videos/bgdesaa.mp4') }}" type="video/mp4">
     </video>
     <div class="hero-content">
         <h2>SELAMAT DATANG DI<br> DESA SALLO CELA</h2>
         <p>Website Resmi Desa Sallo Cela</p>
     </div>
 </section>
-
 
 {{-- Bagian Selikas Desa Salo Cella --}}
 <section class="stats">

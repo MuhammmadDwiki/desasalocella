@@ -20,64 +20,6 @@ import { Label } from "@/components/ui/label";
 import EditRTModal from "@/Components/EditRTModal";
 import Swal from "sweetalert2";
 
-// const dataRt = [
-//     {
-//         id: 1,
-//         nomor_rt: "01",
-//         nama_rt: "joseph",
-//         alamat_rt: "Jl. Raya No. 1",
-//         nomor_hp: "08123456789",
-//         is_active: true,
-//     },
-//     {
-//         id: 2,
-//         nomor_rt: "02",
-//         nama_rt: "michael",
-//         alamat_rt: "Jl. Raya No. 2",
-//         nomor_hp: "08123456780",
-//         is_active: true,
-//     },
-//     {
-//         id: 3,
-//         nomor_rt: "03",
-//         nama_rt: "sarah",
-//         alamat_rt: "Jl. Raya No. 3",
-//         nomor_hp: "08123456781",
-//         is_active: false,
-//     },
-//     {
-//         id: 4,
-//         nomor_rt: "04",
-//         nama_rt: "linda",
-//         alamat_rt: "Jl. Raya No. 4",
-//         nomor_hp: "08123456782",
-//         is_active: true,
-//     },
-//     {
-//         id: 5,
-//         nomor_rt: "05",
-//         nama_rt: "john",
-//         alamat_rt: "Jl. Raya No. 5",
-//         nomor_hp: "08123456783",
-//         is_active: false,
-//     },
-//     {
-//         id: 5,
-//         nomor_rt: "05",
-//         nama_rt: "john",
-//         alamat_rt: "Jl. Raya No. 5",
-//         nomor_hp: "08123456783",
-//         is_active: false,
-//     },
-//     {
-//         id: 5,
-//         nomor_rt: "05",
-//         nama_rt: "john",
-//         alamat_rt: "Jl. Raya No. 5",
-//         nomor_hp: "08123456783",
-//         is_active: false,
-//     },
-// ];
 
 const KelolaRT = ({ datas }) => {
     // console.log(datas);
@@ -296,7 +238,7 @@ const KelolaRT = ({ datas }) => {
                                     <div className="flex flex-wrap justify-between gap-2">
                                         <div className="">
                                             <Label htmlFor="nomor_rt">
-                                                Nomor RT
+                                                Nomor RT 
                                             </Label>
                                             <Input
                                                 type="text" // Ubah dari number ke text
@@ -321,7 +263,7 @@ const KelolaRT = ({ datas }) => {
                                         </div>
                                         <div className="">
                                             <Label htmlFor="nomor_hp">
-                                                Nomor Hp
+                                                Nomor Hp (opsional)
                                             </Label>
                                             <Input
                                                 type="text" // Ubah dari number ke text
@@ -348,7 +290,7 @@ const KelolaRT = ({ datas }) => {
                                     </div>
                                     <div className="grid gap-3 ">
                                         <Label htmlFor="alamat_rt">
-                                            Alamat RT
+                                            Alamat RT (opsional)
                                         </Label>
                                         <Input
                                             id="alamat_rt"

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailRekapitulasi;
 use App\Models\RekapitulasiPenduduk;
+use App\Models\RekapitulasiRT;
 use App\Models\RT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class DetailRekapitulasiController extends Controller
 {
@@ -34,28 +37,39 @@ class DetailRekapitulasiController extends Controller
             ->select(
                 'r_t_s.id_rt',
                 'r_t_s.nomor_rt',
+                DB::raw('SUM(jumlah_kk) as total_kk'),
                 DB::raw('SUM(jumlah_laki_laki_akhir + jumlah_perempuan_akhir) as total_penduduk_akhir'),
                 DB::raw('SUM(jumlah_laki_laki_awal + jumlah_perempuan_awal) as total_penduduk_awal')
             )
             ->groupBy('r_t_s.id_rt', 'r_t_s.nomor_rt')
             ->get();
         $rtList = RT::orderBy("nomor_rt")->get();
-        // dd($rtList);
-        return Inertia::render('DetailLaporanBulanan', [
-            'datas' => $datas,
-            'rtList' => $rtList,
-            'id' => $id_laporan
-        ]);
+        // dd($datas);
+        // return Inertia::render('DetailLaporanBulanan', [
+        //     'datas' => $datas,
+        //     'rtList' => $rtList,
+        //     'id' => $id_laporan
+        // ]);
     }
-    public function getByRT($idLaporan, $idRT)
+    public function getByRT($id_rekap_rt)
     {
-        $details = DetailRekapitulasi::where('id_rekap', $idLaporan)
-            ->where('id_rt', $idRT)
-            ->get();
+        // dd($id_rekap_rt);
+        $details = DetailRekapitulasi::where('id_rekap_rt', $id_rekap_rt)
+                             ->get();
+            // ->where('id_rt', $idRT)
 
         return response()->json($details);
     }
 
+    public function getUsedAgeGroups($id_rekap_rt)
+    {
+        $usedGroups = DetailRekapitulasi::where('id_rekap_rt', '=',$id_rekap_rt)
+                    ->pluck('kelompok_umur')
+                    ->toArray();
+            // ->where('id_rt', $idRT)
+
+        return response()->json($usedGroups);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -69,6 +83,8 @@ class DetailRekapitulasiController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $name = $user['name'];
         $validated = $request->validate([
             'id_rekap' => 'required|string|exists:rekapitulasi_penduduks,id_rekap',
             'id_rt' => 'required|string|exists:r_t_s,id_rt',
@@ -81,23 +97,44 @@ class DetailRekapitulasiController extends Controller
             'jumlah_perempuan_pindah' => 'required|integer|min:0',
             'jumlah_laki_laki_datang' => 'required|integer|min:0',
             'jumlah_perempuan_datang' => 'required|integer|min:0',
+            'jumlah_kk' => 'required|integer|min:0',
         ]);
-        $validated['id_detail_rekap'] = time() . bin2hex(random_bytes(4));
-        // dd($validated);
-        DetailRekapitulasi::create($validated);
+        $idRekapRt = 'RRT-' . now()->format('YmdHis') . '-' . Str::upper(Str::random(4));
+
+        $rekapRT = RekapitulasiRT::firstOrCreate(
+                    [
+                        'id_rekap' => $validated['id_rekap'],
+                        'id_rt'    => $validated['id_rt'],
+                    ],
+                    [
+                        'id_rekap_rt' => $idRekapRt,
+                        'jumlah_kk'             => 0,
+                        'jumlah_penduduk_akhir' => 0,
+                        'status'                => 'draft',
+                        'submitted_by'          => Auth::id(),
+                    ]
+                );
+        // dd($validated, Auth::id());
+
+        DetailRekapitulasi::create([
+            'id_detail_rekap' => time() . bin2hex(random_bytes(4)),
+            'id_rekap_rt'     => $rekapRT->id_rekap_rt,
+            'kelompok_umur'   => $validated['kelompok_umur'],
+            'jumlah_kk'                   => $validated['jumlah_kk'],
+            'jumlah_laki_laki_awal'       => $validated['jumlah_laki_laki_awal'],
+            'jumlah_perempuan_awal'       => $validated['jumlah_perempuan_awal'],
+            'jumlah_laki_laki_akhir'      => $validated['jumlah_laki_laki_akhir'],
+            'jumlah_perempuan_akhir'      => $validated['jumlah_perempuan_akhir'],
+            'jumlah_laki_laki_pindah'     => $validated['jumlah_laki_laki_pindah'],
+            'jumlah_perempuan_pindah'     => $validated['jumlah_perempuan_pindah'],
+            'jumlah_laki_laki_datang'     => $validated['jumlah_laki_laki_datang'],
+            'jumlah_perempuan_datang'     => $validated['jumlah_perempuan_datang'],
+        ]);
+
 
         return back()->with('success', 'Detail laporan berhasil ditambahkan');
     }
 
-    public function getUsedAgeGroups($idRekap, $idRT)
-    {
-        $usedGroups = DetailRekapitulasi::where('id_rekap', $idRekap)
-            ->where('id_rt', $idRT)
-            ->pluck('kelompok_umur')
-            ->toArray();
-
-        return response()->json($usedGroups);
-    }
     /**
      * Display the specified resource.
      */
@@ -133,6 +170,7 @@ class DetailRekapitulasiController extends Controller
             'jumlah_perempuan_pindah' => 'required|integer|min:0',
             'jumlah_laki_laki_datang' => 'required|integer|min:0',
             'jumlah_perempuan_datang' => 'required|integer|min:0',
+             'jumlah_kk' => 'required|integer|min:0',
         ]);
 
         $detailRekap->update($validated);

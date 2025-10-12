@@ -1,6 +1,6 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head , usePage} from "@inertiajs/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { GenericTable } from "@/Components/GenericTable";
 import {
@@ -63,14 +63,37 @@ const chartConfigLine = {
         color: "#FF6868",
     },
 };
+const SecurityTips = () => {
+  const tips = [
+    { id: 1, type: 'security', text: 'Jangan bagikan password kepada siapapun.' },
+    { id: 2, type: 'tips', text: 'Backup data laporan setiap akhir bulan.' },
+    // { id: 3, type: 'tips', text: 'Backup data laporan setiap akhir bulan.' },
+    { id: 4, type: 'update', text: 'Update browser ke versi terbaru untuk keamanan.' },
+  ];
 
+  return (
+    <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md shadow">
+      <h3 className="font-semibold mb-2 text-yellow-800">Pengingat & Tips</h3>
+      <ul className="text-sm text-yellow-700 space-y-1">
+        {tips.map(t => (
+          <li key={t.id}>• {t.text}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 export default function Dashboard({
     summary,
     detailData,
     ageGroups,
     lastUpdated,
     pendudukByBulan,
+    laporanPendingCount
 }) {
+    
+    const {auth, notifications } = usePage().props;
+    const unread = notifications.filter((n) => !n.read_at);
+    const unreadCount = unread?.length || 0;
     console.log(
         "summary :",
         summary,
@@ -113,8 +136,9 @@ export default function Dashboard({
             <Head title="Dashboard" />
             <div className="flex flex-col gap-6 container mx-auto mb-10">
                 <div className="bg-white rounded-lg shadow p-6">
+                    
                     <div className="flex items-center justify-between">
-                        <h1 className="text-xl font-semibold mb-4">Summary</h1>
+                        <h1 className="text-xl font-semibold mb-4">Ringkasan</h1>
                         <p className="text-md text-gray-500 italic">
                             {lastUpdated
                                 ? `Terakhir diubah ${format(
@@ -127,33 +151,50 @@ export default function Dashboard({
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {/* Card 1 */}
-                        <div className="bg-blue-50 p-4 rounded-lg">
+                        <div className="bg-blue-100 p-4 rounded-lg">
                             <h2 className="text-lg font-semibold">
                                 Total Penduduk
                             </h2>
                             <p className="text-3xl font-bold mt-2">
-                                {summary.totalPenduduk.toLocaleString("id-ID")}
+                                {summary?.totalPenduduk.toLocaleString("id-ID")}
                             </p>
                         </div>
 
                         {/* Card 2 */}
-                        <div className="bg-green-50 p-4 rounded-lg">
+                        <div className="bg-green-100 p-4 rounded-lg">
                             <h2 className="text-lg font-semibold">
                                 Penduduk Datang
                             </h2>
                             <p className="text-3xl font-bold mt-2">
-                                {summary.totalDatang.toLocaleString("id-ID")}
+                                {summary?.totalDatang.toLocaleString("id-ID")}
                             </p>
                         </div>
 
                         {/* Card 3 */}
-                        <div className="bg-red-50 p-4 rounded-lg">
+                        <div className="bg-red-100 p-4 rounded-lg">
                             <h2 className="text-lg font-semibold">
                                 Penduduk Pindah
                             </h2>
                             <p className="text-3xl font-bold mt-2">
-                                {summary.totalPindah.toLocaleString("id-ID")}
+                                {summary?.totalPindah.toLocaleString("id-ID")}
                             </p>
+                        </div>
+                        {/* {auth.user.role === 'super_admin'  && (
+
+                            <div className="bg-orange-200 p-4 rounded-lg">
+                            <h2 className="text-lg font-semibold">RT Belum Submit</h2>
+                            <p className="text-3xl font-bold">3</p>
+                        </div>
+                        )} */}
+                        
+                        <div className="bg-yellow-100 p-4 rounded-lg">
+                            <h2 className="text-lg font-semibold">Laporan Pending</h2>
+                            <p className="text-3xl font-bold">{laporanPendingCount}</p>
+                        </div>
+                        
+                        <div className="bg-amber-100 p-4 rounded-lg">
+                            <h2 className="text-lg font-semibold">Notifikasi Baru</h2>
+                            <p className="text-3xl font-bold">{unreadCount}</p>
                         </div>
                     </div>
                 </div>
@@ -165,9 +206,9 @@ export default function Dashboard({
                         <div className="md:max-w-[500px] h-[260px] md:h-[220px] px-2 py-1">
                             <ChartContainer
                                 config={chartConfig}
-                                className="w-full h-full"
+                                className="w-full h-full "
                             >
-                                <BarChart accessibilityLayer data={ageGroups}>
+                                <BarChart accessibilityLayer data={ageGroups} className="" >
                                     <CartesianGrid vertical={false} />
                                     <XAxis
                                         dataKey="kelompok_umur"
@@ -186,10 +227,12 @@ export default function Dashboard({
                                     <ChartLegend
                                         content={<ChartLegendContent />}
                                     />
+                                    
                                     <Bar
                                         dataKey="laki"
                                         fill="var(--color-laki)"
                                         radius={[4, 4, 0, 0]}
+                                    
                                     />
                                     <Bar
                                         dataKey="perempuan"
@@ -343,6 +386,9 @@ export default function Dashboard({
                             </ChartContainer>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <SecurityTips />
                 </div>
             </div>
         </AuthenticatedLayout>

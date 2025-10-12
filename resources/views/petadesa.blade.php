@@ -7,52 +7,52 @@
     <link rel="stylesheet" href="{{ asset('css/petadesa.css') }}">
 </head>
 <body>
-
-<header class="top-bar">
-    <div class="left">
-        <img src="{{ asset('images/logodesa.png') }}" alt="Logo" class="logo">
-        <div>
-            <div class="title">Desa Sallo Cela</div>
-            <div class="subtitle">Kec. Muara Badak, Kab. Kutai Kartanegara,<br>
-            Prov. Kalimantan Timur</div>
+    <header>
+    <img src="{{ asset('images/logodesa.png') }}" alt="Logo" class="logo">
+    <div>
+        <div class="title">Desa Sallo Cela</div>
+        <div class="subtitle">
+            Kec. Muara Badak, Kab. Kutai Kartanegara,<br>
+            Prov. Kalimantan Timur
         </div>
     </div>
-    
-    <div class="right">
-        <nav>
-            <a href="{{route('beranda')}}">Home</a>
-            <div class="has-dropdown">
-                <a href="#">Profil Desa ▼</a>
-                <div class="dropdown">
-                    <a href="{{route('sejarah')}}">Sejarah Desa</a>
-                    <a href="{{route('visi')}}">Visi & Misi</a>
-                    <a href="{{route('struk')}}">Perangkat Desa</a>
-                    <a href="{{route('peta')}}">Peta Administrasi</a>
-                </div>
-            </div>
-
-            <div class="has-dropdown">
-                <a href="#">Data Desa ▼</a>
-                <div class="dropdown">
-                    <a href="{{route('dapen')}}">Data Penduduk</a>
-                </div>
-            </div>
-
-            <div class="has-dropdown">
-                <a href="#">Kelembagaan ▼</a>
-                <div class="dropdown">
-                    <a href="{{route('bpd')}}">BPD</a>
-                    <a href="{{route('karangtrn')}}">Karang Taruna</a>
-                    <a href="{{route('ketua')}}">Ketua RT</a>
-                    <a href="{{route('pkk')}}">PKK</a>
-                </div>
-            </div>
-
-            <a href="{{route('potensi')}}">Potensi Desa</a>
-            <a href="{{route('layanan')}}">Layanan</a>
-        </nav>
-    </div>
 </header>
+{{-- 
+<nav>
+    <div><a href="{{route('userWelcome')}}">Home</a></div>
+
+    <div class="has-dropdown">
+        <a href="#">Profil Desa ▼</a>
+        <div class="dropdown">
+            <a href="{{route('sejarah')}}">Sejarah Desa</a>
+            <a href="{{route('visi')}}">Visi & Misi</a>
+            <a href="{{route('struk')}}">Struktur Organisasi</a>
+            <a href="{{route('peta')}}">Peta Administrasi</a>
+        </div>
+    </div>
+
+    <div class="has-dropdown">
+        <a href="#">Data Desa ▼</a>
+        <div class="dropdown">
+            <a href="{{route('dapen')}}">Data Penduduk</a>
+        </div>
+    </div>
+
+    <div class="has-dropdown">
+        <a href="#">Kelembagaan ▼</a>
+        <div class="dropdown">
+            <a href="{{route('bpd')}}">BPD</a>
+            <a href="{{route('karangtrn')}}">Karang Taruna</a>
+            <a href="{{route('ketua')}}">Ketua RT</a>
+            <a href="{{route('pkk')}}">PKK</a>
+        </div>
+    </div>
+
+    <div><a href="{{route('potensi')}}">Potensi Desa</a></div>
+    <div><a href="{{route('layanan')}}">Layanan</a></div>
+
+    <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
+</nav> --}}
 
     <section class="page-header">
         <h2>Peta Desa Sallo Cela</h2>
@@ -84,15 +84,25 @@
             <h4>Sekilas Salo Cella</h4>
             <ul>
                 <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
+<<<<<<< HEAD
+                <li><a href="#">Sekilas Pasekan</a></li>
+                <li><a href="#">Profil</a></li>
+=======
                 <li><a href="#">Profil</a></li>
                 <li><a href="#">Peta</a></li>
+>>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
             </ul>
         </div>
         <div class="footer-column">
             <h4>Pemerintah</h4>
             <ul>
                 <li><a href="{{ route('visi') }}">Visi Misi</a></li>
+<<<<<<< HEAD
+                <li><a href="#">SOT</a></li>
+                <li><a href="{{ route('struk') }}">Struktur Organisasi</a></li>
+=======
                 <li><a href="{{ route('struk') }}">Perangkat Desa</a></li>
+>>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
             </ul>
         </div>
         <div class="footer-column">
@@ -102,6 +112,12 @@
                 <li><a href="#">Infografis</a></li>
                 <li><a href="#">Produk Hukum</a></li>
                 <li><a href="#">Info Berkala</a></li>
+<<<<<<< HEAD
+                <li><a href="#">Info serta merta</a></li>
+                <li><a href="#">Info setiap saat</a></li>
+                <li><a href="#">DIP</a></li>
+=======
+>>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
             </ul>
         </div>
     </div>

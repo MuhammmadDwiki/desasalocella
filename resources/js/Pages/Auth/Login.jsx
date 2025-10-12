@@ -24,7 +24,9 @@ export default function Login({ status, canResetPassword }) {
     return (
         <GuestLayout>
             <Head title="Log in" />
-
+            <div className='my-2 flex w-full justify-center'>
+                <h1 className='text-bold text-2xl '>Login</h1>
+            </div>
             {status && (
                 <div className="mb-4 text-sm font-medium text-green-600">
                     {status}
