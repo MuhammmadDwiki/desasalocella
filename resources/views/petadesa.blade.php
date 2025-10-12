@@ -81,7 +81,7 @@
 <footer class="site-footer">
     <div class="footer-content">
         <div class="footer-column">
-            <h4>Sekilas Pasekan</h4>
+            <h4>Sekilas Salo Cella</h4>
             <ul>
                 <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
                 <li><a href="#">Profil</a></li>

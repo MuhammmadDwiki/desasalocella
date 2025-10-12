@@ -55,7 +55,7 @@
 </header>
 
 <section class="page-header">
-    <h2>Karang Taruna Desa Sallo Cela</h2>
+    <h2>Badan Permusyawaratan Daerah Sallo Cela</h2>
 </section>
 
 <table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%; text-align: left;">
@@ -100,7 +100,7 @@
 <footer class="site-footer">
     <div class="footer-content">
         <div class="footer-column">
-            <h4>Sekilas Pasekan</h4>
+            <h4>Sekilas Salo Cella</h4>
             <ul>
                 <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
                 <li><a href="#">Profil</a></li>

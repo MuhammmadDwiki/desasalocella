@@ -16,60 +16,6 @@ use Inertia\Inertia;
 
 
 
-// Route::get('/admin', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//         'title' => 'Desa Salocella'
-//     ]);
-// });
-## =========== ADMIN =========== ##
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard', [
-        "routeUser" => route('userWelcome'),
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/user-account', [UserController::class, "index"])->middleware(['auth', 'verified'])->name('userAccount');
-
-Route::get('/data-pdn', function(){
-    return Inertia::render('DataPenduduk');
-})->middleware(['auth', 'verified'])->name('userAccount');
-
-Route::get('/manage-rt', [RTController::class, 'index'])->middleware(['auth', 'verified'])->name('RTController');
-
-Route::get('laporan-bulanan', [RekapitulasiPendudukController::class, 'index'])->middleware(['auth', 'verified'])->name("laporanBulanan");
-
-Route::get('laporan-bulanan/{id}', [DetailRekapitulasiController::class, 'index'])->middleware(['auth', 'verified'])->name("detailLaporanBulanan");
-
-Route::get('detail-laporan/by-rt/{idLaporan}/{idRt}', [DetailRekapitulasiController::class, 'getByRT'])
-    ->name('detail-laporan.by-rt');
-
-Route::get('detail-laporan/used-age-groups/{idRekap}/{idRT}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
-
-Route::get('/agama', [AgamaController::class, 'index'])->middleware(['auth', 'verified'])->name('agama');
-Route::get('/kegiatan', [KegiatanRTController::class, 'index'])->middleware(['auth', 'verified'])->name('kegiatan');
-Route::get('/karang-taruna', [KarangTarunaController::class, 'index'])->middleware(['auth', 'verified'])->name('karangTaruna');
-
-Route::middleware('auth')->group(function () {
-    Route::resource('Dashboard', DashboardController::class);
-Route::resource('rt', RTController::class)->except(['create', 'edit']);
-Route::resource('laporan', RekapitulasiPendudukController::class);
-Route::resource('detailLaporan', DetailRekapitulasiController::class);
-    Route::resource('kegiatans', KegiatanRTController::class);
-    Route::resource('agamas', AgamaController::class);
-    Route::resource('karangTarunas', KarangTarunaController::class);
-    
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-require __DIR__ . '/auth.php';
-
-
-
-
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -125,10 +71,119 @@ Route::get('/layanan', function () {
     return view('layananpublik');
 })->name('layanan');
 
+// Route::get('/admin', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//         'title' => 'Desa Salocella'
+//     ]);
+// });
+## =========== ADMIN =========== ##
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard', [
+        "routeUser" => route('userWelcome'),
+    ]);
+})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/user-account', [UserController::class, "index"])->middleware(['auth', 'verified'])->name('userAccount');
+
+Route::get('/data-pdn', function(){
+    return Inertia::render('DataPenduduk');
+})->middleware(['auth', 'verified'])->name('userAccount');
+
+Route::get('/manage-rt', [RTController::class, 'index'])->middleware(['auth', 'verified'])->name('RTController');
+
+Route::get('laporan-bulanan', [RekapitulasiPendudukController::class, 'index'])->middleware(['auth', 'verified'])->name("laporanBulanan");
+
+Route::get('laporan-bulanan/{id}', [DetailRekapitulasiController::class, 'index'])->middleware(['auth', 'verified'])->name("detailLaporanBulanan");
+
+Route::get('detail-laporan/by-rt/{idLaporan}/{idRt}', [DetailRekapitulasiController::class, 'getByRT'])
+    ->name('detail-laporan.by-rt');
+
+Route::get('detail-laporan/used-age-groups/{idRekap}/{idRT}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
+
+Route::get('/agama', [AgamaController::class, 'index'])->middleware(['auth', 'verified'])->name('agama');
+Route::get('/kegiatan', [KegiatanRTController::class, 'index'])->middleware(['auth', 'verified'])->name('kegiatan');
+Route::get('/karang-taruna', [KarangTarunaController::class, 'index'])->middleware(['auth', 'verified'])->name('karangTaruna');
+
+Route::middleware('auth')->group(function () {
+    Route::resource('Dashboard', DashboardController::class);
+Route::resource('rt', RTController::class)->except(['create', 'edit']);
+Route::resource('laporan', RekapitulasiPendudukController::class);
+Route::resource('detailLaporan', DetailRekapitulasiController::class);
+    Route::resource('kegiatans', KegiatanRTController::class);
+    Route::resource('agamas', AgamaController::class);
+    Route::resource('karangTarunas', KarangTarunaController::class);
+    
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+require __DIR__ . '/auth.php';
 
 
 
-Route::get('/cuaca', [App\Http\Controllers\WeatherController::class, '']);
+
+
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// })->name('beranda');
+
+// Route::get('/sejarah', function () {
+//     return view('sejarahdesa');
+// })->name('sejarah');
+
+// Route::get('/visi', function () {
+//     return view('visimisi');
+// })->name('visi');
+
+// Route::get('/struk', function () {
+//     return view('strukturorganisasi');
+// })->name('struk');
+
+// Route::get('/dapen', [PageController::class, 'pendudukIndex'])->name('dapen'); // [nama controller, nama function]
+
+// Route::get('/peta', function () {
+//     return view('petadesa');
+// })->name('peta');
+
+// Route::get('/bpd', function () {
+//     return view('badanpermusyawaratandesa');
+// })->name('bpd');
+
+// Route::get('/ketuaa', function () {
+//     return view('ketuart');
+// })->name('ketuaa');
+
+// Route::get('/linmass', function () {
+//     return view('linmas');
+// })->name('linmass');
+
+// Route::get('/pkk', function () {
+//     return view('ibupkk');
+// })->name('pkk');
+
+// Route::get('/posy', function () {
+//     return view('posyandu');
+// })->name('posy');
+
+// Route::get('/karangtrn', function () {
+//     return view('karangtaruna');
+// })->name('karangtrn');
+
+// Route::get('/potensi', function () {
+//     return view('potensidesa');
+// })->name('potensi');
+
+// Route::get('/layanan', function () {
+//     return view('layananpublik');
+// })->name('layanan');
+
+
+
+
+// Route::get('/cuaca', [App\Http\Controllers\WeatherController::class, '']);
 
 
 ## =========== ADMIN =========== ##

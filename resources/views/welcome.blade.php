@@ -6,7 +6,7 @@
 <title>Desa Sallo Cela</title>
 <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 <link rel="icon" href="{{ asset('images/logodesa.png') }}">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -71,23 +71,10 @@
 <section class="stats">
     <h2>Sekilas Salo Cella</h2>
     <div class="stats-grid">
-        <div class="stat-card">
-            <h3>🌦️ Cuaca</h3>
-            <ul>
-                <li>12 Aug 03:00 → 27.95°C</li>
-                <li>12 Aug 06:00 → 30.86°C</li>
-                <li>12 Aug 09:00 → 30.76°C</li>
-                <li>12 Aug 12:00 → 27.82°C</li>
-                <li>12 Aug 15:00 → 26.78°C</li>
-                <li>12 Aug 18:00 → 26.05°C</li>
-                <li>12 Aug 21:00 → 22.19°C</li>
-                <li>13 Aug 00:00 → 23.32°C</li>
-                <li>13 Aug 03:00 → 29.19°C</li>
-                <li>13 Aug 06:00 → 31.76°C</li>
-                <li>13 Aug 09:00 → 29.14°C</li>
-                <li>13 Aug 12:00 → 26.1°C</li>
-            </ul>
-        </div>
+    <div class="stat-card">
+    <h3>🗺️ Peta Lokasi</h3>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7820852681!2d117.34240417303133!3d-0.2441889353709371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df5e7c168b77d4b%3A0x8222e6267d6bad0c!2sKantor%20Desa%20Salo%20Cella!5e0!3m2!1sid!2sid!4v1758904548969!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
         <div class="stat-column">
         <div class="stat-card kesehatan-card">
             <h3>❤️ Kesehatan</h3>
@@ -149,27 +136,45 @@
             </div>
         </div>
         <div class="contact-card">
-            <span>👥</span>
-            <div>
-                <strong>Pengunjung</strong>
-                <p>Jumlah pengunjung: 344,652</p>
-            </div>
-        </div>
-        <div class="contact-card">
             <span>🕒</span>
             <div>
                 <strong>Jam Layanan</strong>
                 <p>Senin - Kamis: 08.00 – 15.00</p>
             </div>
         </div>
+        <div class="contact-card">
+    <span><i class="fa-brands fa-instagram" style="color:#E4405F;"></i></span>
+    <div>
+        <strong>Instagram</strong>
+        <p><a href="https://www.instagram.com/desasalocella" target="_blank">@desasallocella</a></p>
+    </div>
+</div>
+
+<div class="contact-card">
+    <span><i class="fa-brands fa-facebook" style="color:#1877F2;"></i></span>
+    <div>
+        <strong>Facebook</strong>
+        <p><a href="https://www.facebook.com/share/19QTUia2uy/" target="_blank">Desa Sallo Cela</a></p>
+    </div>
+</div>
+
+<div class="contact-card">
+    <span><i class="fa-brands fa-tiktok" style="color:#000;"></i></span>
+    <div>
+        <strong>TikTok</strong>
+        <p><a href="https://www.tiktok.com/@desasalocella" target="_blank">@desasallocella</a></p>
+    </div>
+</div>
+
     </div>
 </section>
+
 
 
 <footer class="site-footer">
     <div class="footer-content">
         <div class="footer-column">
-            <h4>Sekilas Pasekan</h4>
+            <h4>Sekilas Salo Cella</h4>
             <ul>
                 <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
                 <li><a href="#">Profil</a></li>

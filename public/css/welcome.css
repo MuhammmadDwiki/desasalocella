@@ -285,9 +285,13 @@ html, body {
 }
 
 .contact-right {
-    display: flex;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* selalu 2 kolom */
+    gap: 20px;
+    width: 100%;
 }
+
+
 
 .contact-card {
     display: flex;
