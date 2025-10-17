@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="{{ asset('css/bpd.css') }}">
+<link rel="icon" href="{{ asset('images/logodesa.png') }}">
 <title>Sejarah Desa Sallo Cela</title>
 </head>
 <body>
@@ -24,10 +25,8 @@
             <div class="has-dropdown">
                 <a href="#">Profil Desa ▼</a>
                 <div class="dropdown">
-                    <a href="{{route('sejarah')}}">Sejarah Desa</a>
                     <a href="{{route('visi')}}">Visi & Misi</a>
                     <a href="{{route('struk')}}">Perangkat Desa</a>
-                    <a href="{{route('peta')}}">Peta Administrasi</a>
                 </div>
             </div>
 
@@ -50,6 +49,8 @@
 
             <a href="{{route('potensi')}}">Potensi Desa</a>
             <a href="{{route('layanan')}}">Layanan</a>
+            <a href="{{route('berita')}}">Berita</a>
+
         </nav>
     </div>
 </header>
@@ -58,6 +59,7 @@
     <h2>Karang Taruna Desa Sallo Cela</h2>
 </section>
 
+<section class="ketur-section">
 <table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%; text-align: left;">
     <thead style="background-color: #f2f2f2;">
         <tr>
@@ -129,6 +131,7 @@
         </tr>
     </tbody>
 </table>
+</section>
 
 
 

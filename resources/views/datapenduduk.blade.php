@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="datapenduduk.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('css/datapenduduk.css') }}">
+    <link rel="icon" href="{{ asset('images/logodesa.png') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/js/app.js')
+
 </head>
 <body>
 
@@ -26,10 +30,8 @@
             <div class="has-dropdown">
                 <a href="#">Profil Desa ▼</a>
                 <div class="dropdown">
-                    <a href="{{route('sejarah')}}">Sejarah Desa</a>
                     <a href="{{route('visi')}}">Visi & Misi</a>
                     <a href="{{route('struk')}}">Perangkat Desa</a>
-                    <a href="{{route('peta')}}">Peta Administrasi</a>
                 </div>
             </div>
 
@@ -52,81 +54,50 @@
 
             <a href="{{route('potensi')}}">Potensi Desa</a>
             <a href="{{route('layanan')}}">Layanan</a>
+            <a href="{{route('berita')}}">Berita</a>
         </nav>
     </div>
 </header>
-{{-- 
-<nav>
-    <div><a href="{{route('userWelcome')}}">Home</a></div>
 
-    <div class="has-dropdown">
-        <a href="#">Profil Desa ▼</a>
-        <div class="dropdown">
-            <a href="{{route('sejarah')}}">Sejarah Desa</a>
-            <a href="{{route('visi')}}">Visi & Misi</a>
-            <a href="{{route('struk')}}">Struktur Organisasi</a>
-            <a href="{{route('peta')}}">Peta Administrasi</a>
-        </div>
-    </div>
-
-    <div class="has-dropdown">
-        <a href="#">Data Desa ▼</a>
-        <div class="dropdown">
-            <a href="{{route('dapen')}}">Data Penduduk</a>
-        </div>
-    </div>
-
-    <div class="has-dropdown">
-        <a href="#">Kelembagaan ▼</a>
-        <div class="dropdown">
-            <a href="{{route('bpd')}}">BPD</a>
-            <a href="{{route('karangtrn')}}">Karang Taruna</a>
-            <a href="{{route('ketua')}}">Ketua RT</a>
-            <a href="{{route('linmass')}}">Linmas</a>
-            <a href="{{route('posy')}}">Posyandu</a>
-            <a href="{{route('pkk')}}">PKK</a>
-        </div>
-    </div>
-
-    <div><a href="{{route('potensi')}}">Potensi Desa</a></div>
-    <div><a href="{{route('layanan')}}">Layanan</a></div>
-
-    <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
-</nav> --}}
 
 <section class="page-header">
     <h2>Data Penduduk Desa Sallo Cela</h2>
 </section>
 
-<p>
+<p >
     Halaman Data Desa ini berisi informasi mengenai Basis Data Desa Salo Cella. 
     Data yang disajikan dalam halaman ini, yakni basis data kependudukan dan data desa lainnya 
     yang diolah secara berkelanjutan.
 </p>
 
 <!-- ===== Grafik Jumlah Penduduk ===== -->
-<div class="chart-container">
-    <h4>Jumlah Penduduk</h4>
-    <canvas id="chartPenduduk"></canvas>
-</div>
+<div class='flex container mx-auto justify-center gap-4'>
 
-<!-- ===== Grafik Jumlah KK ===== -->
-<div class="chart-container">
-    <h4>Jumlah KK</h4>
-    <canvas id="chartKK"></canvas>
-</div>
 
-<!-- ===== Grafik Agama ===== -->
-<div class="chart-container">
-    <h4>Agama</h4>
-    <canvas id="chartAgama"></canvas>
+    <div class="chart-container">
+        <h4>Jumlah Penduduk</h4>
+        <canvas id="chartPenduduk"></canvas>
+    </div>
+    
+    <!-- ===== Grafik Jumlah KK ===== -->
+    <div class="chart-container">
+        <h4>Jumlah KK</h4>
+        <canvas id="chartKK"></canvas>
+    </div>
+    
+    <!-- ===== Grafik Agama ===== -->
+    <div class="chart-container">
+        <h4>Agama</h4>
+        <canvas id="chartAgama"></canvas>
+    </div>
 </div>
-
+    
 <script>
     const penduduk = @json($penduduk);
     
     // Hitung persentase
     const total = penduduk.totalLaki + penduduk.totalPerempuan;
+    
     const persenLaki = ((penduduk.totalLaki / total) * 100).toFixed(1);
     const persenPerempuan = ((penduduk.totalPerempuan / total) * 100).toFixed(1);
     // console.log(penduduk)

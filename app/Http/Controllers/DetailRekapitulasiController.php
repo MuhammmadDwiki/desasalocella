@@ -159,8 +159,7 @@ class DetailRekapitulasiController extends Controller
         $detailRekap = DetailRekapitulasi::findOrFail($id_detail_rekap);
 
         $validated = $request->validate([
-            'id_rekap' => 'required|string|exists:rekapitulasi_penduduks,id_rekap',
-            'id_rt' => 'required|string|exists:r_t_s,id_rt',
+            'id_rekap_rt' => 'required|string|exists:rekapitulasi_r_t_s,id_rekap_rt',
             'kelompok_umur' => 'required|string',
             'jumlah_laki_laki_awal' => 'required|integer|min:0',
             'jumlah_perempuan_awal' => 'required|integer|min:0',

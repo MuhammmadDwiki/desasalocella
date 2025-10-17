@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $berita->judul_berita }} - Desa Sallo Cela</title>
     <link rel="stylesheet" href="{{ asset('css/berita.css') }}">
+    <link rel="icon" href="{{ asset('images/logodesa.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     @vite('resources/js/app.js')
 </head>

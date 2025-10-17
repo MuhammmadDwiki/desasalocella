@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         ]
         );
 
-        \App\Models\Berita::factory()->count(10)->create();
+        // \App\Models\Berita::factory()->count(10)->create();
         // User::create([
         //     'username' => 'username moderator',
         //     'name' => 'moderator name',

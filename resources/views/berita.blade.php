@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="berita.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{{ asset('css/berita.css') }}">
+    <link rel="icon" href="{{ asset('images/logodesa.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     @vite('resources/js/app.js')
 
@@ -74,9 +75,8 @@
                 <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
 
                     <a href="{{ 'berita/'. $item->slug }}">
-                        <img src="{{ asset('' . $item->url_gambar) }}" alt="{{ $item->judul_berita }}"
-                        {{-- <img src="{{ asset('storage/' . $item->url_gambar) }}" alt="{{ $item->judul_berita }}" --}}
-                            class="w-full h-52 object-fill">
+                        <!-- <img src="{{ asset('' . $item->url_gambar) }}" alt="{{ $item->judul_berita }}" -->
+                        <img src="{{ asset('storage/' . $item->url_gambar) }}" alt="{{ $item->judul_berita }}" class="w-full h-52 object-fill">
 
                         <div class="p-4 px-8">
                             <div class="flex justify-between items-center mb-4">
@@ -113,8 +113,9 @@
                 Load More
             </button>
         </div>
-
-        <footer class="site-footer">
+    </div>
+    
+    <footer class="site-footer">
             <div class="footer-content">
                 <div class="footer-column">
                     <h4>Sekilas Pasekan</h4>
@@ -145,7 +146,6 @@
                 &copy; {{ date('Y') }} Desa Salo Cella. All Rights Reserved.
             </div>
         </footer>
-    </div>
 
     <script>
      document.addEventListener('DOMContentLoaded', function() {

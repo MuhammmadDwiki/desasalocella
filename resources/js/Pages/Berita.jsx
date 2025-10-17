@@ -205,6 +205,7 @@ export default function Berita({ datas }) {
             header: "Gambar",
             cell: (info) => {
                 const gambar = info.getValue();
+                console.log(gambar)
                 return gambar ? (
                     <img 
                         src={`/storage/${gambar}`} 

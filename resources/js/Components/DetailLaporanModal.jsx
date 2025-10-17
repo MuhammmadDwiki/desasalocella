@@ -78,7 +78,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
             </Dialog>
         );
     }
-    console.log(datas)
+    // console.log(datas)
     const handleEditButton = (row) => {
         reset();
         setData(row);
@@ -87,7 +87,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log("data yang akan dikirim : \n", data)
+        console.log("data yang akan dikirim : \n", data)
         put(route("detailLaporan.update", data.id_detail_rekap), {
             onSuccess: () => {
                 reset();
@@ -101,6 +101,9 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
                     onClose();
                 }
             },
+            onError: (e) => {
+               console.error(e);
+            }
         });
     };
     const columnHelper = createColumnHelper();
