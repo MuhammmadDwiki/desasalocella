@@ -55,40 +55,6 @@
     </div>
 </header>
 
-{{-- <nav>
-    <div><a href="userWelcome">Home</a></div>
-
-    <div class="has-dropdown">
-        <a href="#">Profil Desa ▼</a>
-        <div class="dropdown">
-            <a href="{{route('sejarah')}}">Sejarah Desa</a>
-            <a href="{{route('visi')}}">Visi & Misi</a>
-            <a href="{{route('struk')}}">Struktur Organisasi</a>
-            <a href="{{route('peta')}}">Peta Administrasi</a>
-        </div>
-    </div>
-
-    <div class="has-dropdown">
-        <a href="#">Data Desa ▼</a>
-        <div class="dropdown">
-            <a href="{{route('dapen')}}">Data Penduduk</a>
-        </div>
-    </div>
-
-    <div class="has-dropdown">
-        <a href="#">Kelembagaan ▼</a>
-        <div class="dropdown">
-            <a href="{{route('bpd')}}">BPD</a>
-            <a href="{{route('karangtrn')}}">Karang Taruna</a>
-            <a href="{{route('ketua')}}">Ketua RT</a>
-            <a href="{{route('pkk')}}">PKK</a>
-        </div>
-    </div>
-
-    <div><a href="{{route('potensi')}}">Potensi Desa</a></div>
-    <div><a href="{{route('layanan')}}">Layanan</a></div>
-</nav> --}}
-
 <section class="hero">
     <video autoplay muted loop playsinline class="hero-video">
         <source src="{{ asset('videos/bgdesaa.mp4') }}" type="video/mp4">
@@ -99,7 +65,6 @@
     </div>
 </section>
 
-{{-- Bagian Selikas Desa Salo Cella --}}
 <section class="stats">
     <h2>Sekilas Salo Cella</h2>
     <div class="stats-grid">

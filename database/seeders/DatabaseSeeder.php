@@ -24,11 +24,27 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin'), // Use bcrypt for password hashing
             'role' => 'super_admin', // Set role to admin
             'id_rt' => null, // Example RT assignment
+            'role' => 'super_admin', // Set role to admin
+            'id_rt' => null, // Example RT assignment
             'email_verified_at' => now(),
             'last_login' => now(),
 
         ]
         );
+
+        \App\Models\Berita::factory()->count(10)->create();
+        // User::create([
+        //     'username' => 'username moderator',
+        //     'name' => 'moderator name',
+        //     'email' => 'admin@desa.com',
+        //     'password' => bcrypt('@Amway123'), // Use bcrypt for password hashing
+        //     'role' => 'moderator', // Set role to admin
+        //     'id_rt' => null, // Example RT assignment
+        //     'email_verified_at' => now(),
+        //     'last_login' => now(),
+
+        // ]
+        // );
 
         // \App\Models\Berita::factory()->count(10)->create();
         // User::create([

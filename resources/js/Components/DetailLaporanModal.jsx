@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {
     Head,
     router,
@@ -83,6 +84,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
         reset();
         setData(row);
         setShowEditModal(true);
+        // setOpen(false);
         // setOpen(false);
     };
     const handleSubmit = async (e) => {
