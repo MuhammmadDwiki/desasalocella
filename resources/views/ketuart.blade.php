@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="{{ asset('css/bpd.css') }}">
 <link rel="icon" href="{{ asset('images/logodesa.png') }}">
-<title>Sejarah Desa Sallo Cela</title>
 </head>
 <body>
 
@@ -56,7 +55,7 @@
 </header>
 
 <section class="page-header">
-    <h2>Karang Taruna Desa Sallo Cela</h2>
+    <h2>Data Ketua RT Desa Sallo Cela</h2>
 </section>
 
 <section class="ketur-section">
