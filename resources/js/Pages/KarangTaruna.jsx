@@ -28,7 +28,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { GenericTable } from "@/Components/GenericTable";
 import Swal from "sweetalert2";
 export default function KarangTaruna({datas}) {
-const [showEditModal, setShowEditModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [editData, setEditData] = useState(null);
 
     // Form for creating new data

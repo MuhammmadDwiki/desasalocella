@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AgamaController;
 use App\Http\Controllers\BeritaController;
-use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekapitulasiPendudukController;
@@ -10,7 +9,7 @@ use App\Http\Controllers\DetailRekapitulasiController;
 use App\Http\Controllers\KarangTarunaController;
 use App\Http\Controllers\KegiatanRTController;
 use App\Http\Controllers\RekapitulasiRTController;
-use App\Http\Controllers\RekapitulasiRTController;
+use App\Http\Controllers\PerangkatDesaController;
 use App\Http\Controllers\RTController;
 use App\Http\Controllers\User\PageController;
 use App\Http\Controllers\UserController;
@@ -21,19 +20,6 @@ use Inertia\Inertia;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmail;
-
-use App\Http\Controllers\EmailController;
-use Illuminate\Support\Facades\Auth;
-
-
-
-
-Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);
-
-
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendEmail;
-
 use App\Http\Controllers\EmailController;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,6 +42,11 @@ Route::get('laporan-bulanan/{id_rekap}', [RekapitulasiPendudukController::class,
 Route::get('/agama', [AgamaController::class, 'index'])->middleware(['auth', 'verified'])->name('agama');
 Route::get('/kegiatan', [KegiatanRTController::class, 'index'])->middleware(['auth', 'verified'])->name('kegiatan');
 Route::get('/karang-taruna', [KarangTarunaController::class, 'index'])->middleware(['auth', 'verified'])->name('karangTaruna');
+// Route::get('/perangkat-desa', [PerangkatDesaController::class, 'index'])->middleware(['auth', 'verified'])->name('perangkatDesa');
+Route::get('/perangkat-desa', function(){
+    return Inertia::render('PerangkatDesa');
+})->middleware(['auth', 'verified'])->name('perangkatDesa');
+
 
 Route::middleware(['auth', 'can:super_admin'])->group(function () {
     // Route::resource('users', 'UserController'); // CRUD staff accounts
@@ -150,7 +141,6 @@ require __DIR__ . '/auth.php';
 
 
 
-Route::get('/', function () {
 Route::get('/', function () {
     return view('welcome');
 })->name('beranda');

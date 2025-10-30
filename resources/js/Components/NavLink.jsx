@@ -65,6 +65,24 @@ const allLinks = [
         icon: <MdOutlineNewspaper  className='text-xl'/>,
         permission: "view.berita",
     },
+    {
+       name: "Perangkat Desa",
+       path: "/perangkat-desa",
+       icon: <MdOutlineNewspaper  className='text-xl'/>,
+       permission: "view.perangkat_desa",
+    },
+    {
+       name: "BPD",
+       path: "/bpd",
+       icon: <MdOutlineNewspaper  className='text-xl'/>,
+       permission: "view.perangkat_desa",
+    },
+    {
+       name: "PKK",
+       path: "/pkk",
+       icon: <MdOutlineNewspaper  className='text-xl'/>,
+       permission: "view.perangkat_desa",
+    },
 ];
 
 export default function NavLink({ containerStyles, childStyles }) {

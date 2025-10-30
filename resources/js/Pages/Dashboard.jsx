@@ -94,15 +94,15 @@ export default function Dashboard({
     const {auth, notifications } = usePage().props;
     const unread = notifications.filter((n) => !n.read_at);
     const unreadCount = unread?.length || 0;
-    console.log(
-        "summary :",
-        summary,
-        "\ndetail Data :",
-        detailData,
-        ageGroups,
-        "\nPenduduk By bulan",
-        pendudukByBulan
-    );
+    // console.log(
+    //     "summary :",
+    //     summary,
+    //     "\ndetail Data :",
+    //     detailData,
+    //     ageGroups,
+    //     "\nPenduduk By bulan",
+    //     pendudukByBulan
+    // );
 
     const columnHelper = createColumnHelper();
     const column = [
