@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('perangkat_desas', function (Blueprint $table) {
-            $table->id();
+            $table->string("id_prDesa");
+            $table->string("nama_pd");
+            $table->string("jabatan_pd");
+            $table->string("pendidikan_pd");
+            $table->string("tempat_tanggal_lahir_pd");
+            $table->string("agama_pd");
+            $table->text("alamat_pd");
+            $table->string("url_foto_profil")->nullable();
             $table->timestamps();
         });
     }

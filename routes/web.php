@@ -43,31 +43,8 @@ Route::get('/agama', [AgamaController::class, 'index'])->middleware(['auth', 've
 Route::get('/kegiatan', [KegiatanRTController::class, 'index'])->middleware(['auth', 'verified'])->name('kegiatan');
 Route::get('/karang-taruna', [KarangTarunaController::class, 'index'])->middleware(['auth', 'verified'])->name('karangTaruna');
 // Route::get('/perangkat-desa', [PerangkatDesaController::class, 'index'])->middleware(['auth', 'verified'])->name('perangkatDesa');
-Route::get('/perangkat-desa', function(){
-    return Inertia::render('PerangkatDesa');
-})->middleware(['auth', 'verified'])->name('perangkatDesa');
+Route::get('/perangkat-desa', [PerangkatDesaController::class, 'index'])->middleware(['auth', 'verified'])->name('perangkatDesa');
 
-
-Route::middleware(['auth', 'can:super_admin'])->group(function () {
-    // Route::resource('users', 'UserController'); // CRUD staff accounts
-    // Route::resource('rts', 'RTController'); // CRUD data RT
-    // Route::post('laporan/{laporan}/verify', 'LaporanBulananController@verify'); // Verifikasi laporan
-    Route::resource('rt', RTController::class);
-    Route::resource('users', UserController::class);
-    Route::get('/user-account', [UserController::class, "index"])->name('userAccount');
-    Route::get('/manage-rt', [RTController::class, 'index'])->name('RTController');
-
-    Route::post('/rekapitulasi-rt/{id_rekap_rt}/validate', [RekapitulasiRTController::class, 'validate'])->name("rekapitulasi-rt.validate");
-    Route::post('/rekapitulasi-rt/{id_rekap_rt}/reject', [RekapitulasiRTController::class, 'reject'])->name("rekapitulasi-rt.reject");
-  
-
-});
-
-Route::middleware(['auth', 'can:moderator'])->group(function() {
-    Route::post('/rekapitulasi-rt/{id_rekap_rt}/submit', [RekapitulasiRTController::class, 'submit'])->name("rekapitulasi-rt.submit");
-
-
-});
 
 
 Route::middleware(['auth', 'can:super_admin'])->group(function () {
@@ -102,6 +79,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('agamas', AgamaController::class);
     Route::resource('karangTarunas', KarangTarunaController::class);
     Route::resource('Berita', BeritaController::class);
+    Route::resource('perangkatDesas', PerangkatDesaController::class);
 
     Route::post('/rekapitulasi-rt', [RekapitulasiRTController::class, 'store'])->name('rekapitulasi-rt.store');
     

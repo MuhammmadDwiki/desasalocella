@@ -22,7 +22,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Image as ImageIcon } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { GenericTable } from "@/Components/GenericTable";
 import Swal from "sweetalert2";
@@ -30,7 +30,8 @@ import Swal from "sweetalert2";
 export default function PerangkatDesa({ datas }) {
     const [showEditModal, setShowEditModal] = useState(false);
     const [editData, setEditData] = useState(null);
-
+    const [imagePreview, setImagePreview] = useState(null);
+    console.log(datas)
     // Form for creating new data
     const {
         data: createData,
@@ -40,8 +41,14 @@ export default function PerangkatDesa({ datas }) {
         errors: createErrors,
         reset: resetCreate,
     } = useForm({
-        nama_anggota: "",
-        jabatan: "",
+        nama_pd: "",
+        jabatan_pd: "",
+        pendidikan_pd: "",
+        tempat_tanggal_lahir_pd: "",
+        agama_pd: "",
+        alamat_pd: "",
+        url_foto_profil: null,
+
     });
 
     // Form for editing existing data
@@ -53,10 +60,75 @@ export default function PerangkatDesa({ datas }) {
         errors: updateErrors,
         reset: resetEdit,
     } = useForm({
-        id_karangtaruna: "",
-        nama_anggota: "",
-        jabatan: "",
+        id_prDesa: "",
+        nama_pd: "",
+        jabatan_pd: "",
+        pendidikan_pd: "",
+        tempat_tanggal_lahir_pd: "",
+        agama_pd: "",
+        alamat_pd: "",
+        url_foto_profil: null,
+        existing_url_foto_profil: "",
+        
     });
+
+
+     // Handle image upload untuk Quill
+    const handleImageUpload = () => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files[0];
+            if (file) {
+                // Simpan file ke form data utama
+                setData('gambar', file);
+                
+                // Create preview untuk Quill
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    // Untuk preview di form, bukan di Quill content
+                    setImagePreview(e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+    };
+     const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setCreateData('url_foto_profil', file);
+            
+            // Create preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setImagePreview(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+      // Remove image preview
+    const removeImagePreview = () => {
+            setImagePreview(null);
+            setCreateData('url_foto_profil', null);
+            // Reset file input
+            const fileInput = document.getElementById('gambar');
+            if (fileInput) fileInput.value = '';
+        };
+    const removeEditImagePreview = () => {
+            setImagePreview(null);
+            setEditFormData({
+                ...editFormData,
+                url_foto_profil: null,
+                existing_url_foto_profil: "" // hapus juga existing gambar
+            });
+            if (fileInputRef.current) {
+                fileInputRef.current.value = '';
+            }
+        };
 
     const Toast = Swal.mixin({
         toast: true,
@@ -72,14 +144,46 @@ export default function PerangkatDesa({ datas }) {
 
      const columnHelper = createColumnHelper();
         const columns = [
-            columnHelper.accessor("nama_anggota", {
-                header: "Nama Anggota",
+            columnHelper.accessor("nama_pd", {
+                header: "Nama",
                 cell: (info) => info.getValue(),
             }),
-            columnHelper.accessor("jabatan", {
-                header: "Status dalam organisasi",
+            columnHelper.accessor("jabatan_pd", {
+                header: "Jabatan",
                 cell: (info) => info.getValue(),
             }),
+            columnHelper.accessor("pendidikan_pd", {
+                header: "Pendidikan",
+                cell: (info) => info.getValue(),
+            }),
+            columnHelper.accessor("tempat_tanggal_lahir_pd", {
+                header: "Tempat/tanggal Lahir",
+                cell: (info) => info.getValue(),
+            }),
+            columnHelper.accessor("agama_pd", {
+                header: "Agama",
+                cell: (info) => info.getValue(),
+            }),
+            columnHelper.accessor("alamat_pd", {
+                header: "Alamat",
+                cell: (info) => info.getValue(),
+            }),
+            columnHelper.accessor("url_foto_profil", {
+            header: "Foto",
+            cell: (info) => {
+                const gambar = info.getValue();
+                console.log(gambar)
+                return gambar ? (
+                    <img 
+                        src={`/storage/${gambar}`} 
+                        alt="Gambar berita" 
+                        className="w-16 h-16 object-cover rounded"
+                    />
+                ) : (
+                    <div className="text-gray-400">No Image</div>
+                );
+            },
+        }),
             columnHelper.display({
                 id: "actions",
                 header: "Aksi",
@@ -94,9 +198,13 @@ export default function PerangkatDesa({ datas }) {
                                     setShowEditModal(true);
                                     setEditFormData({
                                         id_karangtaruna: row.original.id_karangtaruna,
-                                        nama_anggota: row.original.nama_anggota,
-                                        jabatan:
-                                            row.original.jabatan,
+                                        id_prDesa: row.original.id_prDesa,
+                                        nama_pd: row.original.nama_pd,
+                                        jabatan_pd:  row.original.jabatan_pd,
+                                        pendidikan_pd:  row.original.pendidikan_pd,
+                                        tempat_tanggal_lahir_pd:  row.original.tempat_tanggal_lahir_pd,
+                                        agama_pd:  row.original.agama_pd,
+                                        alamat_pd:  row.original.alamat_pd,
                                        
                                     });
                                 }}
@@ -158,7 +266,8 @@ export default function PerangkatDesa({ datas }) {
         // Handle create form submission
         const handleCreate = (e) => {
             e.preventDefault();
-            post(route("karangTarunas.store"), {
+            // console.log(createData)
+            post(route("perangkatDesas.store"), {
                 onSuccess: () => {
                     resetCreate();
                     Toast.fire({
@@ -235,46 +344,171 @@ export default function PerangkatDesa({ datas }) {
                         </DialogHeader>
                         <form onSubmit={handleCreate} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">
-                                    Nama Anggota
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    Nama Lengkap
                                 </label>
                                 <Input
-                                    value={createData.nama_anggota}
+                                    value={createData.nama_pd}
                                     onChange={(e) =>
                                         setCreateData(
-                                            "nama_anggota",
+                                            "nama_pd",
                                             e.target.value
                                         )
                                     }
-                                    placeholder="contoh: Budi"
+                                    placeholder="nama lengkap"
                                 />
-                                {createErrors.nama_anggota && (
+                                {createErrors.nama_pd && (
                                     <p className="mt-1 text-sm text-red-600">
-                                        {createErrors.nama_anggota}
+                                        {createErrors.nama_pd}
                                     </p>
                                 )}
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">
-                                    Status dalam Organisasi
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    jabatan
                                 </label>
                                 <Input
-                                    value={createData.jabatan}
+                                    value={createData.jabatan_pd}
                                     onChange={(e) =>
                                         setCreateData(
-                                            "jabatan",
+                                            "jabatan_pd",
                                             e.target.value
                                         )
                                     }
-                                    placeholder="contoh: ketua I, sekretaris, anggota, dll"
+                                    placeholder="contoh: kepala desa, sekretaris, anggota, dll"
                                 />
-                                {createErrors.jabatan && (
+                                {createErrors.jabatan_pd && (
                                     <p className="mt-1 text-sm text-red-600">
-                                        {createErrors.jabatan}
+                                        {createErrors.jabatan_pd}
                                     </p>
                                 )}
                             </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    pendidikan
+                                </label>
+                                <Input
+                                    value={createData.pendidikan_pd}
+                                    onChange={(e) =>
+                                        setCreateData(
+                                            "pendidikan_pd",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="contoh: S1, SMA, dll"
+                                />
+                                {createErrors.pendidikan_pd && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {createErrors.pendidikan_pd}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    tempat/tanggal lahir
+                                </label>
+                                <Input
+                                    value={createData.tempat_tanggal_lahir_pd}
+                                    onChange={(e) =>
+                                        setCreateData(
+                                            "tempat_tanggal_lahir_pd",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="tempat tanggal lahir"
+                                />
+                                {createErrors.tempat_tanggal_lahir_pd && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {createErrors.tempat_tanggal_lahir_pd}
+                                    </p>
+                                )}
+                            </div>
+                            
+                              
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    Agama
+                                </label>
+                                <Input
+                                    value={createData.agama_pd}
+                                    onChange={(e) =>
+                                        setCreateData(
+                                            "agama_pd",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="agama"
+                                />
+                                {createErrors.agama_pd && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {createErrors.agama_pd}
+                                    </p>
+                                )}
+                            </div>
+                              
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    alamat
+                                </label>
+                                <Input
+                                    value={createData.alamat_pd}
+                                    onChange={(e) =>
+                                        setCreateData(
+                                            "alamat_pd",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="Alamat "
+                                />
+                                {createErrors.alamat_pd && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {createErrors.alamat_pd}
+                                    </p>
+                                )}
+                            </div>
+                            
+                              <div>
+                                    <label className="flex items-center gap-2 text-sm font-normal mb-2">
+                                        <ImageIcon className="w-4 h-4" />
+                                        Foto
+                                    </label>
+                                    <div className="">
+
+                                    <Input
+                                        id="gambar"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleFileChange}
+                                        className="mt-1"
+                                        />
+                                    <p className="text-xs text-gray-600 mt-1">* maksimal 20Mb</p>
+                                    {createErrors.url_foto_profil && (
+                                        <div className="text-red-500 text-sm mt-1">
+                                            {createErrors.url_foto_profil}
+                                        </div>
+                                    )}
+                                    
+                                    {/* Image Preview */}
+                                    {imagePreview && (
+                                        <div className="mt-3 relative inline-block">
+                                            <img 
+                                                src={imagePreview} 
+                                                alt="Preview" 
+                                                className="w-24 h-24 object-cover rounded border"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={removeImagePreview}
+                                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
+                                            >
+                                                ×
+                                            </button>
+                                        </div>
+                                    )}
+                                        </div>
+                                </div>
 
 
                             <DialogFooter>
@@ -295,15 +529,15 @@ export default function PerangkatDesa({ datas }) {
                     </DialogContent>
                 </Dialog>
             </div>
-            {/* <GenericTable
+            <GenericTable
                 data={datas}
                 columns={columns}
                 onRowClick={handleRowClick}
                 pageSize={5}
-            /> */}
+            />
         </div>
 
-        {/* {showEditModal && (
+        {showEditModal && (
             <Dialog open={showEditModal} onOpenChange={setShowEditModal}>
                 <DialogContent className="sm:max-w-[525px]">
                     <DialogHeader>
@@ -315,26 +549,173 @@ export default function PerangkatDesa({ datas }) {
                         </DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">
-                                Nama Kegiatan
-                            </label>
-                            <Input
-                                value={editFormData.nama_anggota}
-                                onChange={(e) =>
-                                    setEditFormData(
-                                        "nama_anggota",
-                                        e.target.value
-                                    )
-                                }
-                                placeholder="contoh: Karang Taruna"
-                            />
-                            {updateErrors.nama_anggota && (
-                                <p className="mt-1 text-sm text-red-600">
-                                    {updateErrors.nama_anggota}
-                                </p>
-                            )}
-                        </div>
+                           <div>
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    Nama Lengkap
+                                </label>
+                                <Input
+                                    value={editFormData.nama_pd}
+                                    onChange={(e) =>
+                                        setEditFormData(
+                                            "nama_pd",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="nama lengkap"
+                                />
+                                {createErrors.nama_pd && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {createErrors.nama_pd}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    jabatan
+                                </label>
+                                <Input
+                                    value={createData.jabatan_pd}
+                                    onChange={(e) =>
+                                        setCreateData(
+                                            "jabatan_pd",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="contoh: kepala desa, sekretaris, anggota, dll"
+                                />
+                                {createErrors.jabatan_pd && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {createErrors.jabatan_pd}
+                                    </p>
+                                )}
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    pendidikan
+                                </label>
+                                <Input
+                                    value={createData.pendidikan_pd}
+                                    onChange={(e) =>
+                                        setCreateData(
+                                            "pendidikan_pd",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="contoh: S1, SMA, dll"
+                                />
+                                {createErrors.pendidikan_pd && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {createErrors.pendidikan_pd}
+                                    </p>
+                                )}
+                            </div>
+                            
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    tempat/tanggal lahir
+                                </label>
+                                <Input
+                                    value={createData.tempat_tanggal_lahir_pd}
+                                    onChange={(e) =>
+                                        setCreateData(
+                                            "tempat_tanggal_lahir_pd",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="tempat tanggal lahir"
+                                />
+                                {createErrors.tempat_tanggal_lahir_pd && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {createErrors.tempat_tanggal_lahir_pd}
+                                    </p>
+                                )}
+                            </div>
+                            
+                              
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    Agama
+                                </label>
+                                <Input
+                                    value={createData.agama_pd}
+                                    onChange={(e) =>
+                                        setCreateData(
+                                            "agama_pd",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="agama"
+                                />
+                                {createErrors.agama_pd && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {createErrors.agama_pd}
+                                    </p>
+                                )}
+                            </div>
+                              
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 capitalize">
+                                    alamat
+                                </label>
+                                <Input
+                                    value={createData.alamat_pd}
+                                    onChange={(e) =>
+                                        setCreateData(
+                                            "alamat_pd",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="Alamat "
+                                />
+                                {createErrors.alamat_pd && (
+                                    <p className="mt-1 text-sm text-red-600">
+                                        {createErrors.alamat_pd}
+                                    </p>
+                                )}
+                            </div>
+                            
+                              <div>
+                                    <label className="flex items-center gap-2 text-sm font-normal mb-2">
+                                        <ImageIcon className="w-4 h-4" />
+                                        Foto
+                                    </label>
+                                    <div className="">
+
+                                    <Input
+                                        id="gambar"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleFileChange}
+                                        className="mt-1"
+                                        />
+                                    <p className="text-xs text-gray-600 mt-1">* maksimal 20Mb</p>
+                                    {createErrors.url_foto_profil && (
+                                        <div className="text-red-500 text-sm mt-1">
+                                            {createErrors.url_foto_profil}
+                                        </div>
+                                    )}
+                                    
+                                    {/* Image Preview */}
+                                    {imagePreview && (
+                                        <div className="mt-3 relative inline-block">
+                                            <img 
+                                                src={imagePreview} 
+                                                alt="Preview" 
+                                                className="w-24 h-24 object-cover rounded border"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={removeImagePreview}
+                                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
+                                            >
+                                                ×
+                                            </button>
+                                        </div>
+                                    )}
+                                        </div>
+                                </div>
+
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700">
@@ -374,7 +755,7 @@ export default function PerangkatDesa({ datas }) {
                     </form>
                 </DialogContent>
             </Dialog>
-        )} */}
+        )}
     </AuthenticatedLayout>
 
     )
