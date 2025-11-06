@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router, useForm } from "@inertiajs/react";
 import { format, parse } from "date-fns";
@@ -31,7 +31,8 @@ export default function PerangkatDesa({ datas }) {
     const [showEditModal, setShowEditModal] = useState(false);
     const [editData, setEditData] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
-    console.log(datas)
+    const fileInputRef = useRef(null);
+    
     // Form for creating new data
     const {
         data: createData,
@@ -71,6 +72,9 @@ export default function PerangkatDesa({ datas }) {
         existing_url_foto_profil: "",
         
     });
+    console.log(imagePreview, editFormData.existing_url_foto_profil);
+
+    // console.log(editFormData.existing_url_foto_profil)
 
 
      // Handle image upload untuk Quill
@@ -129,7 +133,21 @@ export default function PerangkatDesa({ datas }) {
                 fileInputRef.current.value = '';
             }
         };
-
+ const handleEditFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setEditFormData({
+                ...editFormData,
+                url_foto_profil: file, // set file baru
+                existing_url_foto_profil: "" // reset existing gambar karena ada file baru
+            });
+            
+            // Create preview
+            const reader = new FileReader();
+            reader.onload = (e) => setImagePreview(e.target.result);
+            reader.readAsDataURL(file);
+        }
+    };
     const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -172,7 +190,6 @@ export default function PerangkatDesa({ datas }) {
             header: "Foto",
             cell: (info) => {
                 const gambar = info.getValue();
-                console.log(gambar)
                 return gambar ? (
                     <img 
                         src={`/storage/${gambar}`} 
@@ -197,7 +214,6 @@ export default function PerangkatDesa({ datas }) {
                                 onClick={() => {
                                     setShowEditModal(true);
                                     setEditFormData({
-                                        id_karangtaruna: row.original.id_karangtaruna,
                                         id_prDesa: row.original.id_prDesa,
                                         nama_pd: row.original.nama_pd,
                                         jabatan_pd:  row.original.jabatan_pd,
@@ -205,7 +221,8 @@ export default function PerangkatDesa({ datas }) {
                                         tempat_tanggal_lahir_pd:  row.original.tempat_tanggal_lahir_pd,
                                         agama_pd:  row.original.agama_pd,
                                         alamat_pd:  row.original.alamat_pd,
-                                       
+                                         url_foto_profil: null,
+                                        existing_url_foto_profil: row.original.url_foto_profil,
                                     });
                                 }}
                             >
@@ -228,8 +245,8 @@ export default function PerangkatDesa({ datas }) {
                                             // Swal.fire("Saved!", "", "success");
                                             router.delete(
                                                 route(
-                                                    "karangTarunas.destroy",
-                                                    row.original.id_karangtaruna
+                                                    "perangkatDesas.destroy",
+                                                    row.original.id_prDesa
                                                 ),
                                                 {
                                                     onSuccess: () => {
@@ -286,25 +303,51 @@ export default function PerangkatDesa({ datas }) {
         };
     
         // Handle update form submission
-        const handleUpdate = (e) => {
-            e.preventDefault();
-            // console.log('editData', editFormData)
-            put(route("karangTarunas.update", editFormData.id_karangtaruna), {
-                onSuccess: () => {
-                    Toast.fire({
-                        icon: "success",
-                        title: "Data berhasil diupdate",
-                    });
-                    setShowEditModal(false);
-                },
-                onError: () => {
-                    Toast.fire({
-                        icon: "error",
-                        title: "Data gagal diupdate",
-                    });
-                },
-            });
-        };
+           const handleUpdate = (e) => {
+                e.preventDefault();
+      
+                // Create FormData untuk handle file upload
+                const formData = new FormData();
+                formData.append('_method', 'PUT');
+                formData.append('nama_pd', editFormData.nama_pd);
+                formData.append('jabatan_pd', editFormData.jabatan_pd);
+                formData.append('pendidikan_pd', editFormData.pendidikan_pd);
+                formData.append('tempat_tanggal_lahir_pd', editFormData.tempat_tanggal_lahir_pd);
+                formData.append('agama_pd', editFormData.agama_pd);
+                formData.append('alamat_pd', editFormData.alamat_pd);
+                
+                // Jika ada file baru, append file. Jika tidak, append existing_gambar
+                if (editFormData.url_foto_profil) {
+                    formData.append('url_foto_profil', editFormData.url_foto_profil);
+                } else if (editFormData.existing_url_foto_profil) {
+                    // Extract filename dari full URL jika perlu
+                    const gambarPath = editFormData.existing_url_foto_profil.replace('/storage/', '');
+                    formData.append('existing_url_foto_profil', gambarPath);
+                }
+                
+                // Juga append flag untuk hapus gambar
+                if (!editFormData.url_foto_profil && !editFormData.existing_url_foto_profil) {
+                    formData.append('remove_gambar', 'true');
+                }
+                console.log(formData)
+                router.post(route("perangkatDesas.update", editFormData.id_prDesa), formData, {
+                    onSuccess: () => {
+                        Toast.fire({
+                            icon: "success",
+                            title: "Perangkat desa berhasil diupdate",
+                        });
+                        setShowEditModal(false);
+                        setImagePreview(null);
+                    },
+                    onError: (errors) => {
+                        console.error('Update errors:', errors);
+                        Toast.fire({
+                            icon: "error",
+                            title: "Gagal mengupdate Perangkat desa",
+                        });
+                    },
+                });
+            };
     
 
 
@@ -575,18 +618,18 @@ export default function PerangkatDesa({ datas }) {
                                     jabatan
                                 </label>
                                 <Input
-                                    value={createData.jabatan_pd}
+                                    value={editFormData.jabatan_pd}
                                     onChange={(e) =>
-                                        setCreateData(
+                                        setEditData(
                                             "jabatan_pd",
                                             e.target.value
                                         )
                                     }
                                     placeholder="contoh: kepala desa, sekretaris, anggota, dll"
                                 />
-                                {createErrors.jabatan_pd && (
+                                {updateErrors.jabatan_pd && (
                                     <p className="mt-1 text-sm text-red-600">
-                                        {createErrors.jabatan_pd}
+                                        {updateErrors.jabatan_pd}
                                     </p>
                                 )}
                             </div>
@@ -595,18 +638,18 @@ export default function PerangkatDesa({ datas }) {
                                     pendidikan
                                 </label>
                                 <Input
-                                    value={createData.pendidikan_pd}
+                                    value={editFormData.pendidikan_pd}
                                     onChange={(e) =>
-                                        setCreateData(
+                                        setEditData(
                                             "pendidikan_pd",
                                             e.target.value
                                         )
                                     }
                                     placeholder="contoh: S1, SMA, dll"
                                 />
-                                {createErrors.pendidikan_pd && (
+                                {updateErrors.pendidikan_pd && (
                                     <p className="mt-1 text-sm text-red-600">
-                                        {createErrors.pendidikan_pd}
+                                        {updateErrors.pendidikan_pd}
                                     </p>
                                 )}
                             </div>
@@ -616,18 +659,18 @@ export default function PerangkatDesa({ datas }) {
                                     tempat/tanggal lahir
                                 </label>
                                 <Input
-                                    value={createData.tempat_tanggal_lahir_pd}
+                                    value={editFormData.tempat_tanggal_lahir_pd}
                                     onChange={(e) =>
-                                        setCreateData(
+                                        setEditData(
                                             "tempat_tanggal_lahir_pd",
                                             e.target.value
                                         )
                                     }
                                     placeholder="tempat tanggal lahir"
                                 />
-                                {createErrors.tempat_tanggal_lahir_pd && (
+                                {updateErrors.tempat_tanggal_lahir_pd && (
                                     <p className="mt-1 text-sm text-red-600">
-                                        {createErrors.tempat_tanggal_lahir_pd}
+                                        {updateErrors.tempat_tanggal_lahir_pd}
                                     </p>
                                 )}
                             </div>
@@ -638,18 +681,18 @@ export default function PerangkatDesa({ datas }) {
                                     Agama
                                 </label>
                                 <Input
-                                    value={createData.agama_pd}
+                                    value={editFormData.agama_pd}
                                     onChange={(e) =>
-                                        setCreateData(
+                                        setEditData(
                                             "agama_pd",
                                             e.target.value
                                         )
                                     }
                                     placeholder="agama"
                                 />
-                                {createErrors.agama_pd && (
+                                {updateErrors.agama_pd && (
                                     <p className="mt-1 text-sm text-red-600">
-                                        {createErrors.agama_pd}
+                                        {updateErrors.agama_pd}
                                     </p>
                                 )}
                             </div>
@@ -659,92 +702,98 @@ export default function PerangkatDesa({ datas }) {
                                     alamat
                                 </label>
                                 <Input
-                                    value={createData.alamat_pd}
+                                    value={editFormData.alamat_pd}
                                     onChange={(e) =>
-                                        setCreateData(
+                                        setEditData(
                                             "alamat_pd",
                                             e.target.value
                                         )
                                     }
                                     placeholder="Alamat "
                                 />
-                                {createErrors.alamat_pd && (
+                                {updateErrors.alamat_pd && (
                                     <p className="mt-1 text-sm text-red-600">
-                                        {createErrors.alamat_pd}
+                                        {updateErrors.alamat_pd}
                                     </p>
                                 )}
                             </div>
                             
-                              <div>
-                                    <label className="flex items-center gap-2 text-sm font-normal mb-2">
-                                        <ImageIcon className="w-4 h-4" />
-                                        Foto
-                                    </label>
-                                    <div className="">
+                             
+                <div>
+                    <label className="flex items-center gap-2 text-sm font-medium mb-2">
+                        <ImageIcon className="w-4 h-4" />
+                        Gambar Utama
 
-                                    <Input
-                                        id="gambar"
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={handleFileChange}
-                                        className="mt-1"
-                                        />
-                                    <p className="text-xs text-gray-600 mt-1">* maksimal 20Mb</p>
-                                    {createErrors.url_foto_profil && (
-                                        <div className="text-red-500 text-sm mt-1">
-                                            {createErrors.url_foto_profil}
-                                        </div>
-                                    )}
-                                    
-                                    {/* Image Preview */}
-                                    {imagePreview && (
-                                        <div className="mt-3 relative inline-block">
-                                            <img 
-                                                src={imagePreview} 
-                                                alt="Preview" 
-                                                className="w-24 h-24 object-cover rounded border"
-                                            />
-                                            <button
-                                                type="button"
-                                                onClick={removeImagePreview}
-                                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
-                                            >
-                                                ×
-                                            </button>
-                                        </div>
-                                    )}
-                                        </div>
-                                </div>
-
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">
-                                Status dalam Organisasi
-
-                            </label>
-                            <Input
-                                value={editFormData.jabatan}
-                                onChange={(e) =>
-                                    setEditFormData(
-                                        "jabatan",
-                                        e.target.value
-                                    )
-                                }
-                                placeholder="contoh: lapangan, balai desa, dll"
+                        {editFormData.existing_url_foto_profil && (
+                            <span className="text-xs text-green-600">
+                                (Gambar lama tersedia)
+                            </span>
+                        )}
+                    </label>
+                    {/* <span className="text-xs italic text-gray-500">max 20 Mb</span> */}
+                    
+                    <Input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleEditFileChange}
+                        className="mt-1"
+                    />
+                    
+                    {/* Info gambar saat ini */}
+                    {editFormData.existing_url_foto_profil && !editFormData.url_foto_profil && (
+                        <div className="mt-2 text-sm text-gray-600">
+                            <p>Gambar saat ini:</p>
+                            <img 
+                                src={`/storage/${editFormData.existing_url_foto_profil}`} 
+                                alt="Current" 
+                                className="w-20 h-20 object-cover rounded mt-1"
                             />
-                            {updateErrors.jabatan && (
-                                <p className="mt-1 text-sm text-red-600">
-                                    {updateErrors.jabatan}
-                                </p>
-                            )}
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setEditFormData({
+                                        ...editFormData,
+                                        existing_url_foto_profil: "",
+                                        url_foto_profil: null
+                                    });
+                                    setImagePreview(null);
+                                }}
+                                className="text-red-500 text-xs mt-1 hover:text-red-700"
+                            >
+                                Hapus gambar ini
+                            </button>
                         </div>
+                    )}
+                    
+                    {/* Image Preview untuk file baru */}
+                    {imagePreview && editFormData.url_foto_profil && (
+                        <div className="mt-3 relative inline-block">
+                            <img 
+                                src={imagePreview} 
+                                alt="Preview" 
+                                className="w-32 h-32 object-cover rounded border"
+                            />
+                            <button
+                                type="button"
+                                onClick={removeEditImagePreview}
+                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
+                            >
+                                ×
+                            </button>
+                        </div>
+                    )}
+                </div>
 
 
                         <DialogFooter>
                             <Button
                                 type="button"
                                 variant="outline"
-                                onClick={() => setShowEditModal(false)}
+                                onClick={() => {
+                                    setShowEditModal(false)
+                                    setImagePreview(null)
+                                }}
                             >
                                 Batal
                             </Button>
