@@ -28,7 +28,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { GenericTable } from "@/Components/GenericTable";
 import Swal from "sweetalert2";
 export default function KarangTaruna({datas}) {
-const [showEditModal, setShowEditModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [editData, setEditData] = useState(null);
 
     // Form for creating new data
@@ -160,7 +160,7 @@ const [showEditModal, setShowEditModal] = useState(false);
         e.preventDefault();
         post(route("karangTarunas.store"), {
             onSuccess: () => {
-                resetCreate();
+                resetCreate("nama_anggota","jabatan")
                 Toast.fire({
                     icon: "success",
                     title: "Data berhasil ditambahkan",
@@ -215,7 +215,7 @@ const [showEditModal, setShowEditModal] = useState(false);
                         <DialogTrigger asChild>
                             <Button
                                 variant="default"
-                                onClick={() => resetCreate()}
+                                // onClick={() => resetCreate("nama_anggota","jabatan")}
                             >
                                 Tambah Data
                             </Button>

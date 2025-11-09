@@ -55,43 +55,6 @@
     </div>
 </header>
 
-{{-- <nav>
-    <div><a href="{{route('userWelcome')}}">Home</a></div>
-
-    <div class="has-dropdown">
-        <a href="#">Profil Desa ▼</a>
-        <div class="dropdown">
-            <a href="{{route('sejarah')}}">Sejarah Desa</a>
-            <a href="{{route('visi')}}">Visi & Misi</a>
-            <a href="{{route('struk')}}">Struktur Organisasi</a>
-            <a href="{{route('peta')}}">Peta Administrasi</a>
-        </div>
-    </div>
-
-    <div class="has-dropdown">
-        <a href="#">Data Desa ▼</a>
-        <div class="dropdown">
-            <a href="{{route('dapen')}}">Data Penduduk</a>
-        </div>
-    </div>
-
-    <div class="has-dropdown">
-        <a href="#">Kelembagaan ▼</a>
-        <div class="dropdown">
-            <a href="{{route('bpd')}}">BPD</a>
-            <a href="{{route('karangtrn')}}">Karang Taruna</a>
-            <a href="{{route('ketua')}}">Ketua RT</a>
-            <a href="{{route('linmass')}}">Linmas</a>
-            <a href="{{route('posy')}}">Posyandu</a>
-            <a href="{{route('pkk')}}">PKK</a>
-        </div>
-    </div>
-
-    <div><a href="{{route('potensi')}}">Potensi Desa</a></div>
-    <div><a href="{{route('layanan')}}">Layanan</a></div>
-
-    <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
-</nav> --}}
 
 <section class="page-header">
     <h2>Data PKK Desa Sallo Cela</h2>
@@ -107,78 +70,47 @@
         </tr>
     </thead>
     <tbody>
+        @foreach ($datas_inti as $item )
         <tr>
-            <td style="text-align:center;">1</td>
-            <td>Ketua</td>
-            <td>Herlina, S.Pd</td>
+            <td style="text-align:center;">{{ $loop->iteration }}</td>
+            <td>{{ $item->jabatan_pkk }}</td>
+            <td>{{ $item->nama_pkk }}</td>
         </tr>
-        <tr style="background:#f9f9f9;">
-            <td style="text-align:center;">2</td>
-            <td>Wakil Ketua</td>
-            <td>Alisa Tansil</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">3</td>
-            <td>Sekretaris</td>
-            <td>Hj. Hasnah</td>
-        </tr>
-        <tr style="background:#f9f9f9;">
-            <td style="text-align:center;">4</td>
-            <td>Bendahara</td>
-            <td>Novarianti</td>
+            
+        @endforeach
+       
     </tbody>
 </table>
 
-<!-- Tabel Pokja -->
 <table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%; text-align: center;">
     <thead style="background:#f2f2f2;">
         <tr>
             <th style="width:50px;">No</th>
-            <th>Pokja 1</th>
-            <th>Pokja 2</th>
-            <th>Pokja 3</th>
-            <th>Pokja 4</th>
+            @foreach ($datas_pokja as $kelompok_kerja => $anggota_collection)
+                <th>{{ $kelompok_kerja }}</th>
+            @endforeach
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>Hj. Sitti Hamidah (Ketua)</td>
-            <td>Astriyana (Ketua)</td>
-            <td>Hasmiati Nur (Ketua)</td>
-            <td>Wahida (Ketua)</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Saripah (Wakil)</td>
-            <td>Lilis Suryani (Wakil)</td>
-            <td>Sulfiani (Wakil)</td>
-            <td>Riztika U S(Wakil)</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Sumarni (Sekretaris)</td>
-            <td>Agustina (Sekretaris)</td>
-            <td>Hikma Adriani (Sekretaris)</td>
-            <td>Wiwi Narti (Sekretaris)</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Ani (Anggota)</td>
-            <td>Hermiyanti (Anggota)</td>
-            <td>Mariani (Anggota)</td>
-            <td>Fitriani (Anggota)</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Mulyati (Anggota)</td>
-            <td>Sunarti (Anggota)</td>
-            <td>Sumi (Anggota)</td>
-            <td>Asni (Anggota)</td>
-        </tr>
+        @for ($i = 0; $i < $max_rows; $i++)
+            <tr>
+                <td>{{ $i + 1 }}</td> 
+                
+                @foreach ($datas_pokja as $kelompok_kerja => $anggota_collection)
+                    <td>
+                        @if (isset($anggota_collection[$i]))
+                            {{-- Tampilkan Nama dan Jabatan --}}
+                            {{ $anggota_collection[$i]->nama_pkk }} ({{ $anggota_collection[$i]->jabatan_pkk }})
+                        @else
+                            {{-- Kosongkan jika data pada index $i tidak ada di Pokja ini --}}
+                            &nbsp;
+                        @endif
+                    </td>
+                @endforeach
+            </tr>
+        @endfor
     </tbody>
 </table>
-
 
 <footer class="site-footer">
     <div class="footer-content">

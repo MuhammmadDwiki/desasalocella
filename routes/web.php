@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AgamaController;
 use App\Http\Controllers\BeritaController;
-use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekapitulasiPendudukController;
@@ -10,9 +9,12 @@ use App\Http\Controllers\DetailRekapitulasiController;
 use App\Http\Controllers\KarangTarunaController;
 use App\Http\Controllers\KegiatanRTController;
 use App\Http\Controllers\RekapitulasiRTController;
-use App\Http\Controllers\RekapitulasiRTController;
+use App\Http\Controllers\PerangkatDesaController;
 use App\Http\Controllers\RTController;
 use App\Http\Controllers\User\PageController;
+use App\Http\Controllers\BpdController;
+use App\Http\Controllers\PkkController;
+use App\Http\Controllers\KelompokKerjaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -21,19 +23,6 @@ use Inertia\Inertia;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmail;
-
-use App\Http\Controllers\EmailController;
-use Illuminate\Support\Facades\Auth;
-
-
-
-
-Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);
-
-
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendEmail;
-
 use App\Http\Controllers\EmailController;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,27 +45,10 @@ Route::get('laporan-bulanan/{id_rekap}', [RekapitulasiPendudukController::class,
 Route::get('/agama', [AgamaController::class, 'index'])->middleware(['auth', 'verified'])->name('agama');
 Route::get('/kegiatan', [KegiatanRTController::class, 'index'])->middleware(['auth', 'verified'])->name('kegiatan');
 Route::get('/karang-taruna', [KarangTarunaController::class, 'index'])->middleware(['auth', 'verified'])->name('karangTaruna');
-
-Route::middleware(['auth', 'can:super_admin'])->group(function () {
-    // Route::resource('users', 'UserController'); // CRUD staff accounts
-    // Route::resource('rts', 'RTController'); // CRUD data RT
-    // Route::post('laporan/{laporan}/verify', 'LaporanBulananController@verify'); // Verifikasi laporan
-    Route::resource('rt', RTController::class);
-    Route::resource('users', UserController::class);
-    Route::get('/user-account', [UserController::class, "index"])->name('userAccount');
-    Route::get('/manage-rt', [RTController::class, 'index'])->name('RTController');
-
-    Route::post('/rekapitulasi-rt/{id_rekap_rt}/validate', [RekapitulasiRTController::class, 'validate'])->name("rekapitulasi-rt.validate");
-    Route::post('/rekapitulasi-rt/{id_rekap_rt}/reject', [RekapitulasiRTController::class, 'reject'])->name("rekapitulasi-rt.reject");
-  
-
-});
-
-Route::middleware(['auth', 'can:moderator'])->group(function() {
-    Route::post('/rekapitulasi-rt/{id_rekap_rt}/submit', [RekapitulasiRTController::class, 'submit'])->name("rekapitulasi-rt.submit");
-
-
-});
+// Route::get('/perangkat-desa', [PerangkatDesaController::class, 'index'])->middleware(['auth', 'verified'])->name('perangkatDesa');
+Route::get('/perangkat-desa', [PerangkatDesaController::class, 'index'])->middleware(['auth', 'verified'])->name('perangkatDesa');
+Route::get('/badan-permusyawaratan-desa', [BpdController::class, 'index'])->middleware(['auth', 'verified'])->name('bpd-admin');
+Route::get('/pemberdayaan-kesejahteraan-keluarga' , [PkkController::class, 'index'])->middleware(['auth', 'verified'])->name('pkk-admin');
 
 
 Route::middleware(['auth', 'can:super_admin'])->group(function () {
@@ -111,6 +83,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('agamas', AgamaController::class);
     Route::resource('karangTarunas', KarangTarunaController::class);
     Route::resource('Berita', BeritaController::class);
+    Route::resource('perangkatDesas', PerangkatDesaController::class);
+    Route::resource('bpds', BpdController::class);
+    Route::resource('pkks', PkkController::class);
+    Route::resource('kelompok-kerjas', KelompokKerjaController::class);
 
     Route::post('/rekapitulasi-rt', [RekapitulasiRTController::class, 'store'])->name('rekapitulasi-rt.store');
     
@@ -143,6 +119,10 @@ Route::middleware('auth')->group(function () {
     Route::get('detail-laporan/by-rt/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getByRT'])->name('detail-laporan.by-rt');
     Route::get('detail-laporan/used-age-groups/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
     Route::get('detail-laporan/by-rt/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getByRT'])->name('detail-laporan.by-rt');
+
+
+     Route::post('kelompok-kerjas/{id}/delete-with-transfer', [KelompokKerjaController::class, 'deleteWithTransfer'])
+        ->name('kelompok-kerjas.delete-with-transfer');
 });
 require __DIR__ . '/auth.php';
 
@@ -150,7 +130,6 @@ require __DIR__ . '/auth.php';
 
 
 
-Route::get('/', function () {
 Route::get('/', function () {
     return view('welcome');
 })->name('beranda');
@@ -163,9 +142,7 @@ Route::get('/visi', function () {
     return view('visimisi');
 })->name('visi');
 
-Route::get('/struk', function () {
-    return view('strukturorganisasi');
-})->name('struk');
+Route::get('/struk', [PageController::class, 'PerangkatDesa'])->name('struk');
 
 Route::get('/dapen', [PageController::class, 'pendudukIndex'])->name('dapen'); // [nama controller, nama function]
 
@@ -173,9 +150,7 @@ Route::get('/peta', function () {
     return view('petadesa');
 })->name('peta');
 
-Route::get('/bpd', function () {
-    return view('badanpermusyawaratandesa');
-})->name('bpd');
+Route::get('/bpd', [PageController::class, 'Bpd'])->name('bpd');
 
 Route::get('/ketua', function () {
     return view('ketuart');
@@ -185,17 +160,13 @@ Route::get('/linmass', function () {
     return view('linmas');
 })->name('linmass');
 
-Route::get('/pkk', function () {
-    return view('ibupkk');
-})->name('pkk');
+Route::get('/pkk', [PageController::class, 'Ibupkk'])->name('pkk');
 
 Route::get('/posy', function () {
     return view('posyandu');
 })->name('posy');
 
-Route::get('/karangtrn', function () {
-    return view('karangtaruna');
-})->name('karangtrn');
+Route::get('/karangtrn', [PageController::class, 'karangTaruna'])->name('karangtrn');
 
 Route::get('/potensi', function () {
     return view('potensidesa');

@@ -57,7 +57,7 @@
 
 <section class="hero">
     <video autoplay muted loop playsinline class="hero-video">
-        <source src="{{ asset('videos/bgdesaa.mp4') }}" type="video/mp4">
+        <source src="{{ asset('videos/bgdesa.mp4') }}" type="video/mp4">
     </video>
     <div class="hero-content">
         <h2>SELAMAT DATANG DI<br> DESA SALLO CELA</h2>

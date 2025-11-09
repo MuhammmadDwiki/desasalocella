@@ -24,6 +24,7 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart";
+import CheckDataWarning from "@/Components/CheckDataWarning";
 
 const chartConfig = {
     laki: {
@@ -67,9 +68,10 @@ const SecurityTips = () => {
   const tips = [
     { id: 1, type: 'security', text: 'Jangan bagikan password kepada siapapun.' },
     { id: 2, type: 'tips', text: 'Backup data laporan setiap akhir bulan.' },
-    // { id: 3, type: 'tips', text: 'Backup data laporan setiap akhir bulan.' },
-    { id: 4, type: 'update', text: 'Update browser ke versi terbaru untuk keamanan.' },
+    { id: 3, type: 'tips', text: 'Prioritaskan pemutakhiran data kependudukan (lahir, mati, pindah, datang) segera setelah laporan diterima, untuk menjaga keakuratan data demografi desa' },
+    // { id: 4, type: 'update', text: 'Update browser ke versi terbaru untuk keamanan.' },
   ];
+
 
   return (
     <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md shadow">
@@ -94,15 +96,15 @@ export default function Dashboard({
     const {auth, notifications } = usePage().props;
     const unread = notifications.filter((n) => !n.read_at);
     const unreadCount = unread?.length || 0;
-    console.log(
-        "summary :",
-        summary,
-        "\ndetail Data :",
-        detailData,
-        ageGroups,
-        "\nPenduduk By bulan",
-        pendudukByBulan
-    );
+    // console.log(
+    //     "summary :",
+    //     summary,
+    //     "\ndetail Data :",
+    //     detailData,
+    //     ageGroups,
+    //     "\nPenduduk By bulan",
+    //     pendudukByBulan
+    // );
 
     const columnHelper = createColumnHelper();
     const column = [
@@ -389,6 +391,9 @@ export default function Dashboard({
                 </div>
                 <div>
                     <SecurityTips />
+                </div>
+                <div>
+                    <CheckDataWarning />
                 </div>
             </div>
         </AuthenticatedLayout>
