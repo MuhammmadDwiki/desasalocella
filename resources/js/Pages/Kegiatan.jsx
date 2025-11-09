@@ -223,7 +223,12 @@ export default function Kegiatan({ datas }) {
                         <DialogTrigger asChild>
                             <Button
                                 variant="default"
-                                onClick={() => resetCreate()}
+                                onClick={() => resetCreate({
+                                    nama_kegiatan: "",
+                                    lokasi_kegiatan: "",
+                                    tanggal_kegiatan: "",
+                                    keterangan: "",
+                                })}
                             >
                                 Tambah Data
                             </Button>

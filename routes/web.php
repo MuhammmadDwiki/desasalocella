@@ -12,6 +12,9 @@ use App\Http\Controllers\RekapitulasiRTController;
 use App\Http\Controllers\PerangkatDesaController;
 use App\Http\Controllers\RTController;
 use App\Http\Controllers\User\PageController;
+use App\Http\Controllers\BpdController;
+use App\Http\Controllers\PkkController;
+use App\Http\Controllers\KelompokKerjaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -44,7 +47,8 @@ Route::get('/kegiatan', [KegiatanRTController::class, 'index'])->middleware(['au
 Route::get('/karang-taruna', [KarangTarunaController::class, 'index'])->middleware(['auth', 'verified'])->name('karangTaruna');
 // Route::get('/perangkat-desa', [PerangkatDesaController::class, 'index'])->middleware(['auth', 'verified'])->name('perangkatDesa');
 Route::get('/perangkat-desa', [PerangkatDesaController::class, 'index'])->middleware(['auth', 'verified'])->name('perangkatDesa');
-
+Route::get('/badan-permusyawaratan-desa', [BpdController::class, 'index'])->middleware(['auth', 'verified'])->name('bpd-admin');
+Route::get('/pemberdayaan-kesejahteraan-keluarga' , [PkkController::class, 'index'])->middleware(['auth', 'verified'])->name('pkk-admin');
 
 
 Route::middleware(['auth', 'can:super_admin'])->group(function () {
@@ -80,6 +84,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('karangTarunas', KarangTarunaController::class);
     Route::resource('Berita', BeritaController::class);
     Route::resource('perangkatDesas', PerangkatDesaController::class);
+    Route::resource('bpds', BpdController::class);
+    Route::resource('pkks', PkkController::class);
+    Route::resource('kelompok-kerjas', KelompokKerjaController::class);
 
     Route::post('/rekapitulasi-rt', [RekapitulasiRTController::class, 'store'])->name('rekapitulasi-rt.store');
     
@@ -112,6 +119,10 @@ Route::middleware('auth')->group(function () {
     Route::get('detail-laporan/by-rt/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getByRT'])->name('detail-laporan.by-rt');
     Route::get('detail-laporan/used-age-groups/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
     Route::get('detail-laporan/by-rt/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getByRT'])->name('detail-laporan.by-rt');
+
+
+     Route::post('kelompok-kerjas/{id}/delete-with-transfer', [KelompokKerjaController::class, 'deleteWithTransfer'])
+        ->name('kelompok-kerjas.delete-with-transfer');
 });
 require __DIR__ . '/auth.php';
 
@@ -131,9 +142,7 @@ Route::get('/visi', function () {
     return view('visimisi');
 })->name('visi');
 
-Route::get('/struk', function () {
-    return view('strukturorganisasi');
-})->name('struk');
+Route::get('/struk', [PageController::class, 'PerangkatDesa'])->name('struk');
 
 Route::get('/dapen', [PageController::class, 'pendudukIndex'])->name('dapen'); // [nama controller, nama function]
 
@@ -141,9 +150,7 @@ Route::get('/peta', function () {
     return view('petadesa');
 })->name('peta');
 
-Route::get('/bpd', function () {
-    return view('badanpermusyawaratandesa');
-})->name('bpd');
+Route::get('/bpd', [PageController::class, 'Bpd'])->name('bpd');
 
 Route::get('/ketua', function () {
     return view('ketuart');
@@ -153,17 +160,13 @@ Route::get('/linmass', function () {
     return view('linmas');
 })->name('linmass');
 
-Route::get('/pkk', function () {
-    return view('ibupkk');
-})->name('pkk');
+Route::get('/pkk', [PageController::class, 'Ibupkk'])->name('pkk');
 
 Route::get('/posy', function () {
     return view('posyandu');
 })->name('posy');
 
-Route::get('/karangtrn', function () {
-    return view('karangtaruna');
-})->name('karangtrn');
+Route::get('/karangtrn', [PageController::class, 'karangTaruna'])->name('karangtrn');
 
 Route::get('/potensi', function () {
     return view('potensidesa');

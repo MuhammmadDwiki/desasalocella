@@ -7,10 +7,12 @@ import {
 } from "react-icons/md";
 import { LiaPeopleCarrySolid } from "react-icons/lia";
 import { usePage } from "@inertiajs/react";
-import { FaAngleDown } from "react-icons/fa";
-import  { MdOutlineNewspaper  } from 'react-icons/md';
-
+import { FaAngleDown , FaRegHandshake } from "react-icons/fa";
+import  { MdOutlineNewspaper, MdOutlineFamilyRestroom   } from 'react-icons/md';
+import { VscOrganization } from "react-icons/vsc";
+import { HiOutlineUserGroup } from "react-icons/hi2";
 import Can from '@/components/Can'
+
 
 const allLinks = [
     {
@@ -21,7 +23,7 @@ const allLinks = [
     {
         name: "Akun Staff",
         path: "/user-account",
-        icon: <MdOutlineAccountCircle className="text-xl" />,
+        icon: <HiOutlineUserGroup className="text-xl" />,
         permission: "manage.users",
     },
     {
@@ -68,20 +70,20 @@ const allLinks = [
     {
        name: "Perangkat Desa",
        path: "/perangkat-desa",
-       icon: <MdOutlineNewspaper  className='text-xl'/>,
+       icon: <VscOrganization  className='text-xl'/>,
        permission: "view.perangkat_desa",
     },
     {
        name: "BPD",
-       path: "/bpd",
-       icon: <MdOutlineNewspaper  className='text-xl'/>,
-       permission: "view.perangkat_desa",
+       path: "/badan-permusyawaratan-desa",
+       icon: <FaRegHandshake   className='text-xl'/>,
+       permission: "view.badan_permusyawaratan_desa",
     },
     {
        name: "PKK",
-       path: "/pkk",
-       icon: <MdOutlineNewspaper  className='text-xl'/>,
-       permission: "view.perangkat_desa",
+       path: "/pemberdayaan-kesejahteraan-keluarga",
+       icon: <MdOutlineFamilyRestroom   className='text-xl'/>,
+       permission: "view.pemberdayaan_kesejahteraan_keluarga",
     },
 ];
 

@@ -31,11 +31,14 @@ const MainNav = () => {
         <div className="bg-red-800 relative">
             <nav className="w-full h-screen ">
                 <div className="flex flex-col h-screen no-scrollbar">
-                    <div className="flex flex-col items-center py-3 pt-5 mb-4 gap-3 border-b border-white/45 w-full shadow-sm ">
-                        <span className="text-2xl font-bold uppercase text-white">
-                            Desa Salo Cella
-                        </span>
-                        <div class=" "></div>
+                    <div className="flex flex-col items-center pb-2 pt-5 mb-2 gap-3 border-b border-white/45 w-full shadow-sm ">
+                            <div>
+                                <img src="images/logodesa.png" alt="" srcset="" className="max-w-[60px]" />
+                            </div>
+                            <span className="text-xl font-medium uppercase text-white">
+                                Desa Salo Cella
+                            </span>
+                        
                     </div>
                     <div className="flex flex-col  items-center  h-full">
                         <div className="flex flex-auto  max-h-[clamp(100px,60dvh,70vh)] overflow-y-auto flex-col items-center justify-between pt-2 no-scrollbar">

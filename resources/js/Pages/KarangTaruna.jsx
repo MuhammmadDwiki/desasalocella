@@ -160,7 +160,7 @@ export default function KarangTaruna({datas}) {
         e.preventDefault();
         post(route("karangTarunas.store"), {
             onSuccess: () => {
-                resetCreate();
+                resetCreate("nama_anggota","jabatan")
                 Toast.fire({
                     icon: "success",
                     title: "Data berhasil ditambahkan",
@@ -215,7 +215,7 @@ export default function KarangTaruna({datas}) {
                         <DialogTrigger asChild>
                             <Button
                                 variant="default"
-                                onClick={() => resetCreate()}
+                                // onClick={() => resetCreate("nama_anggota","jabatan")}
                             >
                                 Tambah Data
                             </Button>

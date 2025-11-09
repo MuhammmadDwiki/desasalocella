@@ -53,248 +53,29 @@
         </nav>
     </div>
 </header>
-{{-- 
-<nav>
-    <div><a href="{{route('userWelcome')}}">Home</a></div>
-
-    <div class="has-dropdown">
-        <a href="#">Profil Desa ▼</a>
-        <div class="dropdown">
-            <a href="{{route('sejarah')}}">Sejarah Desa</a>
-            <a href="{{route('visi')}}">Visi & Misi</a>
-            <a href="{{route('struk')}}">Struktur Organisasi</a>
-            <a href="{{route('peta')}}">Peta Administrasi</a>
-        </div>
-    </div>
-
-    <div class="has-dropdown">
-        <a href="#">Data Desa ▼</a>
-        <div class="dropdown">
-            <a href="{{route('dapen')}}">Data Penduduk</a>
-        </div>
-    </div>
-
-    <div class="has-dropdown">
-        <a href="#">Kelembagaan ▼</a>
-        <div class="dropdown">
-            <a href="{{route('bpd')}}">BPD</a>
-            <a href="{{route('karangtrn')}}">Karang Taruna</a>
-            <a href="{{route('ketua')}}">Ketua RT</a>
-            <a href="{{route('linmass')}}">Linmas</a>
-            <a href="{{route('posy')}}">Posyandu</a>
-            <a href="{{route('pkk')}}">PKK</a>
-        </div>
-    </div>
-
-    <div><a href="{{route('potensi')}}">Potensi Desa</a></div>
-    <div><a href="{{route('layanan')}}">Layanan</a></div>
-
-    <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
-</nav> --}}
 
 <section class="page-header">
     <h2>Struktur Organisasi Desa Sallo Cela</h2>
 </section>
 
 <section class="struktur-container">
-    <!-- Kepala Desa -->
-    <div class="card-biodata">
-        <img src="{{ asset('images/kepala_desa.jpg') }}" alt="Kepala Desa" class="foto-perangkat">
+    @foreach ($datas as $item )
+        <div class="card-biodata">
+        <img src="{{ "/storage/{$item->url_foto_profil}" }}"alt="Kepala Desa" class="foto-perangkat">
         <div class="biodata">
-            <h3>BIODATA KEPALA DESA</h3>
+            <h3>BIODATA {{ $item->jabatan_pd }}</h3>
             <ul>
-                <li><strong>Nama</strong> : Salama</li>
-                <li><strong>Jabatan</strong> : Kepala Desa</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : </li>
-                <li><strong>Pendidikan</strong> : </li>
-                <li><strong>Agama</strong> : Islam</li>
-                <li><strong>Alamat</strong> : Badak 1</li>
+                <li><strong>Nama</strong> : {{ $item->nama_pd }}</li>
+                <li><strong>Jabatan</strong> : {{ $item->jabatan_pd }}</li>
+                <li><strong>Tempat/Tanggal Lahir</strong> : {{$item->tempat_tanggal_lahir_pd}}</li>
+                <li><strong>Pendidikan</strong> : {{ $item->pendidikan_pd }}</li>
+                <li><strong>Agama</strong> : {{ $item->agama_pd }}</li>
+                <li><strong>Alamat</strong> : {{ $item->alamat_pd }}</li>
             </ul>
         </div>
     </div>
-
-    <!-- Sekretaris Desa -->
-    <div class="card-biodata">
-        <img src="{{ asset('images/sekretaris_desa.jpg') }}" alt="Sekretaris Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA SEKRETARIS DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Feriansyah</li>
-                <li><strong>Jabatan</strong> : Sekretaris Desa</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Bendahara Desa -->
-    <div class="card-biodata">
-        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA BENDAHARA DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Siti Aisyah</li>
-                <li><strong>Jabatan</strong> : Bendahara Desa</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Tambahkan perangkat desa lainnya dengan format sama -->
-     <div class="card-biodata">
-        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA BENDAHARA DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Rudy Rusandi</li>
-                <li><strong>Jabatan</strong> : KASI KESRA</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="card-biodata">
-        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA BENDAHARA DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Muhammad Yunus</li>
-                <li><strong>Jabatan</strong> : KASI PLT Pemerintahan dan Perencanaan</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="card-biodata">
-        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA BENDAHARA DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Nur Afiah</li>
-                <li><strong>Jabatan</strong> : Staff Keuangan</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="card-biodata">
-        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA BENDAHARA DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Usri</li>
-                <li><strong>Jabatan</strong> : Staff KESRA</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="card-biodata">
-        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA BENDAHARA DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Sulfiani</li>
-                <li><strong>Jabatan</strong> : Staff KESRA</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="card-biodata">
-        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA BENDAHARA DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Ardiansyah</li>
-                <li><strong>Jabatan</strong> : Staff Perencanaan</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="card-biodata">
-        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA BENDAHARA DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Abdul Razak</li>
-                <li><strong>Jabatan</strong> : Staff Pemerintahan</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="card-biodata">
-        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA BENDAHARA DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Herawati</li>
-                <li><strong>Jabatan</strong> : Staff Pemerintahan</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="card-biodata">
-        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA BENDAHARA DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Udin</li>
-                <li><strong>Jabatan</strong> : Staff Desa</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="card-biodata">
-        <img src="{{ asset('images/bendahara_desa.jpg') }}" alt="Bendahara Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA BENDAHARA DESA</h3>
-            <ul>
-                <li><strong>Nama</strong> : Surti Yanti</li>
-                <li><strong>Jabatan</strong> : Staff Desa</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : …</li>
-                <li><strong>Pendidikan</strong> : …</li>
-                <li><strong>Agama</strong> : …</li>
-                <li><strong>Alamat</strong> : …</li>
-            </ul>
-        </div>
-    </div>
+    @endforeach
+    
 </section>
 
 

@@ -56,7 +56,7 @@
         </nav>
     </div>
 </header>
-
+{{-- 
 <nav>
     <div><a href="{{route('beranda')}}">Home</a></div>
 
@@ -93,7 +93,7 @@
     <div><a href="{{route('layanan')}}">Layanan</a></div>
 
     <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
-</nav>
+</nav> --}}
 
 <section class="page-header">
     <h2>Badan Permusyawaratan Daerah Sallo Cela</h2>
@@ -108,7 +108,7 @@
             <th>Status Dalam Organisasi</th>
         </tr>
     </thead>
-    <tbody>
+    {{-- <tbody>
         <tr>
             <td style="text-align:center;">1</td>
             <td>Dr.Ns.Putri Jamal, S.ST., M.Kes. Ph.d</td>
@@ -135,6 +135,17 @@
             <td>Anggota</td>
         </tr>
     </tbody>
+     --}}
+     <tbody>
+        @foreach ($datas as $i )
+        <tr>
+            <td style="text-align:center;">{{ $loop->iteration }}</td>
+            <td>{{ $i->nama_bpd }}</td>
+            <td>{{ $i->jabatan_bpd }}</td>
+        </tr>
+            
+        @endforeach
+     </tbody>
 </table>
 </section>
 

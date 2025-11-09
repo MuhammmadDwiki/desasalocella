@@ -350,7 +350,7 @@ export default function PerangkatDesa({ datas }) {
             };
     
 
-
+    // console.log(createData)
     return(
 
     <AuthenticatedLayout headerName="Perangkat Desa">
@@ -370,7 +370,7 @@ export default function PerangkatDesa({ datas }) {
                     <DialogTrigger asChild>
                         <Button
                             variant="default"
-                            onClick={() => resetCreate()}
+                            // onClick={() => resetCreate()}
                         >
                             Tambah Data
                         </Button>

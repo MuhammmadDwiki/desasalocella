@@ -31,7 +31,7 @@ const NotificationBell = ({ notifications }) => {
     const { auth } = usePage().props;
     const unread = notifications.filter((n) => !n.read_at);
     const unreadCount = unread?.length || 0;
-    // console.log(notifications, unread);
+    // console.log(notifications.length);
     // console.log(auth);
     const handleRead = (id, link) => {
         // console.log(id, link);
@@ -68,6 +68,11 @@ const NotificationBell = ({ notifications }) => {
                 <DropdownMenuLabel className="">Notifikasi</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <div className="overflow-x-auto flex flex-col  gap-2 max-h-[70vh]">
+                    {(notifications.length == 0) ? (
+                        <div className="px-2 py-1">
+                            <p className="text-gray-400 text-sm italic">tidak ada notifikasi</p>
+                        </div>
+                    ): null}
                     {notifications.map((n) => (
                         <div
                             key={n.id}

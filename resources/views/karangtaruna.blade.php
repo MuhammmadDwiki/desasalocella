@@ -97,7 +97,6 @@
 <section class="page-header">
     <h2>Karang Taruna Desa Sallo Cela</h2>
 </section>
-
 <section class="krt-section">
 <table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%; text-align: left;">
     <thead style="background-color: #f2f2f2;">
@@ -107,7 +106,7 @@
             <th>Status Dalam Organisasi</th>
         </tr>
     </thead>
-    <tbody>
+    {{-- <tbody>
         <tr>
             <td style="text-align:center;">1</td>
             <td>Muhammad Aris</td>
@@ -213,7 +212,18 @@
             <td>Nursamsu</td>
             <td>Seksi Bidang Humas dan Kerjasama Kemitraan</td>
         </tr>
+    </tbody> --}}
+
+    <tbody>
+        @foreach ($datas as $item  )
+            <tr>
+                <td style="text-align:center;">{{ $loop->iteration }}</td>
+                <td>{{ $item->nama_anggota }}</td>
+                <td>{{ $item->jabatan }}</td>
+                </tr>
+        @endforeach
     </tbody>
+        
 </table>
 </section>
 
