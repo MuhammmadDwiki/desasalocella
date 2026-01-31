@@ -54,42 +54,7 @@
         </nav>
     </div>
 </header>
-{{-- 
-<nav>
-    <div><a href="{{route('userWelcome')}}">Home</a></div>
 
-    <div class="has-dropdown">
-        <a href="#">Profil Desa ▼</a>
-        <div class="dropdown">
-            <a href="{{route('sejarah')}}">Sejarah Desa</a>
-            <a href="{{route('visi')}}">Visi & Misi</a>
-            <a href="{{route('struk')}}">Struktur Organisasi</a>
-            <a href="{{route('peta')}}">Peta Administrasi</a>
-        </div>
-    </div>
-
-    <div class="has-dropdown">
-        <a href="#">Data Desa ▼</a>
-        <div class="dropdown">
-            <a href="{{route('dapen')}}">Data Penduduk</a>
-        </div>
-    </div>
-
-    <div class="has-dropdown">
-        <a href="#">Kelembagaan ▼</a>
-        <div class="dropdown">
-            <a href="{{route('bpd')}}">BPD</a>
-            <a href="{{route('karangtrn')}}">Karang Taruna</a>
-            <a href="{{route('ketua')}}">Ketua RT</a>
-            <a href="{{route('pkk')}}">PKK</a>
-        </div>
-    </div>
-
-    <div><a href="{{route('potensi')}}">Potensi Desa</a></div>
-    <div><a href="{{route('layanan')}}">Layanan</a></div>
-
-    <div><span class="search-icon" onclick="showSearch()">🔍</span></div>
-</nav> --}}
 
 <section class="page-header">
     <h2>Potensi Desa Sallo Cela</h2>
@@ -115,10 +80,7 @@
             <h4>Sekilas Desa Salo Cella</h4>
             <ul>
                 <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
-<<<<<<< HEAD
                 <li><a href="#">Sekilas Desa Salo Cella</a></li>
-=======
->>>>>>> 79f6e4b622537762a184531677308cfb0c3f8e1c
                 <li><a href="#">Profil</a></li>
                 <li><a href="#">Peta</a></li>
             </ul>

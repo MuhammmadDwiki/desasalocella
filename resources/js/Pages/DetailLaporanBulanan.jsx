@@ -158,9 +158,9 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
             "07": "Juli",
             "08": "Agustus",
             "09": "September",
-            10: "Oktober",
-            11: "November",
-            12: "Desember",
+            "10": "Oktober",
+            "11": "November",
+            "12": "Desember",
         };
         return months[monthNumber] || monthNumber;
     };

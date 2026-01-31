@@ -375,7 +375,7 @@ export default function PerangkatDesa({ datas }) {
                             Tambah Data
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[525px]">
+                    <DialogContent className="sm:max-w-[525px] max-h-[75vh] overflow-y-auto">
                         <DialogHeader>
                             <DialogTitle className="capitalize">
                                 Tambah data karang taruna

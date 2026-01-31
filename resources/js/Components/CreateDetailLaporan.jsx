@@ -204,7 +204,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                     Buat
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-w-4xl max-h-[75vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Tambah Detail Laporan RT</DialogTitle>
                     <DialogDescription>

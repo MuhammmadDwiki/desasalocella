@@ -220,7 +220,7 @@ export default function KarangTaruna({datas}) {
                                 Tambah Data
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[525px]">
+                        <DialogContent className="sm:max-w-[525px] ">
                             <DialogHeader>
                                 <DialogTitle className="capitalize">
                                     Tambah data karang taruna

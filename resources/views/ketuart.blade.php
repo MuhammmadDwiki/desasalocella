@@ -59,7 +59,7 @@
 </section>
 
 <section class="ketur-section">
-<table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%; text-align: left;">
+<table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%; text-align: left; margin:20px 0 30px ">
     <thead style="background-color: #f2f2f2;">
         <tr>
             <th style="width: 50px; text-align:center;">No</th>
@@ -68,66 +68,26 @@
         </tr>
     </thead>
     <tbody>
+        @if (count($datas) > 0)
+       
+        @foreach ($datas as $d )
         <tr>
-            <td style="text-align:center;">1</td>
-            <td>Andi Bangsawang</td>
-            <td>Ketua RT 1</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">2</td>
-            <td>Suparman</td>
-            <td>Ketua Rt 2</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">3</td>
-            <td>Hasnawati</td>
-            <td>Ketua Rt 3</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">4</td>
-            <td>Bannuh Sinosi</td>
-            <td>Ketua Rt 4</td>
-        </tr>
-        <tr>
-            <td style="text-align:center;">5</td>
-            <td>Sabri</td>
-            <td>Ketua Rt 5</td>
-        </tr>
-                <tr>
-            <td style="text-align:center;">5</td>
-            <td>Samsuddin</td>
-            <td>Ketua Rt 6</td>
-        </tr>
-                <tr>
-            <td style="text-align:center;">5</td>
-            <td>Made Aming</td>
-            <td>Ketua Rt 7</td>
-        </tr>
-                <tr>
-            <td style="text-align:center;">5</td>
-            <td>Nurhade</td>
-            <td>Ketua Rt 8</td>
-        </tr>
-                <tr>
-            <td style="text-align:center;">5</td>
-            <td>Hamsah</td>
-            <td>Ketua Rt 9</td>
-        </tr>
-                <tr>
-            <td style="text-align:center;">5</td>
-            <td>Samsuddin</td>
-            <td>Ketua Rt 10</td>
-        </tr>
-                <tr>
-            <td style="text-align:center;">5</td>
-            <td>Sartriani</td>
-            <td>Ketua Rt 11</td>
-        </tr>
-                <tr>
-            <td style="text-align:center;">5</td>
-            <td>Mustan</td>
-            <td>Ketua Rt 12</td>
-        </tr>
+           <td style="text-align:center;">{{ $loop->iteration }}</td>
+           <td>{{ $d->nama_rt }}</td>
+           <td>Ketua RT {{ $d->nomor_rt }}</td>
+       </tr>
+            
+        @endforeach
+        @else
+        <tr style="height: 200px">
+           <td colspan="3" style="text-align:center;">
+               
+                    Data RT belum tersedia.
+                
+            </td>
+       </tr>
+        @endif
+      
     </tbody>
 </table>
 </section>
