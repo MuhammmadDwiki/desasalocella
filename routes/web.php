@@ -152,9 +152,7 @@ Route::get('/peta', function () {
 
 Route::get('/bpd', [PageController::class, 'Bpd'])->name('bpd');
 
-Route::get('/ketua', function () {
-    return view('ketuart');
-})->name('ketua');
+Route::get('/ketua',  [PageController::class, 'ketuaRT'])->name('ketua');
 
 Route::get('/linmass', function () {
     return view('linmas');

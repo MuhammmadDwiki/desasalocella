@@ -9,12 +9,28 @@ use App\Models\DetailRekapitulasi;
 use App\Models\karangTaruna;
 use App\Models\PerangkatDesa;
 use App\Models\Pkk;
+use App\Models\RT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class PageController extends Controller
 {
+    public function ketuaRT()
+    {
+        $rt = RT::select(
+              'nomor_rt',
+              'nama_rt'
+        )->where('is_active', '=', 2)->get();
+
+        // dd($rt);
+
+        return view('ketuart', [
+            'datas' => $rt
+        ]);
+
+
+    }
     public function pendudukIndex()
     {
         $pendudukDetail = DetailRekapitulasi::select(

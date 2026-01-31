@@ -376,7 +376,7 @@ export default function Berita({ datas }) {
                         <DialogTrigger asChild>
                             <Button variant="default">Tambah Berita</Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[625px] md:min-w-[700px] max-h-[90vh] overflow-y-auto">
+                        <DialogContent className="sm:max-w-[625px] md:min-w-[700px] max-h-[75vh] overflow-y-auto">
                             <DialogHeader>
                                 <DialogTitle>Tambah Berita Baru</DialogTitle>
                                 <DialogDescription>

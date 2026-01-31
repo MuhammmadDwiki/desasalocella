@@ -30,80 +30,6 @@ import {
 } from "@/components/ui/select";
 import Swal from "sweetalert2";
 
-const staffData = [
-    {
-        id: 1,
-        name: "Admin Utama",
-        email: "admin@desa.sc",
-        role: "Super Admin",
-        assignedRT: ["Semua RT"],
-        lastLogin: "2025-07-15T14:30:00Z",
-    },
-    {
-        id: 2,
-        name: "Budi Santoso",
-        email: "budi@desa.sc",
-        role: "Moderator",
-        assignedRT: ["RT1", "RT2"],
-        lastLogin: "2025-07-14T09:15:00Z",
-    },
-    {
-        id: 3,
-        name: "Siti Rahayu",
-        email: "siti@desa.sc",
-        role: "Moderator",
-        assignedRT: ["RT3", "RT4"],
-        lastLogin: "2025-07-10T16:45:00Z",
-    },
-    {
-        id: 3,
-        name: "Siti Rahayu",
-        email: "siti@desa.sc",
-        role: "Moderator",
-        assignedRT: ["RT3", "RT4"],
-        lastLogin: "2025-07-10T16:45:00Z",
-    },
-    {
-        id: 3,
-        name: "Siti Rahayu",
-        email: "siti@desa.sc",
-        role: "Moderator",
-        assignedRT: ["RT3", "RT4"],
-        lastLogin: "2025-07-10T16:45:00Z",
-    },
-    {
-        id: 3,
-        name: "Siti Rahayu",
-        email: "siti@desa.sc",
-        role: "Moderator",
-        assignedRT: ["RT3", "RT4"],
-        lastLogin: "2025-07-10T16:45:00Z",
-    },
-    {
-        id: 3,
-        name: "Siti Rahayu",
-        email: "siti@desa.sc",
-        role: "Moderator",
-        assignedRT: ["RT3", "RT4"],
-        lastLogin: "2025-07-10T16:45:00Z",
-    },
-    {
-        id: 3,
-        name: "Siti Rahayu",
-        email: "siti@desa.sc",
-        role: "Moderator",
-        assignedRT: ["RT3", "RT4"],
-        lastLogin: "2025-07-10T16:45:00Z",
-    },
-    {
-        id: 3,
-        name: "Siti Rahayu",
-        email: "siti@desa.sc",
-        role: "Moderator",
-        assignedRT: ["RT3", "RT4"],
-        lastLogin: "2025-07-10T16:45:00Z",
-    },
-];
 
 const Akun = ({ users, rt }) => {
     const [showEditModal, setShowEditModal] = useState(false);
@@ -375,7 +301,7 @@ const Akun = ({ users, rt }) => {
                                 Tambah Akun
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[525px]">
+                        <DialogContent className="sm:max-w-[525px] max-h-[75vh]">
                             <DialogHeader>
                                 <DialogTitle className="capitalize">
                                     Tambah Akun staff
