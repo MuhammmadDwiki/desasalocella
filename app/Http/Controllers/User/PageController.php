@@ -200,8 +200,8 @@ class PageController extends Controller
     public function karangTaruna()
     {
 
-        return view('Karangtaruna', [
-            'datas' => karangTaruna::select(
+        return view('karangtaruna', [
+            'datas' => KarangTaruna::select(
                 'nama_anggota',
                 'jabatan'
             )->get(),
