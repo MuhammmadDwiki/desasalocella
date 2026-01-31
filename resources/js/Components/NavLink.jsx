@@ -11,7 +11,7 @@ import { FaAngleDown , FaRegHandshake } from "react-icons/fa";
 import  { MdOutlineNewspaper, MdOutlineFamilyRestroom   } from 'react-icons/md';
 import { VscOrganization } from "react-icons/vsc";
 import { HiOutlineUserGroup } from "react-icons/hi2";
-import Can from '@/components/Can'
+import Can from '@/Components/Can'
 
 
 const allLinks = [

@@ -4,13 +4,13 @@ import * as z from 'zod';
 import { usePage, router } from '@inertiajs/react';
 import {
     Form, FormControl, FormField, FormItem, FormLabel, FormMessage
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+} from '@/Components/ui/form';
+import { Input } from '@/Components/ui/input';
+import { Button } from '@/Components/ui/button';
 import {
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+} from '@/Components/ui/select';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/Components/ui/dialog';
 import { useState } from 'react';
 
 // Schema validasi

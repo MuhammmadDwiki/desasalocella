@@ -11,16 +11,16 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table";
+} from "@/Components/ui/table";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
+} from "@/Components/ui/select";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button";
 
 import { Pagination } from "./Pagination";
 import { cn } from "@/lib/utils"

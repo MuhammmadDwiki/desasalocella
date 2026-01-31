@@ -11,7 +11,7 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -22,15 +22,15 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/Components/ui/alert-dialog";
 
 
 import { GenericTable } from "@/Components/GenericTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Pencil, Trash2, Eye } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
+import { Label } from "@/Components/ui/label";
 import Swal from "sweetalert2";
 
 const Toast = Swal.mixin({

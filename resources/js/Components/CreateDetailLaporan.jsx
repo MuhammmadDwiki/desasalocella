@@ -10,7 +10,7 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form";
+} from "@/Components/ui/form";
 import {
     Dialog,
     DialogContent,
@@ -18,16 +18,16 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from "@/Components/ui/select";
+import { Input } from "@/Components/ui/input";
+import { Button } from "@/Components/ui/button";
 import { Plus } from "lucide-react";
 import Swal from "sweetalert2";
 

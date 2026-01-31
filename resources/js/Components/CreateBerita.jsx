@@ -11,9 +11,9 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from "@/Components/ui/dialog";
+import { Input } from "@/Components/ui/input";
+import { Button } from "@/Components/ui/button";
 
 const CreateBerita = ({ datas, onClose, onOpen }) => {
     const [open, setOpen] = useState(false);

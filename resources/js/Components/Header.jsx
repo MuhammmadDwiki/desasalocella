@@ -5,26 +5,26 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@/Components/ui/sheet";
 import { CiMenuFries } from "react-icons/ci";
 import NavLink from "./NavLink";
 import Dropdown from "./Dropdown";
 import { Link, useForm, usePage, router } from "@inertiajs/react";
 import { FaUserCircle } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/Components/ui/input";
 import { MdOutlineLogout } from "react-icons/md";
 import { Bell } from "lucide-react";
 import { format, formatDistanceToNow } from "date-fns";
 import { id } from "date-fns/locale";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
+} from "@/Components/ui/dropdown-menu";
 import { Dot } from "lucide-react";
 
 const NotificationBell = ({ notifications }) => {
