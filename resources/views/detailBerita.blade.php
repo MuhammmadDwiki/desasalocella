@@ -7,7 +7,7 @@
     <title>{{ $berita->judul_berita }} - Desa Sallo Cela</title>
     <link rel="stylesheet" href="{{ asset('css/berita.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
-    @vite('resources/js/app.js')
+    @vite('resources/js/app.jsx')
 </head>
 
 <body class="bg-gray-50">

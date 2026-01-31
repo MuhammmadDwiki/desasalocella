@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\Bpd;
 use App\Models\DetailRekapitulasi;
-use App\Models\karangTaruna;
+use App\Models\KarangTaruna;
 use App\Models\PerangkatDesa;
 use App\Models\Pkk;
 use App\Models\RT;
@@ -200,7 +200,7 @@ class PageController extends Controller
     public function karangTaruna()
     {
 
-        return view('karangtaruna', [
+        return view('Karangtaruna', [
             'datas' => karangTaruna::select(
                 'nama_anggota',
                 'jabatan'

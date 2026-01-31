@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/berita.css') }}">
     <link rel="icon" href="{{ asset('images/logodesa.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
-    @vite('resources/js/app.js')
+    @vite('resources/js/app.jsx')
 
 </head>
 
