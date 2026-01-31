@@ -10,21 +10,21 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from "@/Components/ui/select";
+import { Input } from "@/Components/ui/input";
+import { Button } from "@/Components/ui/button";
 import { Pencil, Trash2, AlertCircle, Users } from "lucide-react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { GenericTable } from "@/Components/GenericTable";
 import Swal from "sweetalert2";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/Components/ui/alert";
 import { FaArrowLeft } from "react-icons/fa6";
 
 

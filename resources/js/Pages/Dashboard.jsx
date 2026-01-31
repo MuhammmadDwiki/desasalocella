@@ -1,4 +1,4 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/Components/ui/scroll-area";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head , usePage} from "@inertiajs/react";
 import { createColumnHelper } from "@tanstack/react-table";
@@ -23,7 +23,7 @@ import {
     ChartLegendContent,
     ChartTooltip,
     ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/Components/ui/chart";
 import CheckDataWarning from "@/Components/CheckDataWarning";
 
 const chartConfig = {

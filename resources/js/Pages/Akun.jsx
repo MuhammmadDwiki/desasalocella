@@ -3,12 +3,12 @@ import { useState } from "react";
 
 import AkunLayout from "@/Layouts/AkunLayout";
 import { StaffAccountTable } from "@/Components/StaffAccountTable";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button";
 import { createColumnHelper } from "@tanstack/react-table";
 import { GenericTable } from "@/Components/GenericTable";
 import { Pencil, Trash2 } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Input } from "@/Components/ui/input";
+import { Label } from "@/Components/ui/label";
 import { AlertTriangle, PlusCircle, AlertCircle } from "lucide-react";
 
 import {
@@ -20,14 +20,14 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/Components/ui/dialog";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
+} from "@/Components/ui/select";
 import Swal from "sweetalert2";
 
 

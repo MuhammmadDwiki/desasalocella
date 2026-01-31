@@ -6,22 +6,22 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { FaAngleLeft } from "react-icons/fa";
 import CreateDetailLaporan from "@/Components/CreateDetailLaporan";
 import { Pencil, Trash2, Eye, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button";
 import DetailLaporanModal from "@/Components/DetailLaporanModal";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/Components/ui/badge";
 import {
     Tooltip,
     TooltipContent,
     TooltipTrigger,
     TooltipProvider,
-} from "@/components/ui/tooltip";
+} from "@/Components/ui/tooltip";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/Components/ui/popover"
 
 const Toast = Swal.mixin({
     toast: true,
