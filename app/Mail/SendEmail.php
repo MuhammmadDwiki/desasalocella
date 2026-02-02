@@ -12,13 +12,16 @@ use Illuminate\Queue\SerializesModels;
 class SendEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    // public $data;
+
     /**
      * Create a new message instance.
      */
-   public function __construct(private string $title, private string  $body)
-    {
-    }
+    public function __construct(
+        private string $title, 
+        private string $body,
+        private ?string $actionUrl = null,
+        private ?string $actionText = null
+    ) {}
 
     /**
      * Get the message envelope.
@@ -26,7 +29,7 @@ class SendEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Reset Password',
+            subject: $this->title,
         );
     }
 
@@ -40,14 +43,14 @@ class SendEmail extends Mailable
             with: [
                 'title' => $this->title,
                 'body' => $this->body,
+                'actionUrl' => $this->actionUrl,
+                'actionText' => $this->actionText,
             ],
         );
     }
 
     /**
      * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
     public function attachments(): array
     {

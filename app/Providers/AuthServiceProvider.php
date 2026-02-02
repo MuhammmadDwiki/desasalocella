@@ -37,17 +37,5 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role === 'moderator' || $user->role === 'super_admin';
         });
 
-        // Define custom gates jika diperlukan
-        // Gate::define('manage-users', function (User $user) {
-        //     return $user->isSuperAdmin();
-        // });
-
-        // Gate::define('manage-rt', function (User $user) {
-        //     return $user->isSuperAdmin();
-        // });
-
-        // Gate::define('verify-laporan', function (User $user) {
-        //     return $user->isSuperAdmin();
-        // });
     }
 }

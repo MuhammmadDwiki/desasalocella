@@ -4,7 +4,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
-
+import Swal from "sweetalert2";
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
@@ -12,16 +12,45 @@ export default function UpdateProfileInformation({
 }) {
     const user = usePage().props.auth.user;
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
+    const { data, setData, put, errors, processing, recentlySuccessful, reset } =
         useForm({
             name: user.name,
+            username: user.username,
             email: user.email,
+        });
+    const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            },
         });
 
     const submit = (e) => {
         e.preventDefault();
-
-        patch(route('profile.update'));
+        console.log(user.id)
+        put(route('updateInformation',user.id), {
+            data: data,
+            onSuccess:() => {
+                reset();
+                Toast.fire({
+                    icon: "success",
+                    title: "Data berhasil diupdate",
+                });
+            },
+            onError: (e)=>{
+                console.error(e);
+                Toast.fire({
+                    icon: "error",
+                    title: e.username !== '' ? e.username : 'Data gagal diubah',
+                });
+                reset();
+            }
+        });
     };
 
     return (
@@ -46,8 +75,23 @@ export default function UpdateProfileInformation({
                         value={data.name}
                         onChange={(e) => setData('name', e.target.value)}
                         required
-                        isFocused
+                        
                         autoComplete="name"
+                    />
+
+                    <InputError className="mt-2" message={errors.name} />
+                </div>
+                <div>
+                    <InputLabel htmlFor="username" value="username" />
+
+                    <TextInput
+                        id="username"
+                        className="mt-1 block w-full"
+                        value={data.username}
+                        onChange={(e) => setData('username', e.target.value)}
+                        required
+                        
+                        autoComplete="username"
                     />
 
                     <InputError className="mt-2" message={errors.name} />
@@ -59,11 +103,9 @@ export default function UpdateProfileInformation({
                     <TextInput
                         id="email"
                         type="email"
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full cursor-not-allowed bg-gray-100 text-gray-500"
                         value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                        autoComplete="username"
+                        disabled                        
                     />
 
                     <InputError className="mt-2" message={errors.email} />

@@ -31,6 +31,10 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);
 
+## AUTH
+// Route::get('/verifyEmail', function(){
+//     return Inertia::render('Auth/VerifyEmail');
+// })->name('verify-email-page');
 
 ## =========== ADMIN =========== ##
 Route::get('/dashboard', [DashboardController::class , 'index'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -51,7 +55,7 @@ Route::get('/badan-permusyawaratan-desa', [BpdController::class, 'index'])->midd
 Route::get('/pemberdayaan-kesejahteraan-keluarga' , [PkkController::class, 'index'])->middleware(['auth', 'verified'])->name('pkk-admin');
 
 
-Route::middleware(['auth', 'can:super_admin'])->group(function () {
+Route::middleware(['auth', 'can:super_admin', 'verified'])->group(function () {
     // Route::resource('users', 'UserController'); // CRUD staff accounts
     // Route::resource('rts', 'RTController'); // CRUD data RT
     // Route::post('laporan/{laporan}/verify', 'LaporanBulananController@verify'); // Verifikasi laporan
@@ -64,16 +68,20 @@ Route::middleware(['auth', 'can:super_admin'])->group(function () {
     Route::post('/rekapitulasi-rt/{id_rekap_rt}/reject', [RekapitulasiRTController::class, 'reject'])->name("rekapitulasi-rt.reject");
   
 
+    //  Route::get('/profile', function(){
+    //    return Inertia::render('Profile/Edit');
+    //  })->name('profile.edit');
+    // Route::put('/profile', [UserController::class, 'ubahProfileInformation'])->name('updateInformation');
 });
 
-Route::middleware(['auth', 'can:moderator'])->group(function() {
+Route::middleware(['auth', 'verified', 'can:moderator'])->group(function() {
     Route::post('/rekapitulasi-rt/{id_rekap_rt}/submit', [RekapitulasiRTController::class, 'submit'])->name("rekapitulasi-rt.submit");
 
 
 });
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('Dashboard', DashboardController::class);
     Route::resource('laporan', RekapitulasiPendudukController::class);
     Route::resource('detailLaporan', DetailRekapitulasiController::class)->except(['index']);
@@ -123,7 +131,28 @@ Route::middleware('auth')->group(function () {
 
      Route::post('kelompok-kerjas/{id}/delete-with-transfer', [KelompokKerjaController::class, 'deleteWithTransfer'])
         ->name('kelompok-kerjas.delete-with-transfer');
+
+   
 });
+
+Route::middleware('auth')->group(function() {
+    Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
+        ->name('verification.notice');
+
+    Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+        ->middleware(['signed', 'throttle:6,1'])
+        ->name('verification.verify');
+
+    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+        ->middleware('throttle:6,1')
+        ->name('verification.send');
+
+    Route::get('/verifyEmail', function() {
+        return view('auth.verifyModeration');
+    })->name('verifyModeration');
+
+});
+
 require __DIR__ . '/auth.php';
 
 

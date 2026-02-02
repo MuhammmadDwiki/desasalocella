@@ -20,6 +20,8 @@ return new class extends Migration
             $table->enum('role', ['super_admin', 'moderator'])->default('moderator');
             $table->string('id_rt')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('email_verification_required')->default(true); // Flag untuk rekomendasi
+            $table->timestamp('last_password_change')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();

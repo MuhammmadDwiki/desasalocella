@@ -155,7 +155,6 @@ const Akun = ({ users, rt }) => {
                             variant="outline"
                             size="icon"
                             onClick={() => {
-                                console.log(row.original);
                                 setEditingUserId(row.original.id);
                                 setShowEditModal(true);
                                 setEditFormData({
@@ -192,7 +191,6 @@ const Akun = ({ users, rt }) => {
 
     const handleCreate = (e) => {
         e.preventDefault();
-        console.log(createData);
         const isMatch =
             createData.password === createData.password_confirmation;
         if (!isMatch) {
@@ -201,14 +199,15 @@ const Akun = ({ users, rt }) => {
         }
 
         post(route("users.store"), {
-            onSuccess: () => {
+            onSuccess: ((status) => {
+                // console.log(status)
                 resetCreate();
                 Toast.fire({
                     icon: "success",
                     title: "Data berhasil ditambahkan",
                 });
                 document.getElementById("closeDialog").click();
-            },
+            }) ,
             onError: (e) => {
                 console.log(e);
                 Toast.fire({
@@ -221,7 +220,7 @@ const Akun = ({ users, rt }) => {
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        console.log(editFormData);
+        // console.log(editingUserId);
         if (
             editFormData.password &&
             editFormData.password !== editFormData.password_confirmation
@@ -269,7 +268,8 @@ const Akun = ({ users, rt }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 router.delete(route("users.destroy", id), {
-                    onSuccess: () => {
+                    onSuccess: (success) => {
+                        console.log(success)
                         Toast.fire({
                             icon: "success",
                             title: "Data berhasil dihapus",
@@ -608,7 +608,7 @@ const Akun = ({ users, rt }) => {
 
                             <div className="border-t pt-4">
                                 <h3 className="text-sm font-medium text-gray-700 mb-2">
-                                    Ubah Password (opsional)
+                                    Ubah Password 
                                 </h3>
                                 <div className="flex flex-col gap-2 w-full">
                                     <label className="block text-sm font-medium text-gray-700">

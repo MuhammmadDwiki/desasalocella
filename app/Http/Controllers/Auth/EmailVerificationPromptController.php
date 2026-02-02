@@ -13,10 +13,19 @@ class EmailVerificationPromptController extends Controller
     /**
      * Display the email verification prompt.
      */
-    public function __invoke(Request $request): RedirectResponse|Response
+   public function __invoke(Request $request)
     {
-        return $request->user()->hasVerifiedEmail()
-                    ? redirect()->intended(route('dashboard', absolute: false))
-                    : Inertia::render('Auth/VerifyEmail', ['status' => session('status')]);
+        // Jika sudah verifikasi, redirect ke dashboard
+        if ($request->user()->hasVerifiedEmail()) {
+            return redirect()->intended(route('dashboard'));
+        }
+        
+        // Jika user memiliki role moderator/admin, tampilkan view khusus
+        if ($request->user()->isModerator() || $request->user()->isSuperAdmin()) {
+            return Inertia::location(route('verifyModeration'));
+        }
+        
+        // Default Inertia response untuk user biasa
+        return Inertia::render('Auth/VerifyEmail');
     }
 }
