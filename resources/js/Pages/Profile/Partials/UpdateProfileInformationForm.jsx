@@ -32,18 +32,17 @@ export default function UpdateProfileInformation({
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(user.id)
-        put(route('updateInformation',user.id), {
-            data: data,
+        put(route('updateInformation', user.id), {
             onSuccess:() => {
                 reset();
                 Toast.fire({
                     icon: "success",
                     title: "Data berhasil diupdate",
                 });
+                window.location.reload();
             },
             onError: (e)=>{
-                console.error(e);
+                // console.error(e);
                 Toast.fire({
                     icon: "error",
                     title: e.username !== '' ? e.username : 'Data gagal diubah',

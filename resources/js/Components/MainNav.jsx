@@ -1,5 +1,5 @@
 import React from "react";
-import { Head, useForm, router ,usePage} from "@inertiajs/react";
+import { Head, useForm, router, usePage } from "@inertiajs/react";
 // import { router } from '@inertiajs/react';
 
 import NavLink from "./NavLink";
@@ -24,7 +24,7 @@ const MainNav = () => {
     const handleLogout = (e) => {
         e.preventDefault();
         post(route("logout"), {
-            onFinish: () => (window.location.href = "/"),
+            onFinish: () => (window.location.href = "/login"),
         });
     };
     return (
@@ -32,13 +32,13 @@ const MainNav = () => {
             <nav className="w-full h-screen ">
                 <div className="flex flex-col h-screen no-scrollbar">
                     <div className="flex flex-col items-center pb-2 pt-5 mb-2 gap-3 border-b border-white/45 w-full shadow-sm ">
-                            <div>
-                                <img src="images/logodesa.png" alt="" srcset="" className="max-w-[60px]" />
-                            </div>
-                            <span className="text-xl font-medium uppercase text-white">
-                                Desa Salo Cella
-                            </span>
-                        
+                        <div>
+                            <img src="images/logodesa.png" alt="" srcset="" className="max-w-[60px]" />
+                        </div>
+                        <span className="text-xl font-medium uppercase text-white">
+                            Desa Salo Cella
+                        </span>
+
                     </div>
                     <div className="flex flex-col  items-center  h-full">
                         <div className="flex flex-auto  max-h-[clamp(100px,60dvh,70vh)] overflow-y-auto flex-col items-center justify-between pt-2 no-scrollbar">
@@ -50,10 +50,13 @@ const MainNav = () => {
 
                         <div className=" flex items-end justify-center flex-1 z-2 w-full px-6">
                             <div className="mb-6">
-                                <div className="text-sm flex flex-col justify-center items-center text-gray-200 ">
-                                    <p>{auth.user.email}</p>
-                                    <p className="italic">{auth?.user.role == 'super_admin' ? "admin" : auth?.user.role }</p>
-                                </div>
+                                <a href="/profile">
+                                    <div className="text-sm flex flex-col justify-center items-center text-gray-200 ">
+
+                                        <p>{auth.user.email}</p>
+                                        <p className="italic">{auth?.user.role == 'super_admin' ? "admin" : auth?.user.role}</p>
+                                    </div>
+                                </a>
                                 <form onSubmit={handleLogout}>
                                     <button
                                         type="submit"
@@ -65,7 +68,7 @@ const MainNav = () => {
                                     </button>
                                 </form>
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>

@@ -166,6 +166,8 @@ const Akun = ({ users, rt }) => {
                                     password_confirmation: "",
                                     id_rt: row.original.id_rt,
                                 });
+                                // console.log(editingUserId)
+
                             }}
                         >
                             <Pencil className="h-4 w-4" />

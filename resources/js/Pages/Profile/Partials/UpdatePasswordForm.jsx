@@ -3,10 +3,12 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Transition } from '@headlessui/react';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { useRef } from 'react';
+import Swal from "sweetalert2";
 
 export default function UpdatePasswordForm({ className = '' }) {
+    const user = usePage().props.auth.user;
     const passwordInput = useRef();
     const currentPasswordInput = useRef();
 
@@ -23,23 +25,37 @@ export default function UpdatePasswordForm({ className = '' }) {
         password: '',
         password_confirmation: '',
     });
+     const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                },
+            });
 
     const updatePassword = (e) => {
         e.preventDefault();
 
-        put(route('password.update'), {
+        put(route('ubahProfilePassword', user.id), {
             preserveScroll: true,
-            onSuccess: () => reset(),
+            onSuccess: (res) => {
+                reset();
+                Toast.fire({
+                    icon: "success",
+                    title: "Password berhasil diubah",
+                });
+            },
             onError: (errors) => {
-                if (errors.password) {
-                    reset('password', 'password_confirmation');
-                    passwordInput.current.focus();
-                }
-
-                if (errors.current_password) {
-                    reset('current_password');
-                    currentPasswordInput.current.focus();
-                }
+                reset();
+                Toast.fire({
+                    icon: "error",
+                    title:'Password gagal diubah',
+                });
+               
             },
         });
     };

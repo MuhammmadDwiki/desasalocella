@@ -18,9 +18,7 @@ export const usePermissions = () => {
                 'create.karang_taruna', 'view.karang_taruna', 'edit.karang_taruna', 'delete.karang_taruna',
                 'create.perangkat_desa', 'view.perangkat_desa', 'edit.perangkat_desa', 'delete.perangkat_desa',
             ],
-            // staff: [
-            //     'view.laporan', 'view.kegiatan', 'view.agama', 'view.karang_taruna'
-            // ]
+            
         }
 
         return permissions[auth.user?.role]?.includes(permission) || false

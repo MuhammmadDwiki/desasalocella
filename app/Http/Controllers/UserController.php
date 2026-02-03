@@ -64,16 +64,8 @@ class UserController extends Controller
         return redirect()->back()->with('success','User berhasil dibuat. Email verifikasi telah dikirim ke ' . $user->email);
 
     }
-    public function show($id)
-    {
-
-    }
-    public function edit($id)
-    {
-    }
     public function update(Request $request, User $user)
     {
-        // dd($user);
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,'.$user->id,
@@ -103,8 +95,6 @@ class UserController extends Controller
 
     public function ubahProfileInformation(Request $request, User $user)
     {
-        # TODO: fix logic because gk mau ke update data nya
-        // dd($user);
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,'.$user->id,
@@ -112,7 +102,21 @@ class UserController extends Controller
 
         $user->update($validated);       
 
-        return redirect()->back()->with('success', 'berhasil');
+        return redirect()->back()->with('success', 'Data profil berhasil diubah');
+    }
+
+    public function ubahPassword(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return redirect()->back()->with('success', 'Password berhasil diubah');
     }
 
     

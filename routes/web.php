@@ -1,50 +1,43 @@
 <?php
 
 use App\Http\Controllers\AgamaController;
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\BpdController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RekapitulasiPendudukController;
 use App\Http\Controllers\DetailRekapitulasiController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\KarangTarunaController;
 use App\Http\Controllers\KegiatanRTController;
-use App\Http\Controllers\RekapitulasiRTController;
+use App\Http\Controllers\KelompokKerjaController;
 use App\Http\Controllers\PerangkatDesaController;
+use App\Http\Controllers\PkkController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RekapitulasiPendudukController;
+use App\Http\Controllers\RekapitulasiRTController;
 use App\Http\Controllers\RTController;
 use App\Http\Controllers\User\PageController;
-use App\Http\Controllers\BpdController;
-use App\Http\Controllers\PkkController;
-use App\Http\Controllers\KelompokKerjaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendEmail;
-use App\Http\Controllers\EmailController;
-use Illuminate\Support\Facades\Auth;
-
-
-
-
 Route::get('/send-email', [EmailController::class, 'sendWelcomeEmail']);
 
-## AUTH
+// # AUTH
 // Route::get('/verifyEmail', function(){
 //     return Inertia::render('Auth/VerifyEmail');
 // })->name('verify-email-page');
 
-## =========== ADMIN =========== ##
-Route::get('/dashboard', [DashboardController::class , 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+// # =========== ADMIN =========== ##
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-
-Route::get('laporan-bulanan', [RekapitulasiPendudukController::class, 'index'])->middleware(['auth', 'verified'])->name("laporanBulanan");
+Route::get('laporan-bulanan', [RekapitulasiPendudukController::class, 'index'])->middleware(['auth', 'verified'])->name('laporanBulanan');
 
 Route::get('laporan-bulanan/{id_rekap}', [RekapitulasiPendudukController::class, 'show'])->name('laporans.show');
-
-
 
 Route::get('/agama', [AgamaController::class, 'index'])->middleware(['auth', 'verified'])->name('agama');
 Route::get('/kegiatan', [KegiatanRTController::class, 'index'])->middleware(['auth', 'verified'])->name('kegiatan');
@@ -52,8 +45,7 @@ Route::get('/karang-taruna', [KarangTarunaController::class, 'index'])->middlewa
 // Route::get('/perangkat-desa', [PerangkatDesaController::class, 'index'])->middleware(['auth', 'verified'])->name('perangkatDesa');
 Route::get('/perangkat-desa', [PerangkatDesaController::class, 'index'])->middleware(['auth', 'verified'])->name('perangkatDesa');
 Route::get('/badan-permusyawaratan-desa', [BpdController::class, 'index'])->middleware(['auth', 'verified'])->name('bpd-admin');
-Route::get('/pemberdayaan-kesejahteraan-keluarga' , [PkkController::class, 'index'])->middleware(['auth', 'verified'])->name('pkk-admin');
-
+Route::get('/pemberdayaan-kesejahteraan-keluarga', [PkkController::class, 'index'])->middleware(['auth', 'verified'])->name('pkk-admin');
 
 Route::middleware(['auth', 'can:super_admin', 'verified'])->group(function () {
     // Route::resource('users', 'UserController'); // CRUD staff accounts
@@ -61,25 +53,20 @@ Route::middleware(['auth', 'can:super_admin', 'verified'])->group(function () {
     // Route::post('laporan/{laporan}/verify', 'LaporanBulananController@verify'); // Verifikasi laporan
     Route::resource('rt', RTController::class);
     Route::resource('users', UserController::class);
-    Route::get('/user-account', [UserController::class, "index"])->name('userAccount');
+    Route::get('/user-account', [UserController::class, 'index'])->name('userAccount');
     Route::get('/manage-rt', [RTController::class, 'index'])->name('RTController');
 
-    Route::post('/rekapitulasi-rt/{id_rekap_rt}/validate', [RekapitulasiRTController::class, 'validate'])->name("rekapitulasi-rt.validate");
-    Route::post('/rekapitulasi-rt/{id_rekap_rt}/reject', [RekapitulasiRTController::class, 'reject'])->name("rekapitulasi-rt.reject");
-  
+    Route::post('/rekapitulasi-rt/{id_rekap_rt}/validate', [RekapitulasiRTController::class, 'validate'])->name('rekapitulasi-rt.validate');
+    Route::post('/rekapitulasi-rt/{id_rekap_rt}/reject', [RekapitulasiRTController::class, 'reject'])->name('rekapitulasi-rt.reject');
 
-    //  Route::get('/profile', function(){
-    //    return Inertia::render('Profile/Edit');
-    //  })->name('profile.edit');
-    // Route::put('/profile', [UserController::class, 'ubahProfileInformation'])->name('updateInformation');
-});
-
-Route::middleware(['auth', 'verified', 'can:moderator'])->group(function() {
-    Route::post('/rekapitulasi-rt/{id_rekap_rt}/submit', [RekapitulasiRTController::class, 'submit'])->name("rekapitulasi-rt.submit");
-
+    
 
 });
 
+Route::middleware(['auth', 'verified', 'can:moderator'])->group(function () {
+    Route::post('/rekapitulasi-rt/{id_rekap_rt}/submit', [RekapitulasiRTController::class, 'submit'])->name('rekapitulasi-rt.submit');
+
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('Dashboard', DashboardController::class);
@@ -97,7 +84,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('kelompok-kerjas', KelompokKerjaController::class);
 
     Route::post('/rekapitulasi-rt', [RekapitulasiRTController::class, 'store'])->name('rekapitulasi-rt.store');
-    
+
     Route::post('/notifications/{id}/mark-as-read', function ($id) {
         Auth::user()         // atau auth()->user()
             ->notifications()
@@ -110,7 +97,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('Berita', BeritaController::class);
 
     Route::post('/rekapitulasi-rt', [RekapitulasiRTController::class, 'store'])->name('rekapitulasi-rt.store');
-    
+
     Route::post('/notifications/{id}/mark-as-read', function ($id) {
         Auth::user()         // atau auth()->user()
             ->notifications()
@@ -128,14 +115,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('detail-laporan/used-age-groups/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
     Route::get('detail-laporan/by-rt/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getByRT'])->name('detail-laporan.by-rt');
 
-
-     Route::post('kelompok-kerjas/{id}/delete-with-transfer', [KelompokKerjaController::class, 'deleteWithTransfer'])
+    Route::post('kelompok-kerjas/{id}/delete-with-transfer', [KelompokKerjaController::class, 'deleteWithTransfer'])
         ->name('kelompok-kerjas.delete-with-transfer');
 
-   
+    Route::get('/profile', function () {
+        return Inertia::render('Profile/Edit');
+    })->name('profile.edit');
+    Route::put('/profile/{user}', [UserController::class, 'ubahProfileInformation'])->name('updateInformation');
+    Route::put('/profile/{user}/password', [UserController::class, 'ubahPassword'])->name('ubahProfilePassword');
+
 });
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
         ->name('verification.notice');
 
@@ -147,17 +138,13 @@ Route::middleware('auth')->group(function() {
         ->middleware('throttle:6,1')
         ->name('verification.send');
 
-    Route::get('/verifyEmail', function() {
+    Route::get('/verifyEmail', function () {
         return view('auth.verifyModeration');
     })->name('verifyModeration');
 
 });
 
-require __DIR__ . '/auth.php';
-
-
-
-
+require __DIR__.'/auth.php';
 
 Route::get('/', function () {
     return view('welcome');
@@ -181,7 +168,7 @@ Route::get('/peta', function () {
 
 Route::get('/bpd', [PageController::class, 'Bpd'])->name('bpd');
 
-Route::get('/ketua',  [PageController::class, 'ketuaRT'])->name('ketua');
+Route::get('/ketua', [PageController::class, 'ketuaRT'])->name('ketua');
 
 Route::get('/linmass', function () {
     return view('linmas');
@@ -218,9 +205,3 @@ Route::get('/berita/load-more', [PageController::class, 'loadMoreBerita'])->name
 Route::get('/berita/{slug}', [PageController::class, 'beritaDetail'])->name('berita.detail');
 Route::get('/berita/related/{slug}', [PageController::class, 'relatedNews'])->name('berita.related');
 Route::get('/cuaca', [App\Http\Controllers\WeatherController::class, '']);
-
-
-
-
-
-

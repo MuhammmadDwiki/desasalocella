@@ -72,7 +72,7 @@ const NotificationBell = ({ notifications }) => {
                         <div className="px-2 py-1">
                             <p className="text-gray-400 text-sm italic">tidak ada notifikasi</p>
                         </div>
-                    ): null}
+                    ) : null}
                     {notifications.map((n) => (
                         <div
                             key={n.id}
@@ -96,12 +96,12 @@ const NotificationBell = ({ notifications }) => {
                                 </div>
                                 <div className="flex gap-2">
                                     <div className="py-1">
-                                       <div className={"w-3 h-3  rounded-full " +(n.read_at ? "" : "bg-emerald-600")}></div>
+                                        <div className={"w-3 h-3  rounded-full " + (n.read_at ? "" : "bg-emerald-600")}></div>
                                     </div>
                                     <div>
                                         <div className="cursor-pointer">
                                             {auth.user.role ===
-                                            "super_admin" ? (
+                                                "super_admin" ? (
                                                 <div>
                                                     <div className="">
                                                         <p className="text-md font-semibold capitalize">
@@ -119,24 +119,24 @@ const NotificationBell = ({ notifications }) => {
                                             ) : (
                                                 <div>
                                                     <div className={"" +
-                                                                (n.read_at ? "" : "text-emerald-600")
-                                                            }>
+                                                        (n.read_at ? "" : "text-emerald-600")
+                                                    }>
                                                         <p className="text-md font-semibold capitalize">
                                                             laporan anda{" "}
                                                             {n.data.new ===
-                                                            "rejected"
+                                                                "rejected"
                                                                 ? "ditolak"
                                                                 : "diterima"}
                                                         </p>
                                                     </div>
                                                     <p className={"" +
-                                                                (n.read_at ? "" : "text-emerald-600")
-                                                            }>
+                                                        (n.read_at ? "" : "text-emerald-600")
+                                                    }>
                                                         Laporan pada bulan{" "}
                                                         {n.data.bulan}{" "}
                                                         {n.data.tahun} anda{" "}
                                                         {n.data.new ===
-                                                        "rejected"
+                                                            "rejected"
                                                             ? "ditolak"
                                                             : "diterima"}
                                                         .
@@ -189,7 +189,7 @@ const Header = (props) => {
     const handleLogout = (e) => {
         e.preventDefault();
         post(route("logout"), {
-            onFinish: () => (window.location.href = "/"), // Force redirect ke halaman utama
+            onFinish: () => (window.location.href = "/login"), // Force redirect 
         });
     };
     return (
@@ -204,13 +204,13 @@ const Header = (props) => {
 
                     <div className="flex items-center">
                         <NotificationBell notifications={notifications} />
-                        <div className="pe-4">
+                        {/* <div className="pe-4">
                             <Input
                                 type="search"
                                 placeholder={`Search`}
                                 className="rounded-xl"
                             />
-                        </div>
+                        </div> */}
                         {/* <div>
                             <Dropdown>
                                 <Dropdown.Trigger>
@@ -236,13 +236,6 @@ const Header = (props) => {
                             </Dropdown>
                         </div> */}
 
-                        {/* <div className="ms-6 flex items-center pe-10">
-                            <div className="relative ms-3">
-                                <form onSubmit={handleLogout}>
-                                    <button type="submit">Log Out</button>
-                                </form>
-                            </div>
-                        </div> */}
 
                         <div className="xl:hidden block ">
                             <Sheet>
@@ -270,17 +263,15 @@ const Header = (props) => {
                                             />
                                         </div>
                                     </div>
-                                    <div className=" flex items-end justify-center flex-1 z-2 w-full px-6">
-                                        <div className="mb-6">
-                                            <div className="text-md flex flex-col justify-center items-center text-gray-200 ">
-                                                <p>{auth.user.email}</p>
-                                                <p className="italic">
-                                                    {auth?.user.role ==
-                                                    "super_admin"
-                                                        ? "admin"
-                                                        : auth?.user.role}
-                                                </p>
-                                            </div>
+                                    <div className=" flex items-end justify-center flex-1 z-2 w-full px-6 ">
+                                        <div className="mb-2 space-y-5">
+                                            <a href="/profile">
+                                                <div className="text-sm flex flex-col justify-center items-center text-gray-200 ">
+
+                                                    <p>{auth.user.email}</p>
+                                                    <p className="italic">{auth?.user.role == 'super_admin' ? "admin" : auth?.user.role}</p>
+                                                </div>
+                                            </a>
                                             <form onSubmit={handleLogout}>
                                                 <button
                                                     type="submit"
