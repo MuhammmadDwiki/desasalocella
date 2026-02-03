@@ -119,7 +119,6 @@ class RekapitulasiPendudukController extends Controller
             $user = Auth::user();
             // Ambil data rekapitulasi
             $rekapitulasi = RekapitulasiPenduduk::where('id_rekap', $id_rekap)->first();
-            // dd($rekapitulasi->bulan);
             
             if (!$rekapitulasi) {
                 return back()->withErrors(['error' => 'Laporan tidak ditemukan']);
@@ -246,7 +245,7 @@ class RekapitulasiPendudukController extends Controller
             $user = Auth::user();
             
             $rekapitulasi = RekapitulasiPenduduk::where('id_rekap', $id_rekap)->first();
-
+            
             if (!$rekapitulasi) {
                 return back()->withErrors(['error' => 'Laporan tidak ditemukan']);
             }
@@ -256,12 +255,17 @@ class RekapitulasiPendudukController extends Controller
                 return back()->withErrors(['error' => 'Anda tidak memiliki akses untuk menghapus laporan ini']);
             }
 
+            $rekap_rt_ids = RekapitulasiRT::where('id_rekap', $id_rekap)->pluck('id_rekap_rt');
+
             DB::beginTransaction();
 
-            // Hapus semua detail rekapitulasi terlebih dahulu
-            DetailRekapitulasi::where('id_rekap', $id_rekap)->delete();
-
-            // Hapus rekapitulasi
+            // Hapus semua detail rekapitulasi menggunakan whereIn untuk array ID
+            DetailRekapitulasi::whereIn('id_rekap_rt', $rekap_rt_ids)->delete();
+            
+            // Hapus rekapitulasi RT
+            RekapitulasiRT::where('id_rekap', $id_rekap)->delete();
+            
+            // Hapus rekapitulasi utama
             $rekapitulasi->delete();
 
             DB::commit();

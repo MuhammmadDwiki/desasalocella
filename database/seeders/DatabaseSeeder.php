@@ -21,9 +21,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'name' => 'Admin Desa',
             'email' => 'admin@admin.com',
-            'password' => bcrypt('admin'), // Use bcrypt for password hashing
-            'role' => 'super_admin', // Set role to admin
-            'id_rt' => null, // Example RT assignment
+            'password' => bcrypt('12345678'), // Use bcrypt for password hashing
             'role' => 'super_admin', // Set role to admin
             'id_rt' => null, // Example RT assignment
             'email_verified_at' => now(),

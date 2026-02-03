@@ -1,132 +1,48 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{{ asset('css/bpd.css') }}">
-<link rel="icon" href="{{ asset('images/logodesa.png') }}">
-</head>
-<body>
+@extends('layouts.app')
 
-<header class="top-bar">
-    <div class="left">
-        <img src="{{ asset('images/logodesa.png') }}" alt="Logo" class="logo">
-        <div>
-            <div class="title">Desa Sallo Cela</div>
-            <div class="subtitle">Kec. Muara Badak, Kab. Kutai Kartanegara,<br>
-            Prov. Kalimantan Timur</div>
-        </div>
-    </div>
+@section('title', 'Ketua RT - Desa Sallo Cela')
+
+@section('content')
+<div class="min-h-screen">
+
+    <section class="pt-28 px-5">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Data Ketua RT Desa Sallo Cela</h2>
+    </section>
     
-    <div class="right">
-        <nav>
-            <a href="{{route('beranda')}}">Home</a>
-            <div class="has-dropdown">
-                <a href="#">Profil Desa ▼</a>
-                <div class="dropdown">
-                    <a href="{{route('visi')}}">Visi & Misi</a>
-                    <a href="{{route('struk')}}">Perangkat Desa</a>
-                </div>
-            </div>
+    <section class="px-5 pb-8 max-w-5xl mx-auto">
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="border border-gray-300 px-4 py-3 text-center w-16">No</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left">Nama</th>
+                        <th class="border border-gray-300 px-4 py-3 text-left">Rukun Tetangga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (count($datas) > 0)
+                    
+                        @foreach ($datas as $d)
+                        <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 text-center">{{ $loop->iteration }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $d->nama_rt }}</td>
+                                <td class="border border-gray-300 px-4 py-2">Ketua RT {{ $d->nomor_rt }}</td>
+                            </tr>
 
-            <div class="has-dropdown">
-                <a href="#">Data Desa ▼</a>
-                <div class="dropdown">
-                    <a href="{{route('dapen')}}">Data Penduduk</a>
-                </div>
-            </div>
+                            @endforeach
+                            @else
+                        <tr>
+                            <td colspan="3" class="border border-gray-300 px-4 py-20 text-center text-gray-500">
+                                
+                                Data RT belum tersedia.
 
-            <div class="has-dropdown">
-                <a href="#">Kelembagaan ▼</a>
-                <div class="dropdown">
-                    <a href="{{route('bpd')}}">BPD</a>
-                    <a href="{{route('karangtrn')}}">Karang Taruna</a>
-                    <a href="{{route('ketua')}}">Ketua RT</a>
-                    <a href="{{route('pkk')}}">PKK</a>
-                </div>
-            </div>
+                            </td>
+                        </tr>
+                    @endif
 
-            <a href="{{route('potensi')}}">Potensi Desa</a>
-            <a href="{{route('layanan')}}">Layanan</a>
-            <a href="{{route('berita')}}">Berita</a>
-
-        </nav>
-    </div>
-</header>
-
-<section class="page-header">
-    <h2>Data Ketua RT Desa Sallo Cela</h2>
-</section>
-
-<section class="ketur-section">
-<table border="1" cellspacing="0" cellpadding="8" style="border-collapse: collapse; width: 100%; text-align: left; margin:20px 0 30px ">
-    <thead style="background-color: #f2f2f2;">
-        <tr>
-            <th style="width: 50px; text-align:center;">No</th>
-            <th>Nama</th>
-            <th>Rukun Tetangga</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (count($datas) > 0)
-       
-        @foreach ($datas as $d )
-        <tr>
-           <td style="text-align:center;">{{ $loop->iteration }}</td>
-           <td>{{ $d->nama_rt }}</td>
-           <td>Ketua RT {{ $d->nomor_rt }}</td>
-       </tr>
-            
-        @endforeach
-        @else
-        <tr style="height: 200px">
-           <td colspan="3" style="text-align:center;">
-               
-                    Data RT belum tersedia.
-                
-            </td>
-       </tr>
-        @endif
-      
-    </tbody>
-</table>
-</section>
-
-
-
-<footer class="site-footer">
-    <div class="footer-content">
-        <div class="footer-column">
-            <h4>Sekilas Pasekan</h4>
-            <ul>
-                <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
-                <li><a href="#">Profil</a></li>
-                <li><a href="#">Peta</a></li>
-            </ul>
+                </tbody>
+            </table>
         </div>
-        <div class="footer-column">
-            <h4>Pemerintah</h4>
-            <ul>
-                <li><a href="{{ route('visi') }}">Visi Misi</a></li>
-                <li><a href="{{ route('struk') }}">Perangkat Desa</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>Info Publik</h4>
-            <ul>
-                <li><a href="#">Pengumuman</a></li>
-                <li><a href="#">Infografis</a></li>
-                <li><a href="#">Produk Hukum</a></li>
-                <li><a href="#">Info Berkala</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        &copy; {{ date('Y') }} Desa Salo Cella. All Rights Reserved.
-    </div>
-</footer>
-
-<script src="{{ asset('js/script.js') }}"></script>
-
-</body>
-</html>
+    </section>
+</div>
+@endsection

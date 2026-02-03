@@ -31,7 +31,7 @@ const NotificationBell = ({ notifications }) => {
     const { auth } = usePage().props;
     const unread = notifications.filter((n) => !n.read_at);
     const unreadCount = unread?.length || 0;
-    // console.log(notifications.length);
+    console.log(notifications);
     // console.log(auth);
     const handleRead = (id, link) => {
         // console.log(id, link);
@@ -123,7 +123,7 @@ const NotificationBell = ({ notifications }) => {
                                                     }>
                                                         <p className="text-md font-semibold capitalize">
                                                             laporan anda{" "}
-                                                            {n.data.new ===
+                                                            {n.data.new_status ===
                                                                 "rejected"
                                                                 ? "ditolak"
                                                                 : "diterima"}
@@ -135,7 +135,7 @@ const NotificationBell = ({ notifications }) => {
                                                         Laporan pada bulan{" "}
                                                         {n.data.bulan}{" "}
                                                         {n.data.tahun} anda{" "}
-                                                        {n.data.new ===
+                                                        {n.data.new_status ===
                                                             "rejected"
                                                             ? "ditolak"
                                                             : "diterima"}

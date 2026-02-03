@@ -61,8 +61,13 @@ class DetailRekapitulasiController extends Controller
         return response()->json($details);
     }
 
-    public function getUsedAgeGroups($id_rekap_rt)
+    public function getUsedAgeGroups($id_rt, $id_rekap)
     {
+        $id_rekap_rt = RekapitulasiRT::select('id_rekap_rt')->where([
+            'id_rt' => $id_rt,
+            'id_rekap' => $id_rekap
+            ])->first();
+        
         $usedGroups = DetailRekapitulasi::where('id_rekap_rt', '=',$id_rekap_rt)
                     ->pluck('kelompok_umur')
                     ->toArray();
@@ -85,6 +90,8 @@ class DetailRekapitulasiController extends Controller
     {
         $user = Auth::user();
         $name = $user['name'];
+        $status = $user->role === 'super_admin' ? 'approved' : 'draft';
+
         $validated = $request->validate([
             'id_rekap' => 'required|string|exists:rekapitulasi_penduduks,id_rekap',
             'id_rt' => 'required|string|exists:r_t_s,id_rt',
@@ -110,7 +117,7 @@ class DetailRekapitulasiController extends Controller
                         'id_rekap_rt' => $idRekapRt,
                         'jumlah_kk'             => 0,
                         'jumlah_penduduk_akhir' => 0,
-                        'status'                => 'draft',
+                        'status'                => $status,
                         'submitted_by'          => Auth::id(),
                     ]
                 );

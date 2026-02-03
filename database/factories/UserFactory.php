@@ -26,11 +26,8 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'username' => fake()->userName(),
-            'assignedRT' =>  collect(['RT 01', 'RT 02', 'RT 03', 'RT 04'])
-    ->shuffle()
-    ->take(rand(1, 4))
-    ->toArray(),
-            'role' => fake()->randomElement(['moderator', 'user']),
+            'id_rt' => null, // Default null for super_admin
+            'role' => 'user',
             'last_login' => now(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
@@ -40,11 +37,33 @@ class UserFactory extends Factory
     }
 
     /**
+     * Create a super admin user
+     */
+    public function superAdmin(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'role' => 'super_admin',
+            'id_rt' => null,
+        ]);
+    }
+
+    /**
+     * Create a moderator user with assigned RT
+     */
+    public function moderator($rtId = 1): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'role' => 'moderator',
+            'id_rt' => $rtId,
+        ]);
+    }
+
+    /**
      * Indicate that the model's email address should be unverified.
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

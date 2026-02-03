@@ -492,7 +492,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
                                                     "jumlah_laki_laki_awal",
                                                     parseInt(
                                                         e.target.value
-                                                    ) || 0
+                                                    ) 
                                                 )
                                             }
                                         />
@@ -513,7 +513,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
                                                     "jumlah_perempuan_awal",
                                                     parseInt(
                                                         e.target.value
-                                                    ) || 0
+                                                    ) 
                                                 )
                                             }
                                         />
@@ -542,7 +542,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
                                                     "jumlah_laki_laki_akhir",
                                                     parseInt(
                                                         e.target.value
-                                                    ) || 0
+                                                    ) 
                                                 )
                                             }
                                         />
@@ -563,7 +563,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
                                                     "jumlah_perempuan_akhir",
                                                     parseInt(
                                                         e.target.value
-                                                    ) || 0
+                                                    ) 
                                                 )
                                             }
                                         />
@@ -593,7 +593,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
                                                     "jumlah_laki_laki_pindah",
                                                     parseInt(
                                                         e.target.value
-                                                    ) || 0
+                                                    ) 
                                                 )
                                             }
                                         />
@@ -614,7 +614,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
                                                     "jumlah_perempuan_pindah",
                                                     parseInt(
                                                         e.target.value
-                                                    ) || 0
+                                                    ) 
                                                 )
                                             }
                                         />
@@ -643,7 +643,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
                                                     "jumlah_laki_laki_datang",
                                                     parseInt(
                                                         e.target.value
-                                                    ) || 0
+                                                    ) 
                                                 )
                                             }
                                         />
@@ -664,7 +664,7 @@ const DetailLaporanModal = ({ datas, onClose, onOpen }) => {
                                                     "jumlah_perempuan_datang",
                                                     parseInt(
                                                         e.target.value
-                                                    ) || 0
+                                                    ) 
                                                 )
                                             }
                                         />

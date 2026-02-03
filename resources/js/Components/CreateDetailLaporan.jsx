@@ -58,17 +58,16 @@ const formSchema = z.object({
     jumlah_perempuan_datang: z.number().min(0, "Jumlah perempuan datang tidak boleh negatif"),
 });
 
-const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) => {
+const CreateDetailLaporan = ({ idRekap, rtList, existingData = [] }) => {
     const [open, setOpen] = useState(false);
     const { auth } = usePage().props;
     const [usedAgeGroups, setUsedAgeGroups] = useState([]);
     const [loadingAgeGroups, setLoadingAgeGroups] = useState(false);
- 
-    const getUsedAge = async() =>{
 
-            try {
+    const getUsedAge = async (rtId) => {
+        try {
             const response = await axios.get(
-                route("detail-laporan.getUsedAgeGroups", {id_rekap_rt : idRekapRt})
+                route("detail-laporan.getUsedAgeGroups", { id_rt: rtId, id_rekap:idRekap })
             );
             const data = await response.data;
             // console.log(data)
@@ -80,6 +79,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
             setLoadingAgeGroups(false);
         }
     }
+
     const form = useReactHookForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -97,11 +97,11 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
         },
     });
     const availableAgeGroups = kelompokUmur.filter(
-            (group) => !usedAgeGroups.includes(group.value)
-        );
+        (group) => !usedAgeGroups.includes(group.value)
+    );
     const handleRTChange = async (rtId) => {
-         // Reset pilihan kelompok umur
-         console.log(rtId)
+        // Reset pilihan kelompok umur
+        console.log(rtId)
         form.setValue("id_rt", rtId); // <-- jangan pakai object
         form.setValue("kelompok_umur", "");
         if (!rtId) {
@@ -113,11 +113,11 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
         try {
             const response = await axios.get(
                 route("detail-laporan.getUsedAgeGroups", {
-                    id_rekap_rt: idRekapRt,
-                 
+                    id_rt: rtId,
+                    id_rekap:idRekap
                 })
             );
-            // console.log(response)
+            console.log(response.data   )
             const data = await response.data;
 
             setUsedAgeGroups(data);
@@ -143,7 +143,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
     const onSubmit = (data) => {
         // Cek apakah RT sudah ada dalam laporan ini
         const rtExists = existingData.some(item => item.id_rt === data.id_rt);
-        
+
         // if (rtExists) {
         //     Toast.fire({
         //         icon: "error",
@@ -152,6 +152,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
         //     return;
         // }
         // return console.log(data, idRekap);
+        // return console.log(data)
 
         router.post(route("detailLaporan.store"), {
             id_rekap: idRekap,
@@ -175,31 +176,31 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
         });
     };
 
-    // Filter RT list berdasarkan role user dan data yang sudah ada
-    const getAvailableRtList = () => {
-        let availableRt = rtList || [];
-        
-        // Jika moderator, hanya tampilkan RT miliknya
-        if (auth.user.role === "moderator") {
-            availableRt = availableRt.filter(rt => rt.id_rt === auth.user.id_rt);
-        }
-        
-        // Filter RT yang belum ada dalam laporan ini
-        // availableRt = availableRt.filter(rt => 
-        //     !existingData.some(existing => existing.id_rt === rt.id_rt)
-        // );
-                
-        return availableRt;
-    };
+    // Compute available RT list based on user role
+    const availableRt = React.useMemo(() => {
+        let filteredRt = rtList || [];
 
-    const availableRtList = getAvailableRtList();
+        // If moderator, only show their assigned RT
+        if (auth.user.role === "moderator") {
+            filteredRt = filteredRt.filter(rt => rt.id_rt === auth.user.id_rt);
+        }
+
+        return filteredRt;
+    }, [rtList, auth.user.role, auth.user.id_rt]);
+
+    // Fetch age groups on component mount for moderators (RT is pre-determined)
+    useEffect(() => {
+        if (auth.user.role === "moderator" && auth.user.id_rt) {
+            getUsedAge(auth.user.id_rt);
+        }
+    }, []); // Only run once on mount
 
     // console.log(form.getValues())
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="default" className="flex items-center gap-2" onClick={() => {getUsedAge()}}>
+                <Button variant="default" className="flex items-center gap-2" >
                     <Plus className="h-4 w-4" />
                     Buat
                 </Button>
@@ -226,12 +227,12 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                     <FormItem>
                                         <FormLabel>RT</FormLabel>
                                         <Select
-                                            onValueChange={(value)=>{
+                                            onValueChange={(value) => {
                                                 // console.log(value)
                                                 field.onChange(value); // Update form state
                                                 handleRTChange(value);
                                             }
-                                                
+
                                             }
                                             value={field.value}
                                             disabled={auth.user.role === "moderator"}
@@ -242,7 +243,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                {availableRtList.map((rt) => (
+                                                {availableRt.map((rt) => (
                                                     <SelectItem
                                                         key={rt.id_rt}
                                                         value={String(rt.id_rt)}
@@ -304,7 +305,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                             min="0"
                                             placeholder="0"
                                             {...field}
-                                            onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                                            onChange={(e) => field.onChange(parseInt(e.target.value))}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -328,7 +329,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                                     min="0"
                                                     placeholder="0"
                                                     {...field}
-                                                    onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                                                    onChange={(e) => field.onChange(parseInt(e.target.value))}
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -348,7 +349,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                                     min="0"
                                                     placeholder="0"
                                                     {...field}
-                                                    onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                                                    onChange={(e) => field.onChange(parseInt(e.target.value))}
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -357,7 +358,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                 />
                             </div>
                         </div>
- {/* Data Akhir */}
+                        {/* Data Akhir */}
                         <div className="space-y-4">
                             <h3 className="text-lg font-medium text-gray-900">Data Akhir Bulan</h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -373,7 +374,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                                     min="0"
                                                     placeholder="0"
                                                     {...field}
-                                                    onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                                                    onChange={(e) => field.onChange(parseInt(e.target.value))}
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -393,7 +394,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                                     min="0"
                                                     placeholder="0"
                                                     {...field}
-                                                    onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                                                    onChange={(e) => field.onChange(parseInt(e.target.value))}
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -420,7 +421,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                                         min="0"
                                                         placeholder="0"
                                                         {...field}
-                                                        onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                                                        onChange={(e) => field.onChange(parseInt(e.target.value))}
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -440,7 +441,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                                         min="0"
                                                         placeholder="0"
                                                         {...field}
-                                                        onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                                                        onChange={(e) => field.onChange(parseInt(e.target.value))}
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -463,7 +464,8 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                                         min="0"
                                                         placeholder="0"
                                                         {...field}
-                                                        onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                                                        onChange={(e) => field.onChange(parseInt(e.target.value))}
+                                                        
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -483,7 +485,8 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                                                         min="0"
                                                         placeholder="0"
                                                         {...field}
-                                                        onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                                                        onChange={(e) => field.onChange(parseInt(e.target.value))}
+                                                        
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -494,7 +497,7 @@ const CreateDetailLaporan = ({ idRekap,idRekapRt, rtList, existingData = [] }) =
                             </div>
                         </div>
 
-                       
+
 
                         <div className="flex justify-end gap-2 pt-4">
                             <Button

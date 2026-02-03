@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('id_rt');
             $table->integer('jumlah_kk')->default(0);
             $table->integer('jumlah_penduduk_akhir')->default(0);
-            $table->enum('status', ['draft', 'pending', 'approved', 'rejected'])->default('draft');
+            $table->enum('status', ['draft', 'pending', 'approved', 'rejected']);
             $table->text('catatan_validasi')->nullable();
             $table->foreignId('submitted_by')->constrained('users');
             $table->timestamp('submitted_at')->nullable();

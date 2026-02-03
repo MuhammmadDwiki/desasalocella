@@ -1,116 +1,32 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{{ asset('css/struktur.css') }}">
-<link rel="icon" href="{{ asset('images/logodesa.png') }}">
-<title>Desa Sallo Cela</title>
-</head>
-<body>
+@extends('layouts.app')
 
-<header class="top-bar">
-    <div class="left">
-        <img src="{{ asset('images/logodesa.png') }}" alt="Logo" class="logo">
-        <div>
-            <div class="title">Desa Sallo Cela</div>
-            <div class="subtitle">Kec. Muara Badak, Kab. Kutai Kartanegara,<br>
-            Prov. Kalimantan Timur</div>
-        </div>
-    </div>
+@section('title', 'Struktur Organisasi - Desa Sallo Cela')
+
+@section('content')
+<div class="min-h-screen">
+
+    <section class="pt-28 px-5 ">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Struktur Organisasi Desa Sallo Cela</h2>
+    </section>
     
-    <div class="right">
-        <nav>
-            <a href="{{route('beranda')}}">Home</a>
-            <div class="has-dropdown">
-                <a href="#">Profil Desa ▼</a>
-                <div class="dropdown">
-                    <a href="{{route('visi')}}">Visi & Misi</a>
-                    <a href="{{route('struk')}}">Perangkat Desa</a>
+    <section class="px-5 pb-8 max-w-7xl mx-auto">
+        @foreach ($datas as $item)
+        <div class="flex flex-col md:flex-row bg-white rounded-lg shadow-md p-6 mb-6 gap-6">
+                <img src="{{ "/storage/{$item->url_foto_profil}" }}" alt="Kepala Desa" class="w-48 h-48 object-cover rounded-lg mx-auto md:mx-0">
+                <div class="flex-1">
+                    <h3 class="text-xl font-bold text-red-600 mb-4">BIODATA {{ $item->jabatan_pd }}</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong class="font-semibold">Nama</strong> : {{ $item->nama_pd }}</li>
+                        <li><strong class="font-semibold">Jabatan</strong> : {{ $item->jabatan_pd }}</li>
+                        <li><strong class="font-semibold">Tempat/Tanggal Lahir</strong> : {{$item->tempat_tanggal_lahir_pd}}</li>
+                        <li><strong class="font-semibold">Pendidikan</strong> : {{ $item->pendidikan_pd }}</li>
+                        <li><strong class="font-semibold">Agama</strong> : {{ $item->agama_pd }}</li>
+                        <li><strong class="font-semibold">Alamat</strong> : {{ $item->alamat_pd }}</li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="has-dropdown">
-                <a href="#">Data Desa ▼</a>
-                <div class="dropdown">
-                    <a href="{{route('dapen')}}">Data Penduduk</a>
-                </div>
-            </div>
-
-            <div class="has-dropdown">
-                <a href="#">Kelembagaan ▼</a>
-                <div class="dropdown">
-                    <a href="{{route('bpd')}}">BPD</a>
-                    <a href="{{route('karangtrn')}}">Karang Taruna</a>
-                    <a href="{{route('ketua')}}">Ketua RT</a>
-                    <a href="{{route('pkk')}}">PKK</a>
-                </div>
-            </div>
-
-            <a href="{{route('potensi')}}">Potensi Desa</a>
-            <a href="{{route('layanan')}}">Layanan</a>
-            <a href="{{route('berita')}}">Berita</a>
-        </nav>
+            @endforeach
+            
+        </section>
     </div>
-</header>
-
-<section class="page-header">
-    <h2>Struktur Organisasi Desa Sallo Cela</h2>
-</section>
-
-<section class="struktur-container">
-    @foreach ($datas as $item )
-        <div class="card-biodata">
-        <img src="{{ "/storage/{$item->url_foto_profil}" }}"alt="Kepala Desa" class="foto-perangkat">
-        <div class="biodata">
-            <h3>BIODATA {{ $item->jabatan_pd }}</h3>
-            <ul>
-                <li><strong>Nama</strong> : {{ $item->nama_pd }}</li>
-                <li><strong>Jabatan</strong> : {{ $item->jabatan_pd }}</li>
-                <li><strong>Tempat/Tanggal Lahir</strong> : {{$item->tempat_tanggal_lahir_pd}}</li>
-                <li><strong>Pendidikan</strong> : {{ $item->pendidikan_pd }}</li>
-                <li><strong>Agama</strong> : {{ $item->agama_pd }}</li>
-                <li><strong>Alamat</strong> : {{ $item->alamat_pd }}</li>
-            </ul>
-        </div>
-    </div>
-    @endforeach
-    
-</section>
-
-
-<footer class="site-footer">
-    <div class="footer-content">
-        <div class="footer-column">
-            <h4>Sekilas Salo Cella</h4>
-            <ul>
-                <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
-                <li><a href="#">Profil</a></li>
-                <li><a href="#">Peta</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>Pemerintah</h4>
-            <ul>
-                <li><a href="{{ route('visi') }}">Visi Misi</a></li>
-                <li><a href="{{ route('struk') }}">Perangkat Desa</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>Info Publik</h4>
-            <ul>
-                <li><a href="#">Pengumuman</a></li>
-                <li><a href="#">Infografis</a></li>
-                <li><a href="#">Produk Hukum</a></li>
-                <li><a href="#">Info Berkala</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        &copy; {{ date('Y') }} Desa Salo Cella. All Rights Reserved.
-    </div>
-</footer>
-
-
-<script src="{{ asset('js/script.js') }}"></script>
-</body>
+        @endsection

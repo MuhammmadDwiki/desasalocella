@@ -39,6 +39,7 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
     const { auth } = usePage().props;
     // const { notifications } = usePage().props;
     // console.log(notifications)
+    console.log(id,datas)
     const isModerator = auth.user.role === "moderator";
     const isSuperAdmin = auth.user.role === "super_admin";
 
@@ -96,7 +97,7 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
             const response = await axios.get(
                 route("detail-laporan.by-rt", { id_rekap_rt })
             );
-            console.log("response : ", response);
+            // console.log("response : ", response);
 
             setModalData(response.data);
             setShowDetailModal(true);
@@ -268,27 +269,13 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
         }),
 
         columnHelper.accessor("catatan_validasi", {
-            header: "Keterangan",
+        header: "Keterangan",
             cell: (info) => {
-                const text = info.getValue() || "-";
-                const maxLen = 25;
-                const isLong = text.length > maxLen;
+                const text = info.getValue() ;
                 return (
-                    // <TooltipProvider>
-                    //     <Tooltip>
-                    //         <TooltipTrigger >
-                             
-                    //             <span className="ml-1 text-blue-500 text-sm group-hover:underline">
-                    //                 lihat
-                    //             </span>
-                               
-                    //         </TooltipTrigger>
-                    //         <TooltipContent>
-                    //             <p>{text}</p>
-                    //         </TooltipContent>
-                    //     </Tooltip>
-                    // </TooltipProvider>
-                    <Popover>
+                    (text !== null ? (
+
+                        <Popover>
                         <PopoverTrigger>
                             <span className="ml-1 text-blue-500 text-sm group-hover:underline">
                                    lihat
@@ -298,6 +285,9 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
                             <p className="text-sm">{text}</p>
                         </PopoverContent>
                     </Popover>
+                    ): (
+                        <p></p>
+                    ))
                 );
             },
         }),
@@ -441,12 +431,13 @@ const DetailLaporanBulanan = ({ id, datas, rtList, laporanInfo }) => {
                     </div>
 
                     {/* Tombol untuk tambah detail laporan */}
+                    
                     {(auth.user.role === "super_admin" ||
                         auth.user.role === "moderator") && (
                         <div className="flex gap-2">
                             <CreateDetailLaporan
                                 idRekap={id}
-                                idRekapRt={datas[0]?.id_rekap_rt}
+                                // idRekapRt={datas[0]?.id_rekap_rt}
                                 rtList={rtList.filter(
                                     (rt) =>
                                         auth.user.role === "super_admin" ||

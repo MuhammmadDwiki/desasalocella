@@ -32,23 +32,34 @@ class RekapitulasiRTController extends Controller
      */
     public function store(Request $request)
     {
-        dd(Auth::user());
         $validated = $request->validate([
-        'id_rekap' => 'required|exists:rekapitulasi_penduduks,id_rekap',
-        'id_rt' => 'required|exists:r_t_s,id_rt|unique:rekapitulasi_r_t_s,id_rt,NULL,id,id_rekap,'.$request->id_rekap,
-        'jumlah_kk' => 'required|integer|min:0',
-        'jumlah_penduduk_akhir' => 'required|integer|min:0',
+            'id_rekap' => 'required|exists:rekapitulasi_penduduks,id_rekap',
+            'id_rt' => 'required|exists:r_t_s,id_rt|unique:rekapitulasi_r_t_s,id_rt,NULL,id,id_rekap,' . $request->id_rekap,
+            'jumlah_kk' => 'required|integer|min:0',
+            'jumlah_penduduk_akhir' => 'required|integer|min:0',
         ]);
 
-        RekapitulasiRT::create([
+
+        // Determine status based on user role
+        // Super admin: auto-approved, Moderator: needs approval (draft)
+        $status = Auth::user()->role === 'super_admin' ? 'approved' : 'draft';
+
+        $data = [
             'id_rekap_rt' => 'RRT-' . now()->format('YmdHis') . '-' . strtoupper(Str::random(4)),
             'id_rekap' => $validated['id_rekap'],
             'id_rt' => $validated['id_rt'],
             'jumlah_kk' => $validated['jumlah_kk'],
             'jumlah_penduduk_akhir' => $validated['jumlah_penduduk_akhir'],
-            'submitted_by' => Auth::user(),
-            'status' => 'draft',
-        ]);
+            'submitted_by' => Auth::id(), // Fixed: use user ID instead of object
+            'status' =>  $status,
+        ];
+
+        // If super_admin, also set validated_at timestamp
+        if (Auth::user()->role === 'super_admin') {
+            $data['validated_at'] = now();
+        }
+
+        RekapitulasiRT::create($data);
 
         return back()->with('success', 'Data RT berhasil ditambahkan');
     }
@@ -73,27 +84,27 @@ class RekapitulasiRTController extends Controller
         $rekap->update([
             'status' => 'pending',
             'submitted_at' => now()
-        
+
         ]);
         // kirim notif ke superadmin
         $superAdmins = \App\Models\User::where('role', 'super_admin')->first();
         $superAdmins->notify(
             new LaporanStatusChanged(
                 $rekap,
-                'pending',     
+                'pending',
             )
         );
-    //     foreach ($superAdmins as $admin) {
-    // }
+        //     foreach ($superAdmins as $admin) {
+        // }
 
         return redirect()->back()->with('success', 'Laporan diajukan untuk verifikasi');
 
     }
-    public function reject(Request $request,  string $id_rekap_rt)
+    public function reject(Request $request, string $id_rekap_rt)
     {
 
         $request->validate([
-        'message' => 'nullable|string|max:500',
+            'message' => 'nullable|string|max:500',
         ]);
         $rekap = RekapitulasiRT::findOrFail($id_rekap_rt);
 
@@ -107,21 +118,21 @@ class RekapitulasiRTController extends Controller
         $newStatus = 'rejected';
         // $message = `laporan pada bulan {$rekap->bulan} {$rekap->tahun} Ditolak`;
 
-        $rekap->update([    
-            'status'          => $newStatus,
-            'catatan_validasi'=> $request->message,
-            'validated_at'    => now(),
+        $rekap->update([
+            'status' => $newStatus,
+            'catatan_validasi' => $request->message,
+            'validated_at' => now(),
         ]);
-        
+
         $rekap->submittedBy->notify(
-            new LaporanStatusChanged($rekap,  $newStatus , $request->message)
+            new LaporanStatusChanged($rekap, $newStatus, $request->message)
         );
         // dd($id_rekap_rt, $request);
-         return back()->with('success', 'Laporan RT berhasil ditolak.');
+        return back()->with('success', 'Laporan RT berhasil ditolak.');
 
     }
 
-    public function validate( string $id_rekap_rt)
+    public function validate(string $id_rekap_rt)
     {
         // dd(Auth::user()->role);
 
@@ -133,16 +144,16 @@ class RekapitulasiRTController extends Controller
             }
         }
         $newStatus = 'approved';
-         $rekap->update([
-            'status'          => $newStatus,
-            'validated_at'    => now(),
+        $rekap->update([
+            'status' => $newStatus,
+            'validated_at' => now(),
         ]);
         $rekap->submittedBy->notify(
-                new LaporanStatusChanged($rekap,  $newStatus  )
+            new LaporanStatusChanged($rekap, $newStatus)
         );
-        
+
         // dd($id_rekap_rt, $request);
-         return back()->with('success', 'Laporan RT berhasil diterima.');
+        return back()->with('success', 'Laporan RT berhasil diterima.');
 
     }
 

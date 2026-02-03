@@ -59,7 +59,7 @@ Route::middleware(['auth', 'can:super_admin', 'verified'])->group(function () {
     Route::post('/rekapitulasi-rt/{id_rekap_rt}/validate', [RekapitulasiRTController::class, 'validate'])->name('rekapitulasi-rt.validate');
     Route::post('/rekapitulasi-rt/{id_rekap_rt}/reject', [RekapitulasiRTController::class, 'reject'])->name('rekapitulasi-rt.reject');
 
-    
+
 
 });
 
@@ -72,8 +72,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('Dashboard', DashboardController::class);
     Route::resource('laporan', RekapitulasiPendudukController::class);
     Route::resource('detailLaporan', DetailRekapitulasiController::class)->except(['index']);
-    Route::resource('laporan', RekapitulasiPendudukController::class);
-    Route::resource('detailLaporan', DetailRekapitulasiController::class)->except(['index']);
     Route::resource('kegiatans', KegiatanRTController::class);
     Route::resource('agamas', AgamaController::class);
     Route::resource('karangTarunas', KarangTarunaController::class);
@@ -82,20 +80,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('bpds', BpdController::class);
     Route::resource('pkks', PkkController::class);
     Route::resource('kelompok-kerjas', KelompokKerjaController::class);
-
-    Route::post('/rekapitulasi-rt', [RekapitulasiRTController::class, 'store'])->name('rekapitulasi-rt.store');
-
-    Route::post('/notifications/{id}/mark-as-read', function ($id) {
-        Auth::user()         // atau auth()->user()
-            ->notifications()
-            ->where('read_at', null)
-            ->where('id', $id)
-            ->update(['read_at' => now()]);
-
-        return back()->with('success', 'Notifikasi dibaca');
-    })->middleware('auth')->name('notifications.markAsRead');
-    Route::resource('Berita', BeritaController::class);
-
     Route::post('/rekapitulasi-rt', [RekapitulasiRTController::class, 'store'])->name('rekapitulasi-rt.store');
 
     Route::post('/notifications/{id}/mark-as-read', function ($id) {
@@ -110,9 +94,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('detail-laporan/used-age-groups/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
-    Route::get('detail-laporan/by-rt/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getByRT'])->name('detail-laporan.by-rt');
-    Route::get('detail-laporan/used-age-groups/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
+    Route::get('detail-laporan/used-age-groups/{id_rt}/{id_rekap}', [DetailRekapitulasiController::class, 'getUsedAgeGroups'])->name('detail-laporan.getUsedAgeGroups');
     Route::get('detail-laporan/by-rt/{id_rekap_rt}', [DetailRekapitulasiController::class, 'getByRT'])->name('detail-laporan.by-rt');
 
     Route::post('kelompok-kerjas/{id}/delete-with-transfer', [KelompokKerjaController::class, 'deleteWithTransfer'])
@@ -144,11 +126,9 @@ Route::middleware('auth')->group(function () {
 
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('beranda');
+Route::get('/', [PageController::class, 'welcome'])->name('beranda');
 
 Route::get('/sejarah', function () {
     return view('sejarahdesa');
