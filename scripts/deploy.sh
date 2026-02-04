@@ -84,7 +84,7 @@ npm ci --silent
 npm run build
 
 # =========================================
-# 5. RUN MIGRATIONS
+# 5. RUN MIGRATIONS & SEEDERS
 # =========================================
 echo "🗄️  Running database migrations..."
 php artisan migrate --force
@@ -96,6 +96,9 @@ if [ $? -ne 0 ]; then
     echo "✅ Database restored from backup"
     exit 1
 fi
+
+echo "👤 Seeding database (creates super admin if not exists)..."
+php artisan db:seed --force
 
 # =========================================
 # 6. OPTIMIZE APPLICATION
