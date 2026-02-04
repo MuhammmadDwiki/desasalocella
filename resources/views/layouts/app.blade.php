@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Desa Sallo Cela')</title>
+    <title>@yield('title', 'Desa Salo Cella')</title>
     <link rel="icon" href="{{ asset('images/logodesa.png') }}">
 
     @viteReactRefresh

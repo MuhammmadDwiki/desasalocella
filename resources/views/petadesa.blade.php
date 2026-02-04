@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Peta Desa - Desa Sallo Cela')
+@section('title', 'Peta Desa - Desa Salo Cella')
 
 @section('content')
     <section class="py-8 px-5">
-        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Peta Desa Sallo Cela</h2>
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Peta Desa Salo Cella</h2>
     </section>
 
     <section class="px-5 pb-8 max-w-5xl mx-auto mb-8">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Peta Administrasi Desa Salo Cella</h2>
-        <img src="{{ asset('images/petadesa.png') }}" alt="Peta Administrasi Desa Sallo Cela"
+        <img src="{{ asset('images/petadesa.png') }}" alt="Peta Administrasi Desa Salo Cella"
             class="w-full rounded-lg shadow-md mb-4">
         <p class="text-gray-700 leading-relaxed">
             Peta Administrasi Desa Salo Cella menampilkan batas wilayah desa, sungai, jalan,
@@ -20,7 +20,7 @@
 
     <section class="px-5 pb-8 max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Peta Batas RT Desa Salo Cella</h2>
-        <img src="{{ asset('images/petabatasrt.png') }}" alt="Peta Batas RT Desa Sallo Cela"
+        <img src="{{ asset('images/petabatasrt.png') }}" alt="Peta Batas RT Desa Salo Cella"
             class="w-full rounded-lg shadow-md mb-4">
         <p class="text-gray-700 leading-relaxed">
             Peta Batas RT Desa Salo Cella memperlihatkan pembagian wilayah berdasarkan

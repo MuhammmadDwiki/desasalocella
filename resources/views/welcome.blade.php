@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Beranda - Desa Sallo Cela')
+@section('title', 'Beranda - Desa Salo Cella')
 
 @section('content')
     {{-- Hero Section with Full Premium Look --}}
@@ -17,7 +17,7 @@
             <h1 class="text-xs md:text-sm font-bold uppercase tracking-[0.5em] mb-4 text-red-500 drop-shadow-md">Selamat
                 Datang di Portal Resmi</h1>
             <h2 class="m-0 text-5xl md:text-7xl lg:text-8xl font-black leading-none drop-shadow-2xl">
-                DESA<br><span class="text-white/90">SALLO CELA</span>
+                DESA<br><span class="text-white/90">SALO CELLA</span>
             </h2>
             <div class="h-1 w-24 bg-red-600 mx-auto my-8"></div>
             <p class="text-lg md:text-2xl font-light max-w-2xl mx-auto opacity-90 drop-shadow-lg leading-relaxed">
@@ -53,7 +53,7 @@
                             class="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-bottom p-8 flex-col justify-end">
-                            <h4 class="text-white font-bold text-2xl">Geografis Sallo Cela</h4>
+                            <h4 class="text-white font-bold text-2xl">Geografis Salo Cella</h4>
                             <p class="text-white/80 text-sm">Terletak di jantung Kec. Muara Badak, Kalimantan Timur.</p>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                     <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mt-4 mb-8 leading-tight">Harmoni dalam
                         Keragaman, Mandiri dalam Pembangunan</h2>
                     <p class="text-gray-600 leading-relaxed mb-6 text-lg">
-                        Desa Sallo Cela merupakan oase pembangunan yang memadukan keindahan alam tropis dengan modernitas
+                        Desa Salo Cella merupakan oase pembangunan yang memadukan keindahan alam tropis dengan modernitas
                         pelayanan publik. Dengan semangat gotong royong, kami terus berinovasi dalam sektor pertanian,
                         perikanan, dan infrastruktur digital.
                     </p>
@@ -101,7 +101,7 @@
             <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4" data-aos="fade-up">Informasi Layanan <span
                     class="text-red-600">&</span> Fasilitas</h2>
             <p class="text-gray-500 mb-16 max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="100">Fasilitas publik yang
-                terus dikembangkan untuk kenyamanan seluruh warga Desa Sallo Cela.</p>
+                terus dikembangkan untuk kenyamanan seluruh warga Desa Salo Cella.</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {{-- Fasilitas Kesehatan --}}
@@ -189,7 +189,8 @@
                     <h2 class="text-4xl font-black text-gray-900 mt-2">Berita & Kegiatan Desa</h2>
                 </div>
                 <div data-aos="fade-left">
-                    <a href="{{ route('berita') }}" class="text-red-600 font-bold flex items-center gap-2 hover:gap-4 transition-all group">
+                    <a href="{{ route('berita') }}"
+                        class="text-red-600 font-bold flex items-center gap-2 hover:gap-4 transition-all group">
                         Lihat Seluruh Berita <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -197,28 +198,36 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($beritas as $item)
-                <div class="group bg-gray-50 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="{{ asset('storage/' . $item->url_gambar) }}" alt="{{ $item->judul_berita }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"  onerror="this.src='https://placehold.co/600x400?text=News+Image'">
-                        
-                        <div class="absolute top-4 left-4">
-                            <span class="bg-red-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">Warta Desa</span>
+                    <div class="group bg-gray-50 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
+                        data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="{{ asset('storage/' . $item->url_gambar) }}" alt="{{ $item->judul_berita }}"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                onerror="this.src='https://placehold.co/600x400?text=News+Image'">
+
+                            <div class="absolute top-4 left-4">
+                                <span
+                                    class="bg-red-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">Warta
+                                    Desa</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center gap-2 text-gray-400 text-xs mb-4">
+                                <i class="fa-solid fa-calendar-days text-red-500/50"></i>
+                                {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}
+                            </div>
+                            <h3
+                                class="text-xl font-bold text-gray-900 mb-4 line-clamp-2 group-hover:text-red-600 transition-colors">
+                                {{ $item->judul_berita }}</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
+                                {{ Str::limit(strip_tags($item->isi_berita), 120) }}
+                            </p>
+                            <a href="{{ route('berita.detail', $item->slug) }}"
+                                class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 group-hover:text-red-600 transition-colors">
+                                Baca Selengkapnya <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="p-8">
-                        <div class="flex items-center gap-2 text-gray-400 text-xs mb-4">
-                            <i class="fa-solid fa-calendar-days text-red-500/50"></i>
-                            {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-4 line-clamp-2 group-hover:text-red-600 transition-colors">{{ $item->judul_berita }}</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
-                            {{ Str::limit(strip_tags($item->isi_berita), 120) }}
-                        </p>
-                        <a href="{{ route('berita.detail', $item->slug) }}" class="inline-flex items-center gap-2 text-sm font-bold text-gray-900 group-hover:text-red-600 transition-colors">
-                            Baca Selengkapnya <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
                 @endforeach
             </div>
         </div>
@@ -283,7 +292,7 @@
                         <i
                             class="fa-brands fa-facebook text-blue-500 text-3xl mb-6 group-hover:scale-110 transition-transform"></i>
                         <h4 class="font-bold text-xl mb-2">Facebook</h4>
-                        <p class="text-white/40 group-hover:text-gray-600">Desa Sallo Cela</p>
+                        <p class="text-white/40 group-hover:text-gray-600">Desa Salo Cella</p>
                     </a>
 
                     <a href="https://www.youtube.com/@salocellatvofficial2567" target="_blank"
