@@ -11,7 +11,7 @@ RELEASE_ID=$(date +%Y%m%d_%H%M%S)
 if [ "$ENVIRONMENT" = "production" ]; then
     BASE_PATH=/var/www/salocella
     ENV_FILE=.env.production
-    DB_NAME=salocella_prod
+    DB_NAME=desasalo
 elif [ "$ENVIRONMENT" = "staging" ]; then
     BASE_PATH=/var/www/salocella-staging
     ENV_FILE=.env.staging
@@ -104,8 +104,7 @@ fi
 echo "⚡ Optimizing application..."
 php artisan config:cache
 php artisan route:cache
-php artisan view:cache
-php artisan optimize
+php artisan optimize --except=views
 
 # =========================================
 # 7. SWITCH SYMLINK (ZERO-DOWNTIME)
