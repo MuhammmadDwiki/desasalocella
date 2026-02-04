@@ -3,6 +3,7 @@
 namespace Tests\Feature\RekapitulasiRT;
 
 use App\Models\RekapitulasiRT;
+use App\Models\RT;
 use App\Models\User;
 use App\Notifications\LaporanStatusChanged;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -18,9 +19,11 @@ class WorkflowTest extends TestCase
     {
         // Arrange
         Notification::fake();
-        $moderator = User::factory()->moderator()->create();
+        $rt = RT::factory()->create();
+        $moderator = User::factory()->moderator($rt->id_rt)->create();
         $rekapRT = RekapitulasiRT::factory()->draft()->create([
             'submitted_by' => $moderator->id,
+            'id_rt' => $rt->id_rt,
         ]);
 
         // Act

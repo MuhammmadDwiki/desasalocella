@@ -23,8 +23,8 @@ class RTFactory extends Factory
             'id_rt' => 'RT-' . now()->format('YmdHis') . '-' . strtoupper(\Illuminate\Support\Str::random(4)),
             'nomor_rt' => fake()->unique()->numberBetween(1, 20),
             'nama_rt' => fake()->name(),
-            'jumlah_kk' => fake()->numberBetween(20, 100),
-            'jumlah_penduduk' => fake()->numberBetween(80, 400),
+            'alamat_rt' => fake()->address(),
+            'nomor_hp' => fake()->phoneNumber(),
             'is_active' => 1, // Active by default
         ];
     }

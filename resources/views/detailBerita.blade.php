@@ -105,7 +105,7 @@
                 <div class="w-full h-96 overflow-hidden">
                     <img src="{{ asset('storage/' . $berita->url_gambar) }}" alt="{{ $berita->judul_berita }}"
                         class="w-full h-full object-cover"
-                        onerror="this.src='https://via.placeholder.com/800x400?text=Gambar+Berita+Tidak+Tersedia'">
+                        >
                 </div>
             @endif
 

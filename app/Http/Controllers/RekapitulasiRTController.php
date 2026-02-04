@@ -51,7 +51,7 @@ class RekapitulasiRTController extends Controller
             'jumlah_kk' => $validated['jumlah_kk'],
             'jumlah_penduduk_akhir' => $validated['jumlah_penduduk_akhir'],
             'submitted_by' => Auth::id(), // Fixed: use user ID instead of object
-            'status' =>  $status,
+            'status' => $status,
         ];
 
         // If super_admin, also set validated_at timestamp
@@ -87,15 +87,15 @@ class RekapitulasiRTController extends Controller
 
         ]);
         // kirim notif ke superadmin
-        $superAdmins = \App\Models\User::where('role', 'super_admin')->first();
-        $superAdmins->notify(
-            new LaporanStatusChanged(
-                $rekap,
-                'pending',
-            )
-        );
-        //     foreach ($superAdmins as $admin) {
-        // }
+        $superAdmin = \App\Models\User::where('role', 'super_admin')->first();
+        if ($superAdmin) {
+            $superAdmin->notify(
+                new LaporanStatusChanged(
+                    $rekap,
+                    'pending',
+                )
+            );
+        }
 
         return redirect()->back()->with('success', 'Laporan diajukan untuk verifikasi');
 

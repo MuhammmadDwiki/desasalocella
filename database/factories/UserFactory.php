@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'username' => fake()->userName(),
             'id_rt' => null, // Default null for super_admin
-            'role' => 'user',
+            'role' => 'moderator',
             'last_login' => now(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),

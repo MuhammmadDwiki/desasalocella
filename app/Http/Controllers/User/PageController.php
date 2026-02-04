@@ -121,7 +121,7 @@ class PageController extends Controller
                 <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
                     <a href="' . route('berita.detail', $item->slug) . '">
                         <img src="' . asset('storage/' . $item->url_gambar) . '" alt="' . $item->judul_berita . '"
-                            class="w-full h-52 object-cover" onerror="this.src=\'https://via.placeholder.com/400x250?text=Gambar+Tidak+Tersedia\'">
+                            class="w-full h-52 object-cover" >
                         <div class="p-4 px-8">
                             <div class="flex justify-between items-center mb-4">
                                 <div class="flex items-center gap-2">
@@ -202,7 +202,7 @@ class PageController extends Controller
             <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition duration-200">
                 <a href="' . route('berita.detail', $item->slug) . '">
                     <img src="' . asset('storage/' . $item->url_gambar) . '" alt="' . $item->judul_berita . '"
-                        class="w-full h-48 object-cover" onerror="this.src=\'https://via.placeholder.com/400x250?text=Gambar+Berita\'">
+                        class="w-full h-48 object-cover" >
                     <div class="p-4">
                         <div class="flex justify-between items-center mb-3">
                             <span class="text-xs text-gray-500">' . \Carbon\Carbon::parse($item->created_at)->translatedFormat('d M Y') . '</span>
