@@ -18,6 +18,7 @@ class BeritaController extends Controller
             'datas' => $beritas,
         ]);
     }
+    //TODO: buat optimasi compress file gambar yang di simpan, perkecil ukuran
 
     public function store(Request $request)
     {
@@ -35,11 +36,11 @@ class BeritaController extends Controller
         // $validated['id_berita'] = bin2hex(random_bytes(4)) . time();
 
         Berita::create([
-            'id_berita' => bin2hex(random_bytes(4)).time(),
+            'id_berita' => bin2hex(random_bytes(4)) . time(),
             'judul_berita' => $request->judul,
             'isi_berita' => $request->isi,
             'url_gambar' => $gambarPath,
-            'slug' => Str::slug($request->judul) .'-'. time(),
+            'slug' => Str::slug($request->judul) . '-' . time(),
             'id_users' => auth()->id(),
         ]);
 

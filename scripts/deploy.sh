@@ -106,6 +106,7 @@ php artisan db:seed --force
 echo "⚡ Optimizing application..."
 php artisan config:cache
 php artisan route:cache
+php artisan storage:link
 php artisan optimize --except=views
 
 # =========================================
