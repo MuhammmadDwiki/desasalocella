@@ -77,12 +77,11 @@ cd $RELEASE_PATH
 composer install --no-dev --optimize-autoloader --no-interaction
 
 # =========================================
-# 4. BUILD ASSETS (if needed locally)
+# 4. BUILD ASSETS ON SERVER
 # =========================================
-# Note: In production, assets are built in CI and transferred
-# Uncomment if building on server:
-# npm ci
-# npm run build
+echo "🎨 Building assets..."
+npm ci --silent
+npm run build
 
 # =========================================
 # 5. RUN MIGRATIONS
