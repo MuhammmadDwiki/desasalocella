@@ -36,17 +36,18 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           extensions: mbstring, pdo, pdo_mysql, bcmath, gd
           coverage: none
 
       - name: Copy .env
         run: |
           cp .env.example .env
-          php artisan key:generate
 
       - name: Install Composer Dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
+      - name: Install key
+        run: php artisan key:generate 
 
       - name: Run Tests
         env:
