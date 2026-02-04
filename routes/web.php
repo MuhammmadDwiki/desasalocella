@@ -185,3 +185,4 @@ Route::get('/berita/load-more', [PageController::class, 'loadMoreBerita'])->name
 Route::get('/berita/{slug}', [PageController::class, 'beritaDetail'])->name('berita.detail');
 Route::get('/berita/related/{slug}', [PageController::class, 'relatedNews'])->name('berita.related');
 Route::get('/cuaca', [App\Http\Controllers\WeatherController::class, '']);
+// test CI/CD

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Data Penduduk - Desa Sallo Cela')
+@section('title', 'Data Penduduk - Desa Salo Cella')
 
 @section('head')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -13,7 +13,7 @@
         <section class="container mx-auto px-8">
 
             <section class="pt-28 px-5">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Data Penduduk Desa Sallo Cela</h2>
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Data Penduduk Desa Salo Cella</h2>
             </section>
 
             <p class="text-center text-gray-600 px-5 max-w-4xl mx-auto mb-8">

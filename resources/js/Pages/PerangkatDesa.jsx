@@ -378,7 +378,7 @@ export default function PerangkatDesa({ datas }) {
                     <DialogContent className="sm:max-w-[525px] max-h-[75vh] overflow-y-auto">
                         <DialogHeader>
                             <DialogTitle className="capitalize">
-                                Tambah data karang taruna
+                                Tambah data perangkat desa
                             </DialogTitle>
                             <DialogDescription>
                                 Isi form berikut untuk menambahkan data

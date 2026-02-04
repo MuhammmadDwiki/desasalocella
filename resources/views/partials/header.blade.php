@@ -4,7 +4,7 @@
     <div class="flex items-center">
         <img src="{{ asset('images/logodesa.png') }}" alt="Logo" class="h-10 md:h-12 mr-3 md:mr-4">
         <div class="leading-tight">
-            <div class="text-base md:text-lg font-bold">Desa Sallo Cela</div>
+            <div class="text-base md:text-lg font-bold">Desa Salo Cella</div>
             <div class="text-xs md:text-sm mt-0.5 hidden sm:block">
                 Kec. Muara Badak, Kab. Kutai Kartanegara,<br>
                 Prov. Kalimantan Timur

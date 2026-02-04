@@ -72,44 +72,14 @@ jobs:
           DB_PASSWORD: password
         run: php artisan test
 
-  # ============================================
-  # JOB 2: BUILD ASSETS
-  # ============================================
-  build:
-    name: Build Assets
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: 'npm'
-
-      - name: Install Node Dependencies
-        run: npm ci
-
-      - name: Build Vite Assets
-        run: npm run build
-
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-assets
-          path: public/build/
-          retention-days: 1
 
   # ============================================
-  # JOB 3: DEPLOY TO VPS
+  # JOB 2: DEPLOY TO VPS
   # ============================================
   deploy:
     name: Deploy to VPS
     runs-on: ubuntu-latest
-    needs: [test, build]
+    needs: test
     
     # Only deploy on push (not PR)
     if: github.event_name == 'push'
@@ -121,12 +91,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-assets
-          path: public/build/
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
@@ -153,27 +117,17 @@ jobs:
             cd /var/www
             bash /var/www/salocella/scripts/deploy.sh $ENVIRONMENT ${{ github.ref_name }}
 
-      - name: Transfer Built Assets
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT || 22 }}
-          source: "public/build/*"
-          target: "/var/www/salocella/current/"
-          overwrite: true
 
       - name: Health Check
         run: |
           sleep 5
           
           if [ "${{ github.ref_name }}" = "main" ]; then
-            URL="https://salocella.id"
+            URL="https://salocella-kukar.desa.id"
           elif [ "${{ github.ref_name }}" = "staging" ]; then
-            URL="https://staging.salocella.id"
+            URL="https://staging.salocella-kukar.desa.id"
           else
-            URL="https://dev.salocella.id"
+            URL="https://dev.salocella-kukar.desa.id"
           fi
           
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" $URL)
@@ -187,7 +141,7 @@ jobs:
           echo "✅ Health check passed! Site is up."
 
   # ============================================
-  # JOB 4: NOTIFY ON FAILURE
+  # JOB 3: NOTIFY ON FAILURE
   # ============================================
   notify:
     name: Notify Deployment Status

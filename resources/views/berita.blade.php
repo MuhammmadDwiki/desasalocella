@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Berita - Desa Sallo Cela')
+@section('title', 'Berita - Desa Salo Cella')
 
 @section('head')
     @vite('resources/js/app.jsx')
@@ -11,7 +11,7 @@
         <div class="ms-5 mt-2 p-2 ">
             <h1 class="text-4xl capitalize font-extrabold text-red-500">Berita desa</h1>
             <p class="mt-2">Menyajikan informasi terbaru tentang peristiwa, kegiatan, berita terkini, dan
-                artikel-artikel jurnalistik dari desa sallo cela</p>
+                artikel-artikel jurnalistik dari desa Salo Cella</p>
         </div>
 
         {{-- Galeri Berita --}}

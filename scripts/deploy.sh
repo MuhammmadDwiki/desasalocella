@@ -11,7 +11,7 @@ RELEASE_ID=$(date +%Y%m%d_%H%M%S)
 if [ "$ENVIRONMENT" = "production" ]; then
     BASE_PATH=/var/www/salocella
     ENV_FILE=.env.production
-    DB_NAME=salocella_prod
+    DB_NAME=desasalo
 elif [ "$ENVIRONMENT" = "staging" ]; then
     BASE_PATH=/var/www/salocella-staging
     ENV_FILE=.env.staging
@@ -77,15 +77,14 @@ cd $RELEASE_PATH
 composer install --no-dev --optimize-autoloader --no-interaction
 
 # =========================================
-# 4. BUILD ASSETS (if needed locally)
+# 4. BUILD ASSETS ON SERVER
 # =========================================
-# Note: In production, assets are built in CI and transferred
-# Uncomment if building on server:
-# npm ci
-# npm run build
+echo "🎨 Building assets..."
+npm ci --silent
+npm run build
 
 # =========================================
-# 5. RUN MIGRATIONS
+# 5. RUN MIGRATIONS & SEEDERS
 # =========================================
 echo "🗄️  Running database migrations..."
 php artisan migrate --force
@@ -98,14 +97,17 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+echo "👤 Seeding database (creates super admin if not exists)..."
+php artisan db:seed --force
+
 # =========================================
 # 6. OPTIMIZE APPLICATION
 # =========================================
 echo "⚡ Optimizing application..."
 php artisan config:cache
 php artisan route:cache
-php artisan view:cache
-php artisan optimize
+php artisan storage:link
+php artisan optimize --except=views
 
 # =========================================
 # 7. SWITCH SYMLINK (ZERO-DOWNTIME)

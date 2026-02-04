@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $berita->judul_berita . ' - Desa Sallo Cela')
+@section('title', $berita->judul_berita . ' - Desa Salo Cella')
 
 @push('styles')
     <style>
@@ -104,8 +104,7 @@
             @if($berita->url_gambar)
                 <div class="w-full h-96 overflow-hidden">
                     <img src="{{ asset('storage/' . $berita->url_gambar) }}" alt="{{ $berita->judul_berita }}"
-                        class="w-full h-full object-cover"
-                        >
+                        class="w-full h-full object-cover">
                 </div>
             @endif
 
