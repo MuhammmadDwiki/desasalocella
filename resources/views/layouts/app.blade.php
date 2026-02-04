@@ -8,7 +8,7 @@
     <link rel="icon" href="{{ asset('images/logodesa.png') }}">
 
     @viteReactRefresh
-    @vite(['resources/css/app.css', 'resources/js/app.jsx'])
+    @vite(['resources/js/app.jsx'])
     {{-- Common CSS --}}
     @stack('styles')
 

@@ -169,11 +169,11 @@ jobs:
           sleep 5
           
           if [ "${{ github.ref_name }}" = "main" ]; then
-            URL="https://salocella.id"
+            URL="https://salocella-kukar.desa.id"
           elif [ "${{ github.ref_name }}" = "staging" ]; then
-            URL="https://staging.salocella.id"
+            URL="https://staging.salocella-kukar.desa.id"
           else
-            URL="https://dev.salocella.id"
+            URL="https://dev.salocella-kukar.desa.id"
           fi
           
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" $URL)
