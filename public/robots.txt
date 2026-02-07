@@ -1,2 +1,42 @@
+# robots.txt for Desa Salo Cella Website
+# Allow all search engines to crawl the site
+
 User-agent: *
-Disallow:
+Allow: /
+
+# Disallow admin and internal areas
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register
+Disallow: /admin
+Disallow: /laporan-bulanan
+Disallow: /agama
+Disallow: /kegiatan
+Disallow: /karang-taruna
+Disallow: /perangkat-desa
+Disallow: /badan-permusyawaratan-desa
+Disallow: /pemberdayaan-kesejahteraan-keluarga
+Disallow: /profile
+Disallow: /user-account
+Disallow: /manage-rt
+Disallow: /rekapitulasi-rt
+Disallow: /notifications
+Disallow: /detail-laporan
+Disallow: /kelompok-kerjas
+Disallow: /verify-email
+Disallow: /verifyEmail
+
+# Disallow specific file types
+Disallow: /*.json$
+Disallow: /*.xml$ 
+Disallow: /*.log$
+
+# Allow specific XML files (sitemaps)
+Allow: /sitemap.xml
+Allow: /sitemap-*.xml
+
+# Crawl delay (optional - can be adjusted)
+# Crawl-delay: 10
+
+# Sitemap location
+Sitemap: APP_URL_PLACEHOLDER/sitemap.xml

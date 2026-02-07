@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /
+
+# This is a development/staging environment
+# Search engines should not index this site
+# Production site: https://salocella-kukar.desa.id

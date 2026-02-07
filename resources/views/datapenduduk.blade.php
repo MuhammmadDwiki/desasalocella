@@ -23,9 +23,9 @@
             </p>
 
             {{-- ===== Grafik Jumlah Penduduk ===== --}}
-            <div class='grid grid-cols-1 md:grid-cols-3 container mx-auto gap-6 px-5 mb-8'>
+            <div class='grid grid-cols-1 md:grid-cols-2 container mx-auto gap-6 px-5 mb-8'>
 
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
                     <h4 class="text-lg font-bold text-gray-800 mb-4 text-center">Jumlah Penduduk</h4>
                     <canvas id="chartPenduduk"></canvas>
                 </div>
@@ -40,10 +40,10 @@
                 </div>
 
                 {{-- ===== Grafik Agama ===== --}}
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <!-- <div class="bg-white rounded-lg shadow-md p-6">
                     <h4 class="text-lg font-bold text-gray-800 mb-4 text-center">Agama</h4>
                     <canvas id="chartAgama"></canvas>
-                </div>
+                </div> -->
             </div>
         </section>
     </div>
@@ -115,41 +115,41 @@
         // });
 
         // ===== Chart Agama =====
-        const ctxAgama = document.getElementById('chartAgama').getContext('2d');
-        new Chart(ctxAgama, {
-            type: 'pie',
-            data: {
-                labels: agama.map(a => a.agama),
-                datasets: [{
-                    label: 'Agama',
-                    data: agama.map(a => a.total),
-                    backgroundColor: [
-                        'rgba(220, 38, 38, 0.7)',
-                        'rgba(59, 130, 246, 0.7)',
-                        'rgba(16, 185, 129, 0.7)',
-                        'rgba(245, 158, 11, 0.7)',
-                        'rgba(139, 92, 246, 0.7)'
-                    ],
-                    borderColor: [
-                        'rgba(220, 38, 38, 1)',
-                        'rgba(59, 130, 246, 1)',
-                        'rgba(16, 185, 129, 1)',
-                        'rgba(245, 158, 11, 1)',
-                        'rgba(139, 92, 246, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'bottom'
-                    }
-                }
-            }
-        });
+        // const ctxAgama = document.getElementById('chartAgama').getContext('2d');
+        // new Chart(ctxAgama, {
+        //     type: 'pie',
+        //     data: {
+        //         labels: agama.map(a => a.agama),
+        //         datasets: [{
+        //             label: 'Agama',
+        //             data: agama.map(a => a.total),
+        //             backgroundColor: [
+        //                 'rgba(220, 38, 38, 0.7)',
+        //                 'rgba(59, 130, 246, 0.7)',
+        //                 'rgba(16, 185, 129, 0.7)',
+        //                 'rgba(245, 158, 11, 0.7)',
+        //                 'rgba(139, 92, 246, 0.7)'
+        //             ],
+        //             borderColor: [
+        //                 'rgba(220, 38, 38, 1)',
+        //                 'rgba(59, 130, 246, 1)',
+        //                 'rgba(16, 185, 129, 1)',
+        //                 'rgba(245, 158, 11, 1)',
+        //                 'rgba(139, 92, 246, 1)'
+        //             ],
+        //             borderWidth: 1
+        //         }]
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         maintainAspectRatio: true,
+        //         plugins: {
+        //             legend: {
+        //                 display: true,
+        //                 position: 'bottom'
+        //             }
+        //         }
+        //     }
+        // });
     </script>
 @endpush

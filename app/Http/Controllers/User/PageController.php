@@ -32,7 +32,17 @@ class PageController extends Controller
             ->limit(3)
             ->get();
 
-        return view('welcome', compact('beritas'));
+        // SEO configuration for homepage
+        $seo = \App\Helpers\SeoHelper::getPageSeo('home');
+
+        return view('welcome', array_merge(
+            compact('beritas'),
+            [
+                'seo_title' => $seo['title'],
+                'seo_description' => $seo['description'],
+                'seo_keywords' => $seo['keywords'],
+            ]
+        ));
     }
 
     public function ketuaRT()
@@ -90,10 +100,14 @@ class PageController extends Controller
             ->orderBy('beritas.created_at', 'desc')
             ->paginate(10);
 
-        // $berita = Berita::all();
-        // dd($berita);
+        // SEO configuration for berita index
+        $seo = \App\Helpers\SeoHelper::getPageSeo('berita');
+
         return view('berita', [
             'berita' => $berita,
+            'seo_title' => $seo['title'],
+            'seo_description' => $seo['description'],
+            'seo_keywords' => $seo['keywords'],
         ]);
     }
 
@@ -156,6 +170,9 @@ class PageController extends Controller
 
     public function beritaDetail($slug)
     {
+        // Get berita with Eloquent model to use in schema
+        $beritaModel = Berita::where('slug', $slug)->first();
+
         $berita = DB::table('beritas')
             ->select(
                 'users.username',
@@ -165,17 +182,28 @@ class PageController extends Controller
                 'beritas.url_gambar',
                 'beritas.slug',
                 'beritas.created_at',
+                'beritas.updated_at',
             )
             ->leftJoin('users', 'beritas.id_users', '=', 'users.id')
             ->where('beritas.slug', $slug)
             ->first();
 
-        if (!$berita) {
+        if (!$berita || !$beritaModel) {
             abort(404);
         }
 
+        // SEO configuration for berita detail
+        $description = Str::limit(strip_tags($berita->isi_berita), 150);
+        $imageUrl = asset('storage/' . $berita->url_gambar);
+
         return view('detailBerita', [
             'berita' => $berita,
+            'beritaModel' => $beritaModel,
+            'seo_title' => $berita->judul_berita . ' - Berita Desa Salo Cella',
+            'seo_description' => $description,
+            'seo_keywords' => 'berita desa, ' . strtolower($berita->judul_berita) . ', desa salo cella',
+            'seo_image' => $imageUrl,
+            'seo_type' => 'article',
         ]);
     }
 
