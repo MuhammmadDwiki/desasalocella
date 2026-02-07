@@ -191,4 +191,4 @@ Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'inde
 Route::get('/sitemap-pages.xml', [App\Http\Controllers\SitemapController::class, 'pages'])->name('sitemap.pages');
 Route::get('/sitemap-news.xml', [App\Http\Controllers\SitemapController::class, 'news'])->name('sitemap.news');
 
-// 2
+// 3
