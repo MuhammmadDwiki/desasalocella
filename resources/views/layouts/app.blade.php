@@ -49,6 +49,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+    {{-- Google Site Verification --}}
+    <meta name="google-site-verification" content="iqzZSG6es2FYNqGkWo8wwlwE9auAFRamb5c7yfB26SM" />
+
     {{-- Favicon --}}
     <link rel="icon" href="{{ asset('images/logodesa.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/logodesa.png') }}">
