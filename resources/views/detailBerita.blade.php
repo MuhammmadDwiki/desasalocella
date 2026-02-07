@@ -58,6 +58,15 @@
     @vite('resources/js/app.jsx')
 @endsection
 
+@push('structured_data')
+    {{-- NewsArticle Schema for this specific article --}}
+    @if(isset($beritaModel))
+        <script type="application/ld+json">
+                    {!! \App\Helpers\SeoHelper::toJsonLd(\App\Helpers\SeoHelper::generateNewsArticleSchema($beritaModel)) !!}
+                </script>
+    @endif
+@endpush
+
 @section('content')
     <div class="container mt-[8rem] mx-auto px-4 max-w-6xl">
         {{-- Breadcrumb --}}

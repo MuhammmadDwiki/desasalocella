@@ -185,4 +185,10 @@ Route::get('/berita/load-more', [PageController::class, 'loadMoreBerita'])->name
 Route::get('/berita/{slug}', [PageController::class, 'beritaDetail'])->name('berita.detail');
 Route::get('/berita/related/{slug}', [PageController::class, 'relatedNews'])->name('berita.related');
 Route::get('/cuaca', [App\Http\Controllers\WeatherController::class, '']);
-// test CI/CD
+
+// Sitemap Routes
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('/sitemap-pages.xml', [App\Http\Controllers\SitemapController::class, 'pages'])->name('sitemap.pages');
+Route::get('/sitemap-news.xml', [App\Http\Controllers\SitemapController::class, 'news'])->name('sitemap.news');
+
+// 2

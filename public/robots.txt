@@ -1,2 +1,13 @@
+# robots.txt for Desa Salo Cella Website
+
 User-agent: *
-Disallow:
+Allow: /
+
+# Block common sensitive patterns (minimal disclosure)
+# Note: Admin pages are protected by authentication, not just robots.txt
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+Disallow: /api/
+
+# Sitemap location
+Sitemap: APP_URL_PLACEHOLDER/sitemap.xml

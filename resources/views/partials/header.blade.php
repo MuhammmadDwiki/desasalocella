@@ -1,16 +1,19 @@
 <header
     class="absolute top-0 left-0 w-full flex justify-between items-center px-5 md:px-10 py-2.5 bg-black/40 text-white z-[1000]">
     {{-- Logo & Title --}}
-    <div class="flex items-center">
-        <img src="{{ asset('images/logodesa.png') }}" alt="Logo" class="h-10 md:h-12 mr-3 md:mr-4">
-        <div class="leading-tight">
-            <div class="text-base md:text-lg font-bold">Desa Salo Cella</div>
-            <div class="text-xs md:text-sm mt-0.5 hidden sm:block">
-                Kec. Muara Badak, Kab. Kutai Kartanegara,<br>
-                Prov. Kalimantan Timur
+    <a href="{{ route('beranda') }}">
+
+        <div class="flex items-center">
+            <img src="{{ asset('images/logodesa.png') }}" alt="Logo" class="h-10 md:h-12 mr-3 md:mr-4">
+            <div class="leading-tight">
+                <div class="text-base md:text-lg font-bold">Desa Salo Cella</div>
+                <div class="text-xs md:text-sm mt-0.5 hidden sm:block">
+                    Kec. Muara Badak, Kab. Kutai Kartanegara,<br>
+                    Prov. Kalimantan Timur
+                </div>
             </div>
         </div>
-    </div>
+    </a>
 
     {{-- Desktop Navigation --}}
     <div class="hidden lg:block">
