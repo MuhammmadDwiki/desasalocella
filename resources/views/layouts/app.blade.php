@@ -52,6 +52,17 @@
     {{-- Google Site Verification --}}
     <meta name="google-site-verification" content="iqzZSG6es2FYNqGkWo8wwlwE9auAFRamb5c7yfB26SM" />
 
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6PVDHR3TW8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-6PVDHR3TW8');
+    </script>
+
     {{-- Favicon --}}
     <link rel="icon" href="{{ asset('images/logodesa.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/logodesa.png') }}">
@@ -82,14 +93,14 @@
     {{-- Structured Data (JSON-LD) --}}
     @if(config('seo.structured_data.enable_organization'))
         <script type="application/ld+json">
-                {!! SeoHelper::toJsonLd(SeoHelper::generateGovernmentOrganizationSchema()) !!}
-            </script>
+                    {!! SeoHelper::toJsonLd(SeoHelper::generateGovernmentOrganizationSchema()) !!}
+                </script>
     @endif
 
     @if(config('seo.structured_data.enable_website') && Route::currentRouteName() === 'beranda')
         <script type="application/ld+json">
-                {!! SeoHelper::toJsonLd(SeoHelper::generateWebSiteSchema()) !!}
-            </script>
+                    {!! SeoHelper::toJsonLd(SeoHelper::generateWebSiteSchema()) !!}
+                </script>
     @endif
 
     @if(config('seo.structured_data.enable_breadcrumb'))
@@ -98,8 +109,8 @@
         @endphp
         @if(count($breadcrumbs) > 1)
             <script type="application/ld+json">
-                        {!! SeoHelper::toJsonLd(SeoHelper::generateBreadcrumbSchema($breadcrumbs)) !!}
-                    </script>
+                                {!! SeoHelper::toJsonLd(SeoHelper::generateBreadcrumbSchema($breadcrumbs)) !!}
+                            </script>
         @endif
     @endif
 
